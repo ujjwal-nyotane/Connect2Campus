@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grades — Connect2Campus</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .gpa-banner {
+      background: linear-gradient(120deg, rgba(37,99,235,.12), var(--surface));
+      border: 1px solid rgba(37,99,235,.3);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+      margin-bottom: 28px;
+    }
+    .gpa-banner .big-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 56px; font-weight: 800;
+      color: var(--accent-glow); line-height: 1;
+    }
+    .gpa-banner .label { font-size: 14px; color: var(--muted2); margin-top: 4px; }
+    .gpa-divider { width: 1px; height: 60px; background: var(--border); }
+
+    .grade-pill {
+      display: inline-block;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gA  { background: rgba(16,185,129,.2);  color: #34d399; }
+    .gB  { background: rgba(37,99,235,.2);   color: #60a5fa; }
+    .gC  { background: rgba(245,158,11,.2);  color: #fbbf24; }
+    .gD  { background: rgba(239,68,68,.2);   color: #f87171; }
+
+    .semester-tabs {
+      display: flex; gap: 8px; margin-bottom: 20px;
+    }
+    .sem-tab {
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px; font-weight: 500;
+      text-decoration: none; color: var(--muted2);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: all .2s;
+    }
+    .sem-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .sem-tab:not(.active):hover { border-color: var(--accent-glow); color: var(--accent-glow); }
+
+    .marks-bar {
+      height: 8px; background: var(--surface2);
+      border-radius: 99px; overflow: hidden; min-width: 120px;
+    }
+    .marks-fill { height: 100%; border-radius: 99px; }
+  </style>
+</head>
+<body>
+
+
+<div class="page">
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo">C2</div>
+      <span class="nav-title">Connect<span>2</span>Campus</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="home.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="grades.html" class="active">Grades</a></li>
+      <li><a href="leave.html">Leave</a></li>
+      <li><a href="fees.html">Fees</a></li>
+      <li><a href="timetable.html">Timetable</a></li>
+      <li><a href="notifications.html">Alerts</a></li>
+      <li><a href="hostel.html">Hostel</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="notifications.html" class="nav-notif" title="Notifications">🔔<span class="dot"></span></a>
+      <a href="profile.html" class="nav-avatar" title="Profile">AK</a>
+      <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <p class="label">Academic Performance</p>
+    <h1>Grades &amp; Results</h1>
+    <p>B.Tech Computer Science &amp; Engineering · Year 1 · Roll: 2024-CS-1042</p>
+  </div>
+
+  <div class="main-content">
+
+    <div class="gpa-banner">
+      <div>
+        <div class="big-num">8.4</div>
+        <div class="label">Current CGPA (Semester 1 &amp; 2 combined)</div>
+      </div>
+      <div class="gpa-divider"></div>
+      <div style="text-align:center;">
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--success);">8.6</div>
+        <div class="label">Semester 1 SGPA</div>
+      </div>
+      <div class="gpa-divider"></div>
+      <div style="text-align:center;">
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--accent-glow);">8.2</div>
+        <div class="label">Semester 2 SGPA (Ongoing)</div>
+      </div>
+      <div class="gpa-divider"></div>
+      <div style="text-align:center;">
+        <span class="badge badge-green" style="font-size:13px;padding:7px 16px;">Top 15% of Class 🏆</span>
+        <div class="label" style="margin-top:8px;">Class Rank: 18 / 120</div>
+      </div>
+    </div>
+
+    <div class="semester-tabs">
+      <a href="grades.html" class="sem-tab">Semester 1</a>
+      <a href="grades.html" class="sem-tab active">Semester 2 (Current)</a>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:24px;">
+      <div class="card">
+        <h3 class="card-title">Semester 1 — Final Results</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Internal</th>
+              <th>External</th>
+              <th>Total</th>
+              <th>Grade</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mathematics-I</td>
+              <td>28 / 30</td>
+              <td>62 / 70</td>
+              <td>90 / 100</td>
+              <td><span class="grade-pill gA">A</span></td>
+              <td>9</td>
+            </tr>
+            <tr>
+              <td>Physics</td>
+              <td>25 / 30</td>
+              <td>58 / 70</td>
+              <td>83 / 100</td>
+              <td><span class="grade-pill gA">A</span></td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>Basic Electronics</td>
+              <td>22 / 30</td>
+              <td>55 / 70</td>
+              <td>77 / 100</td>
+              <td><span class="grade-pill gB">B+</span></td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>Programming in C</td>
+              <td>29 / 30</td>
+              <td>65 / 70</td>
+              <td>94 / 100</td>
+              <td><span class="grade-pill gA">A+</span></td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td>Communication Skills</td>
+              <td>26 / 30</td>
+              <td>56 / 70</td>
+              <td>82 / 100</td>
+              <td><span class="grade-pill gA">A</span></td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>Engineering Drawing</td>
+              <td>24 / 30</td>
+              <td>50 / 70</td>
+              <td>74 / 100</td>
+              <td><span class="grade-pill gB">B+</span></td>
+              <td>7</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:13px;color:var(--muted2);">SGPA</span>
+          <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--success);">8.6</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Semester 2 — Internal Marks (Ongoing)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>IA-1</th>
+              <th>IA-2</th>
+              <th>Practical</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mathematics-II</td>
+              <td>22 / 30</td>
+              <td>25 / 30</td>
+              <td>—</td>
+              <td><span class="badge badge-amber">In Progress</span></td>
+            </tr>
+            <tr>
+              <td>Chemistry</td>
+              <td>26 / 30</td>
+              <td>24 / 30</td>
+              <td>18 / 20</td>
+              <td><span class="badge badge-blue">Submitted</span></td>
+            </tr>
+            <tr>
+              <td>Data Structures</td>
+              <td>28 / 30</td>
+              <td>—</td>
+              <td>20 / 20</td>
+              <td><span class="badge badge-amber">Pending IA-2</span></td>
+            </tr>
+            <tr>
+              <td>Digital Electronics</td>
+              <td>20 / 30</td>
+              <td>23 / 30</td>
+              <td>17 / 20</td>
+              <td><span class="badge badge-blue">Submitted</span></td>
+            </tr>
+            <tr>
+              <td>Environmental Science</td>
+              <td>27 / 30</td>
+              <td>26 / 30</td>
+              <td>—</td>
+              <td><span class="badge badge-amber">In Progress</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+          <p style="font-size:13px;color:var(--muted);">Final exams start: <strong style="color:var(--text);">15 May 2025</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;">
+      <a href="#" class="btn btn-primary">Download Marksheet PDF</a>
+      <a href="home.html" class="btn btn-outline">← Back to Dashboard</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="footer-brand">Connect<span>2</span>Campus</span>
+    <nav class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="support.html">Help Desk</a>
+      <a href="index.html">Logout</a>
+    </nav>
+    <span class="footer-copy">© 2025 Connect2Campus</span>
+  </footer>
+
+</div>
+</body>
+</html>

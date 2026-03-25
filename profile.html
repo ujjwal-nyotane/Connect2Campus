@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile — Connect2Campus</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .profile-hero {
+      background: linear-gradient(120deg, rgba(37,99,235,.12), var(--surface));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      display: flex; align-items: center; gap: 28px;
+      margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .profile-avatar-big {
+      width: 90px; height: 90px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 32px; color: #fff;
+      border: 3px solid var(--border);
+    }
+    .profile-hero-info { flex: 1; }
+    .profile-hero-info h2 {
+      font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .profile-hero-info .sub { font-size: 14px; color: var(--muted2); margin-bottom: 12px; }
+    .profile-hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .profile-hero-stats {
+      display: flex; gap: 28px; text-align: center; flex-wrap: wrap;
+    }
+    .phs { display: flex; flex-direction: column; gap: 3px; }
+    .phs .n { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+    .phs .l { font-size: 12px; color: var(--muted); }
+
+    .section-title-sm {
+      font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700;
+      margin-bottom: 16px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .info-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 13px 0; border-bottom: 1px solid rgba(30,45,74,.5); gap: 12px;
+      font-size: 14px;
+    }
+    .info-row.full-row { grid-column: 1 / -1; }
+    .info-row:last-child { border-bottom: none; }
+    .info-key { color: var(--muted2); flex-shrink: 0; min-width: 140px; }
+    .info-val { font-weight: 500; text-align: right; }
+
+    .edit-section {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px; margin-bottom: 24px;
+    }
+    .edit-section h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 18px; }
+
+    .doc-list { display: flex; flex-direction: column; gap: 10px; }
+    .doc-item {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    }
+    .doc-left { display: flex; align-items: center; gap: 12px; }
+    .doc-icon { font-size: 20px; }
+    .doc-name { font-size: 14px; font-weight: 500; }
+    .doc-meta { font-size: 12px; color: var(--muted); }
+    .doc-dl {
+      font-size: 12px; color: var(--accent-glow); text-decoration: none;
+      padding: 5px 12px; border: 1px solid var(--accent); border-radius: 20px;
+      white-space: nowrap; transition: background .2s;
+    }
+    .doc-dl:hover { background: var(--accent); color: #fff; }
+
+    .academic-timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: flex; gap: 16px; padding: 16px 0;
+      border-bottom: 1px solid rgba(30,45,74,.5);
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .tl-dot {
+      width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; flex-shrink: 0;
+    }
+    .tl-line { width: 2px; background: var(--border); margin: 14px auto 0; flex-shrink: 0; display: none; }
+    .tl-content { flex: 1; }
+    .tl-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+    .tl-sub   { font-size: 13px; color: var(--muted2); }
+    .tl-date  { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+    .password-form {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px; margin-bottom: 24px;
+    }
+    .password-form h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 18px; }
+  </style>
+</head>
+<body>
+<input type="checkbox" id="mob-toggle"/>
+<div class="mob-drawer">
+  <a href="home.html">🏠 Dashboard</a>
+  <a href="attendance.html">📅 Attendance</a>
+  <a href="grades.html">📊 Grades</a>
+  <a href="leave.html">🏖️ Leave</a>
+  <a href="fees.html">💳 Fees</a>
+  <div class="divider"></div>
+  <a href="timetable.html">🗓️ Timetable</a>
+  <a href="notifications.html">🔔 Notifications</a>
+  <a href="hostel.html">🏠 Hostel &amp; Mess</a>
+  <a href="support.html">🎧 Help &amp; Support</a>
+  <a href="profile.html" class="active">👤 My Profile</a>
+  <div class="divider"></div>
+  <a href="index.html">🚪 Logout</a>
+</div>
+
+<div class="page">
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo">C2</div>
+      <span class="nav-title">Connect<span>2</span>Campus</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="home.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="grades.html">Grades</a></li>
+      <li><a href="leave.html">Leave</a></li>
+      <li><a href="fees.html">Fees</a></li>
+      <li><a href="timetable.html">Timetable</a></li>
+      <li><a href="notifications.html">Alerts</a></li>
+      <li><a href="hostel.html">Hostel</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="notifications.html" class="nav-notif">🔔<span class="dot"></span></a>
+      <a href="profile.html" class="nav-avatar" title="Profile" style="border:2px solid var(--accent-glow);">AK</a>
+      <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <p class="label">Student Profile</p>
+    <h1>My Profile</h1>
+    <p>View and manage your personal, academic and contact details.</p>
+  </div>
+
+  <div class="main-content">
+
+    <div class="profile-hero">
+      <div class="profile-avatar-big">AK</div>
+      <div class="profile-hero-info">
+        <h2>Arjun Kumar</h2>
+        <div class="sub">B.Tech Computer Science &amp; Engineering · Year 1 · Section A</div>
+        <div class="profile-hero-tags">
+          <span class="badge badge-green">Enrolled ✓</span>
+          <span class="badge badge-blue">Roll: 2024-CS-1042</span>
+          <span class="badge badge-purple">Batch 2024–28</span>
+          <span class="badge badge-amber">Hostel: Block B-214</span>
+        </div>
+      </div>
+      <div class="profile-hero-stats">
+        <div class="phs"><div class="n" style="color:var(--accent-glow);">8.4</div><div class="l">CGPA</div></div>
+        <div class="phs"><div class="n" style="color:var(--success);">87%</div><div class="l">Attendance</div></div>
+        <div class="phs"><div class="n">2</div><div class="l">Semesters</div></div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:24px;">
+      <div class="card">
+        <div class="section-title-sm">👤 Personal Information</div>
+        <div class="info-grid">
+          <div class="info-row"><span class="info-key">Full Name</span><span class="info-val">Arjun Kumar</span></div>
+          <div class="info-row"><span class="info-key">Date of Birth</span><span class="info-val">15 August 2006</span></div>
+          <div class="info-row"><span class="info-key">Gender</span><span class="info-val">Male</span></div>
+          <div class="info-row"><span class="info-key">Nationality</span><span class="info-val">Indian</span></div>
+          <div class="info-row"><span class="info-key">Blood Group</span><span class="info-val">B+</span></div>
+          <div class="info-row"><span class="info-key">Aadhaar No.</span><span class="info-val">XXXX-XXXX-4521</span></div>
+          <div class="info-row"><span class="info-key">Category</span><span class="info-val">General</span></div>
+          <div class="info-row"><span class="info-key">Religion</span><span class="info-val">Hindu</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title-sm">🎓 Academic Information</div>
+        <div class="info-grid">
+          <div class="info-row"><span class="info-key">Enrollment No.</span><span class="info-val">2024-CS-1042</span></div>
+          <div class="info-row"><span class="info-key">Programme</span><span class="info-val">B.Tech</span></div>
+          <div class="info-row"><span class="info-key">Department</span><span class="info-val">Computer Science</span></div>
+          <div class="info-row"><span class="info-key">Year / Semester</span><span class="info-val">Year 1 · Sem 2</span></div>
+          <div class="info-row"><span class="info-key">Section</span><span class="info-val">Section A</span></div>
+          <div class="info-row"><span class="info-key">Batch</span><span class="info-val">2024 – 2028</span></div>
+          <div class="info-row"><span class="info-key">Class Advisor</span><span class="info-val">Dr. Priya Gupta</span></div>
+          <div class="info-row"><span class="info-key">Admission Type</span><span class="info-val">JEE Mains</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title-sm">📞 Contact Details</div>
+        <div class="info-grid">
+          <div class="info-row"><span class="info-key">Personal Email</span><span class="info-val">arjun2006@gmail.com</span></div>
+          <div class="info-row"><span class="info-key">University Email</span><span class="info-val">arjun.24cs1042@univ.edu</span></div>
+          <div class="info-row"><span class="info-key">Mobile</span><span class="info-val">+91 99887-XXXXX</span></div>
+          <div class="info-row"><span class="info-key">Permanent Address</span><span class="info-val">42, MG Road, Jaipur, Rajasthan — 302001</span></div>
+          <div class="info-row"><span class="info-key">Current Address</span><span class="info-val">Room B-214, Hostel Block B</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title-sm">👨‍👩‍👧 Guardian Information</div>
+        <div class="info-grid">
+          <div class="info-row"><span class="info-key">Father's Name</span><span class="info-val">Rajesh Kumar</span></div>
+          <div class="info-row"><span class="info-key">Father's Mobile</span><span class="info-val">+91 98765-XXXXX</span></div>
+          <div class="info-row"><span class="info-key">Father's Occupation</span><span class="info-val">Government Employee</span></div>
+          <div class="info-row"><span class="info-key">Mother's Name</span><span class="info-val">Sunita Kumar</span></div>
+          <div class="info-row"><span class="info-key">Mother's Mobile</span><span class="info-val">+91 98765-XXXXY</span></div>
+          <div class="info-row"><span class="info-key">Annual Income</span><span class="info-val">₹6,00,000</span></div>
+          <div class="info-row"><span class="info-key">Emergency Contact</span><span class="info-val">+91 98765-XXXXX</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;">
+      <div class="section-title-sm">📄 Documents &amp; Downloads</div>
+      <div class="doc-list">
+        <div class="doc-item">
+          <div class="doc-left">
+            <span class="doc-icon">🎟️</span>
+            <div>
+              <div class="doc-name">Admission Letter 2024</div>
+              <div class="doc-meta">Issued: 15 Jul 2024 · PDF</div>
+            </div>
+          </div>
+          <a href="#" class="doc-dl">Download</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-left">
+            <span class="doc-icon">📋</span>
+            <div>
+              <div class="doc-name">Bonafide Certificate</div>
+              <div class="doc-meta">Generated: 01 Jan 2025 · PDF</div>
+            </div>
+          </div>
+          <a href="#" class="doc-dl">Download</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-left">
+            <span class="doc-icon">📊</span>
+            <div>
+              <div class="doc-name">Semester 1 Marksheet</div>
+              <div class="doc-meta">Issued: 20 Jan 2025 · PDF</div>
+            </div>
+          </div>
+          <a href="#" class="doc-dl">Download</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-left">
+            <span class="doc-icon">🪪</span>
+            <div>
+              <div class="doc-name">Student Identity Card</div>
+              <div class="doc-meta">Valid until: Jul 2028 · PDF</div>
+            </div>
+          </div>
+          <a href="#" class="doc-dl">Download</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-left">
+            <span class="doc-icon">🧾</span>
+            <div>
+              <div class="doc-name">Fee Receipt — Semester 1</div>
+              <div class="doc-meta">Paid: 8 Nov 2024 · ₹34,000 · PDF</div>
+            </div>
+          </div>
+          <a href="#" class="doc-dl">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="edit-section">
+      <h3>✏️ Update Contact Details</h3>
+      <form action="profile.html" method="get">
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label>Personal Email</label>
+            <input type="email" value="arjun2006@gmail.com"/>
+          </div>
+          <div class="form-field">
+            <label>Mobile Number</label>
+            <input type="tel" value="+91 99887-XXXXX"/>
+          </div>
+          <div class="form-field full">
+            <label>Permanent Address</label>
+            <textarea style="min-height:70px;">42, MG Road, Jaipur, Rajasthan — 302001</textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </form>
+    </div>
+
+    <div class="password-form">
+      <h3>🔒 Change Password</h3>
+      <form action="profile.html" method="get">
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label>Current Password</label>
+            <input type="password" placeholder="Enter current password"/>
+          </div>
+          <div class="form-field" style="opacity:0;pointer-events:none;"></div>
+          <div class="form-field">
+            <label>New Password</label>
+            <input type="password" placeholder="Min 8 characters"/>
+          </div>
+          <div class="form-field">
+            <label>Confirm New Password</label>
+            <input type="password" placeholder="Re-enter new password"/>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Password</button>
+      </form>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="home.html" class="btn btn-outline">← Back to Dashboard</a>
+      <a href="index.html" class="btn btn-danger">🚪 Logout</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="footer-brand">Connect<span>2</span>Campus</span>
+    <nav class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="support.html">Help Desk</a>
+      <a href="index.html">Logout</a>
+    </nav>
+    <span class="footer-copy">© 2025 Connect2Campus</span>
+  </footer>
+</div>
+</body>
+</html>

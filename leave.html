@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leave — Connect2Campus</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .leave-balance-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .apply-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .apply-form h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px; font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-field { margin-bottom: 16px; }
+    .form-field label {
+      display: block; font-size: 12px; font-weight: 500;
+      color: var(--muted2); margin-bottom: 7px;
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      appearance: none;
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: var(--muted); }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.18);
+    }
+    .form-field textarea { min-height: 90px; resize: vertical; }
+    .form-field.full { grid-column: 1 / -1; }
+
+    .leave-type-row {
+      display: flex; gap: 10px; margin-bottom: 16px;
+    }
+    .leave-type-btn {
+      flex: 1; padding: 12px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      text-align: center; text-decoration: none;
+      color: var(--muted2); font-size: 13px; font-weight: 500;
+      transition: all .2s; cursor: pointer;
+    }
+    .leave-type-btn.selected {
+      background: var(--accent-soft); border-color: var(--accent);
+      color: var(--accent-glow);
+    }
+    .leave-type-btn:hover:not(.selected) { border-color: var(--muted); color: var(--text); }
+    .leave-type-btn .lt-icon { font-size: 20px; display: block; margin-bottom: 5px; }
+
+    .note-box {
+      background: var(--gold-soft);
+      border: 1px solid rgba(245,158,11,.3);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 13px; color: #fbbf24;
+      margin-top: 6px;
+    }
+
+    .status-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 600;
+    }
+    .chip-pending  { background: rgba(245,158,11,.15); color: #fbbf24; border: 1px solid rgba(245,158,11,.3); }
+    .chip-approved { background: rgba(16,185,129,.15); color: #34d399; border: 1px solid rgba(16,185,129,.3); }
+    .chip-rejected { background: rgba(239,68,68,.15);  color: #f87171; border: 1px solid rgba(239,68,68,.3); }
+  </style>
+</head>
+<body>
+
+
+<div class="page">
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo">C2</div>
+      <span class="nav-title">Connect<span>2</span>Campus</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="home.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="grades.html">Grades</a></li>
+      <li><a href="leave.html" class="active">Leave</a></li>
+      <li><a href="fees.html">Fees</a></li>
+      <li><a href="timetable.html">Timetable</a></li>
+      <li><a href="notifications.html">Alerts</a></li>
+      <li><a href="hostel.html">Hostel</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="notifications.html" class="nav-notif" title="Notifications">🔔<span class="dot"></span></a>
+      <a href="profile.html" class="nav-avatar" title="Profile">AK</a>
+      <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <p class="label">Leave Management</p>
+    <h1>Leave Applications</h1>
+    <p>Apply, track and manage your leave requests for Semester 2.</p>
+  </div>
+
+  <div class="main-content">
+
+    <div class="leave-balance-strip">
+      <div class="stat-card">
+        <div class="icon">🏖️</div>
+        <div class="num" style="color:var(--success);">8</div>
+        <div class="lbl">Casual Leaves Left</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon">🏥</div>
+        <div class="num" style="color:var(--accent-glow);">5</div>
+        <div class="lbl">Medical Leaves Left</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon">✅</div>
+        <div class="num" style="color:var(--success);">2</div>
+        <div class="lbl">Approved This Sem</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon">⏳</div>
+        <div class="num" style="color:var(--gold);">1</div>
+        <div class="lbl">Pending Approval</div>
+      </div>
+    </div>
+
+    <div class="apply-form">
+      <h3>Apply for Leave</h3>
+
+      <div style="margin-bottom:18px;">
+        <label style="display:block;font-size:12px;font-weight:500;color:var(--muted2);margin-bottom:10px;">Leave Type</label>
+        <div class="leave-type-row">
+          <div class="leave-type-btn selected">
+            <span class="lt-icon">🏖️</span>
+            Casual Leave
+          </div>
+          <div class="leave-type-btn">
+            <span class="lt-icon">🏥</span>
+            Medical Leave
+          </div>
+          <div class="leave-type-btn">
+            <span class="lt-icon">👨‍👩‍👧</span>
+            Family Emergency
+          </div>
+          <div class="leave-type-btn">
+            <span class="lt-icon">🎓</span>
+            Academic Event
+          </div>
+        </div>
+      </div>
+
+      <form action="leave.html" method="get">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="l-from">From Date</label>
+            <input type="date" id="l-from" name="from"/>
+          </div>
+          <div class="form-field">
+            <label for="l-to">To Date</label>
+            <input type="date" id="l-to" name="to"/>
+          </div>
+          <div class="form-field">
+            <label for="l-contact">Contact During Leave</label>
+            <input type="tel" id="l-contact" name="contact" placeholder="+91 9XXXXXXXXX"/>
+          </div>
+          <div class="form-field">
+            <label for="l-guardian">Guardian Name</label>
+            <input type="text" id="l-guardian" name="guardian" placeholder="Parent / Guardian name"/>
+          </div>
+          <div class="form-field full">
+            <label for="l-reason">Reason for Leave</label>
+            <textarea id="l-reason" name="reason" placeholder="Briefly explain the reason for your leave request..."></textarea>
+          </div>
+          <div class="form-field full">
+            <label for="l-doc">Supporting Document (optional)</label>
+            <input type="text" id="l-doc" name="doc" placeholder="e.g. Medical certificate, Event letter (file upload in next part)"/>
+          </div>
+        </div>
+        <div class="note-box">
+          ⚠️ Applying for leave may reduce your attendance percentage. Current overall attendance: <strong>87%</strong>. Minimum required: 75%.
+        </div>
+        <div style="display:flex;gap:12px;margin-top:20px;">
+          <button type="submit" class="btn btn-primary">Submit Leave Application</button>
+          <a href="home.html" class="btn btn-outline">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">Past Leave Applications</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Application ID</th>
+            <th>Type</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Days</th>
+            <th>Reason</th>
+            <th>Applied On</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--muted);">#LV-2025-031</td>
+            <td>Casual</td>
+            <td>10 Mar 2025</td>
+            <td>11 Mar 2025</td>
+            <td>2</td>
+            <td>Personal work</td>
+            <td>8 Mar 2025</td>
+            <td><span class="status-chip chip-approved">✓ Approved</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);">#LV-2025-024</td>
+            <td>Medical</td>
+            <td>22 Feb 2025</td>
+            <td>24 Feb 2025</td>
+            <td>3</td>
+            <td>Fever &amp; rest</td>
+            <td>21 Feb 2025</td>
+            <td><span class="status-chip chip-approved">✓ Approved</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);">#LV-2025-040</td>
+            <td>Casual</td>
+            <td>26 Mar 2025</td>
+            <td>27 Mar 2025</td>
+            <td>2</td>
+            <td>Family function</td>
+            <td>24 Mar 2025</td>
+            <td><span class="status-chip chip-pending">⏳ Pending</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);">#LV-2025-015</td>
+            <td>Academic</td>
+            <td>5 Feb 2025</td>
+            <td>5 Feb 2025</td>
+            <td>1</td>
+            <td>Hackathon</td>
+            <td>3 Feb 2025</td>
+            <td><span class="status-chip chip-rejected">✗ Rejected</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="footer-brand">Connect<span>2</span>Campus</span>
+    <nav class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="support.html">Help Desk</a>
+      <a href="index.html">Logout</a>
+    </nav>
+    <span class="footer-copy">© 2025 Connect2Campus</span>
+  </footer>
+
+</div>
+</body>
+</html>
