@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard — Connect2Campus</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
   <style>
     .welcome-banner {
-      background: linear-gradient(120deg, var(--surface) 60%, rgba(37,99,235,.12));
+      background: linear-gradient(120deg, var(--surface) 60%, rgba(37, 99, 235, .12));
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 28px 32px;
-      display: flex; align-items: center;
-      justify-content: space-between; gap: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
       margin-bottom: 28px;
     }
+
     .welcome-banner h2 {
       font-family: 'Syne', sans-serif;
-      font-size: 22px; font-weight: 700; margin-bottom: 4px;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
     }
-    .welcome-banner p { font-size: 14px; color: var(--muted2); }
-    .welcome-banner .meta { font-size: 13px; color: var(--muted); margin-top: 10px; }
-    .welcome-banner .meta span { color: var(--accent-glow); font-weight: 500; }
+
+    .welcome-banner p {
+      font-size: 14px;
+      color: var(--muted2);
+    }
+
+    .welcome-banner .meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .welcome-banner .meta span {
+      color: var(--accent-glow);
+      font-weight: 500;
+    }
 
     .module-grid {
       display: grid;
@@ -29,6 +48,7 @@
       gap: 16px;
       margin-bottom: 28px;
     }
+
     .module-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -37,38 +57,80 @@
       text-decoration: none;
       display: block;
       transition: border-color .2s, transform .2s, box-shadow .2s;
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
+
     .module-card::before {
       content: '';
-      position: absolute; inset: 0;
+      position: absolute;
+      inset: 0;
       background: linear-gradient(135deg, var(--tint) 0%, transparent 65%);
       pointer-events: none;
     }
+
     .module-card:hover {
       border-color: var(--hov);
       transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(0,0,0,.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
     }
-    .module-card .m-icon { font-size: 28px; margin-bottom: 14px; }
+
+    .module-card .m-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+
     .module-card .m-name {
       font-family: 'Syne', sans-serif;
-      font-size: 16px; font-weight: 700;
-      color: var(--text); margin-bottom: 6px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
     }
-    .module-card .m-desc { font-size: 13px; color: var(--muted2); line-height: 1.55; }
+
+    .module-card .m-desc {
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.55;
+    }
+
     .module-card .m-arrow {
-      display: inline-block; margin-top: 14px;
-      font-size: 13px; font-weight: 500;
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 500;
       color: var(--hov);
     }
 
-    .m-blue   { --tint: rgba(37,99,235,.08);   --hov: #60a5fa; }
-    .m-green  { --tint: rgba(16,185,129,.08);  --hov: #34d399; }
-    .m-amber  { --tint: rgba(245,158,11,.08);  --hov: #fbbf24; }
-    .m-purple { --tint: rgba(139,92,246,.08);  --hov: #a78bfa; }
-    .m-pink   { --tint: rgba(236,72,153,.08);  --hov: #f472b6; }
-    .m-cyan   { --tint: rgba(6,182,212,.08);   --hov: #22d3ee; }
+    .m-blue {
+      --tint: rgba(37, 99, 235, .08);
+      --hov: #60a5fa;
+    }
+
+    .m-green {
+      --tint: rgba(16, 185, 129, .08);
+      --hov: #34d399;
+    }
+
+    .m-amber {
+      --tint: rgba(245, 158, 11, .08);
+      --hov: #fbbf24;
+    }
+
+    .m-purple {
+      --tint: rgba(139, 92, 246, .08);
+      --hov: #a78bfa;
+    }
+
+    .m-pink {
+      --tint: rgba(236, 72, 153, .08);
+      --hov: #f472b6;
+    }
+
+    .m-cyan {
+      --tint: rgba(6, 182, 212, .08);
+      --hov: #22d3ee;
+    }
 
     .bottom-grid {
       display: grid;
@@ -77,244 +139,304 @@
     }
 
     .announce-item {
-      display: flex; align-items: flex-start; gap: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
       padding: 14px 0;
-      border-bottom: 1px solid rgba(30,45,74,.5);
+      border-bottom: 1px solid rgba(30, 45, 74, .5);
     }
-    .announce-item:last-child { border-bottom: none; }
-    .a-dot {
-      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px;
-    }
-    .a-dot.blue   { background: var(--accent-glow); }
-    .a-dot.green  { background: var(--success); }
-    .a-dot.amber  { background: var(--gold); }
-    .a-dot.red    { background: var(--danger); }
-    .a-head { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
-    .a-meta { font-size: 12px; color: var(--muted); }
 
-    .quick-list { display: flex; flex-direction: column; gap: 10px; }
+    .announce-item:last-child {
+      border-bottom: none;
+    }
+
+    .a-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .a-dot.blue {
+      background: var(--accent-glow);
+    }
+
+    .a-dot.green {
+      background: var(--success);
+    }
+
+    .a-dot.amber {
+      background: var(--gold);
+    }
+
+    .a-dot.red {
+      background: var(--danger);
+    }
+
+    .a-head {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .a-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .quick-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     .quick-item {
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       padding: 13px 16px;
       text-decoration: none;
       color: var(--text);
-      font-size: 14px; font-weight: 500;
+      font-size: 14px;
+      font-weight: 500;
       transition: border-color .2s;
     }
-    .quick-item:hover { border-color: var(--accent-glow); }
-    .quick-left { display: flex; align-items: center; gap: 10px; }
-    .quick-icon { font-size: 17px; }
-    .quick-arrow { color: var(--muted); }
+
+    .quick-item:hover {
+      border-color: var(--accent-glow);
+    }
+
+    .quick-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quick-icon {
+      font-size: 17px;
+    }
+
+    .quick-arrow {
+      color: var(--muted);
+    }
 
     @media (max-width: 900px) {
-      .module-grid { grid-template-columns: 1fr 1fr; }
-      .bottom-grid { grid-template-columns: 1fr; }
+      .module-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .bottom-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
 
-<div class="page">
-  
-<input type="checkbox" id="mob-toggle"/>
-<div class="mob-drawer">
-  <a href="home.html" class="active">🏠 Dashboard</a>
-  <a href="attendance.html">📅 Attendance</a>
-  <a href="grades.html">📊 Grades</a>
-  <a href="leave.html">🏖️ Leave</a>
-  <a href="fees.html">💳 Fees</a>
-  <div class="divider"></div>
-  <a href="timetable.html">🗓️ Timetable</a>
-  <a href="notifications.html">🔔 Notifications</a>
-  <a href="hostel.html">🏠 Hostel &amp; Mess</a>
-  <a href="support.html">🎧 Help &amp; Support</a>
-  <a href="profile.html">👤 My Profile</a>
-  <div class="divider"></div>
-  <a href="index.html">🚪 Logout</a>
-</div>
-  <nav class="navbar">
-    <a href="index.html" class="nav-brand">
-      <div class="nav-logo">C2</div>
-      <span class="nav-title">Connect<span>2</span>Campus</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="home.html" class="active">Dashboard</a></li>
-      <li><a href="attendance.html">Attendance</a></li>
-      <li><a href="grades.html">Grades</a></li>
-      <li><a href="leave.html">Leave</a></li>
-      <li><a href="fees.html">Fees</a></li>
-      <li><a href="timetable.html">Timetable</a></li>
-      <li><a href="notifications.html">Alerts</a></li>
-      <li><a href="hostel.html">Hostel</a></li>
-      <li><a href="support.html">Support</a></li>
-    </ul>
-    <div class="nav-right">
-      <a href="notifications.html" class="nav-notif" title="Notifications">🔔<span class="dot"></span></a>
-      <a href="profile.html" class="nav-avatar" title="Profile">V</a>
-      <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
+  <div class="page">
+
+    <input type="checkbox" id="mob-toggle" />
+    <div class="mob-drawer">
+      <a href="home.html" class="active">🏠 Dashboard</a>
+      <a href="attendance.html">📅 Attendance</a>
+      <a href="grades.html">📊 Grades</a>
+      <a href="leave.html">🏖️ Leave</a>
+      <a href="fees.html">💳 Fees</a>
+      <div class="divider"></div>
+      <a href="timetable.html">🗓️ Timetable</a>
+      <a href="notifications.html">🔔 Notifications</a>
+      <a href="hostel.html">🏠 Hostel &amp; Mess</a>
+      <a href="support.html">🎧 Help &amp; Support</a>
+      <a href="profile.html">👤 My Profile</a>
+      <div class="divider"></div>
+      <a href="index.html">🚪 Logout</a>
     </div>
-  </nav>
-
-  <div class="page-header">
-    <p class="label">Dashboard</p>
-    <h1>Good Morning,<span> Vikas </span>👋</h1>
-    <p>Here's what's happening with your academics today.</p>
-  </div>
-
-  <div class="main-content">
-
-    <div class="welcome-banner">
-      <div>
-        <h2>Semester 2 · 2025–26</h2>
-        <p>B.Tech CSE AI &amp; ML &nbsp;·&nbsp; Year 1</p>
-        <p class="meta">Roll No: <span>2510993660</span> &nbsp;·&nbsp; Batch: <span>2025–2029</span></p>
-      </div>
-      <div style="text-align:right;">
-        <div class="badge badge-green" style="font-size:13px; padding:6px 14px;">Enrolled ✓</div>
-        <p style="font-size:12px; color:var(--muted); margin-top:8px;">Last login: Today, 9:14 AM</p>
-      </div>
-    </div>
-
-    <div class="grid-4" style="margin-bottom:28px;">
-      <div class="stat-card">
-        <div class="icon">📊</div>
-        <div class="num" style="color:var(--accent-glow);">8.4</div>
-        <div class="lbl">Current CGPA</div>
-      </div>
-      <div class="stat-card">
-        <div class="icon">📅</div>
-        <div class="num" style="color:var(--success);">89%</div>
-        <div class="lbl">Attendance</div>
-      </div>
-      <div class="stat-card">
-        <div class="icon">💳</div>
-        <div class="num" style="color:var(--danger);">₹12,400</div>
-        <div class="lbl">Fees Due</div>
-      </div>
-      <div class="stat-card">
-        <div class="icon">🏖️</div>
-        <div class="num" style="color:var(--gold);">8</div>
-        <div class="lbl">Leaves Left</div>
-      </div>
-    </div>
-
-    <div class="module-grid">
-      <a href="attendance.html" class="module-card m-green">
-        <div class="m-icon">📅</div>
-        <div class="m-name">Attendance</div>
-        <div class="m-desc">Track your subject-wise attendance and shortage alerts.</div>
-        <span class="m-arrow">View Attendance →</span>
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-logo">C2</div>
+        <span class="nav-title">Connect<span>2</span>Campus</span>
       </a>
-      <a href="grades.html" class="module-card m-blue">
-        <div class="m-icon">📊</div>
-        <div class="m-name">Grades</div>
-        <div class="m-desc">View marks, GPA trends and semester report cards.</div>
-        <span class="m-arrow">View Grades →</span>
-      </a>
-      <a href="leave.html" class="module-card m-amber">
-        <div class="m-icon">🏖️</div>
-        <div class="m-name">Leave Management</div>
-        <div class="m-desc">Apply for medical or casual leave and track approval.</div>
-        <span class="m-arrow">Apply Leave →</span>
-      </a>
-      <a href="fees.html" class="module-card m-purple">
-        <div class="m-icon">💳</div>
-        <div class="m-name">Fee Portal</div>
-        <div class="m-desc">View dues, pay fees online and download receipts.</div>
-        <span class="m-arrow">Pay Fees →</span>
-      </a>
-      <a href="#" class="module-card m-pink">
-        <div class="m-icon">📝</div>
-        <div class="m-name">Exam Centre</div>
-        <div class="m-desc">Download admit cards and view exam schedules.</div>
-        <span class="m-arrow">View Exams →</span>
-      </a>
-      <a href="#" class="module-card m-cyan">
-        <div class="m-icon">📚</div>
-        <div class="m-name">Library</div>
-        <div class="m-desc">Issue books, renew resources and access e-journals.</div>
-        <span class="m-arrow">Browse Library →</span>
-      </a>
-    </div>
-
-    <div class="bottom-grid">
-      <div class="card">
-        <h3 class="card-title">📢 Latest Announcements</h3>
-        <div>
-          <div class="announce-item">
-            <span class="a-dot red"></span>
-            <div>
-              <p class="a-head">Mid-Semester Exam Schedule Released</p>
-              <p class="a-meta">Academics · 24 Mar 2026</p>
-            </div>
-          </div>
-          <div class="announce-item">
-            <span class="a-dot blue"></span>
-            <div>
-              <p class="a-head">Fee Payment Deadline — Last Date: 31 Mar</p>
-              <p class="a-meta">Finance · 22 Mar 2026</p>
-            </div>
-          </div>
-          <div class="announce-item">
-            <span class="a-dot green"></span>
-            <div>
-              <p class="a-head">Cultural Fest 2026 Registrations Open</p>
-              <p class="a-meta">Events · 20 Mar 2026</p>
-            </div>
-          </div>
-          <div class="announce-item">
-            <span class="a-dot amber"></span>
-            <div>
-              <p class="a-head">Library Timings Extended to 10 PM</p>
-              <p class="a-meta">Library · 18 Mar 2026</p>
-            </div>
-          </div>
-        </div>
+      <ul class="nav-links">
+        <li><a href="home.html" class="active">Dashboard</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="grades.html">Grades</a></li>
+        <li><a href="leave.html">Leave</a></li>
+        <li><a href="fees.html">Fees</a></li>
+        <li><a href="timetable.html">Timetable</a></li>
+        <li><a href="notifications.html">Alerts</a></li>
+        <li><a href="hostel.html">Hostel</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="notifications.html" class="nav-notif" title="Notifications">🔔<span class="dot"></span></a>
+        <a href="profile.html" class="nav-avatar" title="Profile">V</a>
+        <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
       </div>
-
-      <div class="card">
-        <h3 class="card-title">⚡ Quick Access</h3>
-        <div class="quick-list">
-          <a href="grades.html" class="quick-item">
-            <span class="quick-left"><span class="quick-icon">📈</span> Check Semester Results</span>
-            <span class="quick-arrow">→</span>
-          </a>
-          <a href="fees.html" class="quick-item">
-            <span class="quick-left"><span class="quick-icon">💰</span> Pay Tuition Fees</span>
-            <span class="quick-arrow">→</span>
-          </a>
-          <a href="leave.html" class="quick-item">
-            <span class="quick-left"><span class="quick-icon">📋</span> Apply for Leave</span>
-            <span class="quick-arrow">→</span>
-          </a>
-          <a href="attendance.html" class="quick-item">
-            <span class="quick-left"><span class="quick-icon">📅</span> View Attendance</span>
-            <span class="quick-arrow">→</span>
-          </a>
-          <a href="#" class="quick-item">
-            <span class="quick-left"><span class="quick-icon">🎟️</span> Download Admit Card</span>
-            <span class="quick-arrow">→</span>
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <footer>
-    <span class="footer-brand">Connect<span>2</span>Campus</span>
-    <nav class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="support.html">Help Desk</a>
-      <a href="index.html">Logout</a>
     </nav>
-    <span class="footer-copy">© 2026 Connect2Campus</span>
-  </footer>
 
-</div>
+    <div class="page-header">
+      <p class="label">Dashboard</p>
+      <h1>Good Morning,<span> Vikas </span>👋</h1>
+      <p>Here's what's happening with your academics today.</p>
+    </div>
+
+    <div class="main-content">
+
+      <div class="welcome-banner">
+        <div>
+          <h2>Semester 2 · 2025–26</h2>
+          <p>B.Tech CSE AI &amp; ML &nbsp;·&nbsp; Year 1</p>
+          <p class="meta">Roll No: <span>2510993660</span> &nbsp;·&nbsp; Batch: <span>2025–2029</span></p>
+        </div>
+        <div style="text-align:right;">
+          <div class="badge badge-green" style="font-size:13px; padding:6px 14px;">Enrolled ✓</div>
+          <p style="font-size:12px; color:var(--muted); margin-top:8px;">Last login: Today, 9:14 AM</p>
+        </div>
+      </div>
+
+      <div class="grid-4" style="margin-bottom:28px;">
+        <div class="stat-card">
+          <div class="icon">📊</div>
+          <div class="num" style="color:var(--accent-glow);">8.4</div>
+          <div class="lbl">Current CGPA</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">📅</div>
+          <div class="num" style="color:var(--success);">89%</div>
+          <div class="lbl">Attendance</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">💳</div>
+          <div class="num" style="color:var(--danger);">₹12,400</div>
+          <div class="lbl">Fees Due</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">🏖️</div>
+          <div class="num" style="color:var(--gold);">8</div>
+          <div class="lbl">Leaves Left</div>
+        </div>
+      </div>
+
+      <div class="module-grid">
+        <a href="attendance.html" class="module-card m-green">
+          <div class="m-icon">📅</div>
+          <div class="m-name">Attendance</div>
+          <div class="m-desc">Track your subject-wise attendance and shortage alerts.</div>
+          <span class="m-arrow">View Attendance →</span>
+        </a>
+        <a href="grades.html" class="module-card m-blue">
+          <div class="m-icon">📊</div>
+          <div class="m-name">Grades</div>
+          <div class="m-desc">View marks, GPA trends and semester report cards.</div>
+          <span class="m-arrow">View Grades →</span>
+        </a>
+        <a href="leave.html" class="module-card m-amber">
+          <div class="m-icon">🏖️</div>
+          <div class="m-name">Leave Management</div>
+          <div class="m-desc">Apply for medical or casual leave and track approval.</div>
+          <span class="m-arrow">Apply Leave →</span>
+        </a>
+        <a href="fees.html" class="module-card m-purple">
+          <div class="m-icon">💳</div>
+          <div class="m-name">Fee Portal</div>
+          <div class="m-desc">View dues, pay fees online and download receipts.</div>
+          <span class="m-arrow">Pay Fees →</span>
+        </a>
+        <a href="#" class="module-card m-pink">
+          <div class="m-icon">📝</div>
+          <div class="m-name">Exam Centre</div>
+          <div class="m-desc">Download admit cards and view exam schedules.</div>
+          <span class="m-arrow">View Exams →</span>
+        </a>
+        <a href="#" class="module-card m-cyan">
+          <div class="m-icon">📚</div>
+          <div class="m-name">Library</div>
+          <div class="m-desc">Issue books, renew resources and access e-journals.</div>
+          <span class="m-arrow">Browse Library →</span>
+        </a>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="card">
+          <h3 class="card-title">📢 Latest Announcements</h3>
+          <div>
+            <div class="announce-item">
+              <span class="a-dot red"></span>
+              <div>
+                <p class="a-head">Mid-Semester Exam Schedule Released</p>
+                <p class="a-meta">Academics · 24 Mar 2026</p>
+              </div>
+            </div>
+            <div class="announce-item">
+              <span class="a-dot blue"></span>
+              <div>
+                <p class="a-head">Fee Payment Deadline — Last Date: 31 Mar</p>
+                <p class="a-meta">Finance · 22 Mar 2026</p>
+              </div>
+            </div>
+            <div class="announce-item">
+              <span class="a-dot green"></span>
+              <div>
+                <p class="a-head">Cultural Fest 2026 Registrations Open</p>
+                <p class="a-meta">Events · 20 Mar 2026</p>
+              </div>
+            </div>
+            <div class="announce-item">
+              <span class="a-dot amber"></span>
+              <div>
+                <p class="a-head">Library Timings Extended to 10 PM</p>
+                <p class="a-meta">Library · 18 Mar 2026</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">⚡ Quick Access</h3>
+          <div class="quick-list">
+            <a href="grades.html" class="quick-item">
+              <span class="quick-left"><span class="quick-icon">📈</span> Check Semester Results</span>
+              <span class="quick-arrow">→</span>
+            </a>
+            <a href="fees.html" class="quick-item">
+              <span class="quick-left"><span class="quick-icon">💰</span> Pay Tuition Fees</span>
+              <span class="quick-arrow">→</span>
+            </a>
+            <a href="leave.html" class="quick-item">
+              <span class="quick-left"><span class="quick-icon">📋</span> Apply for Leave</span>
+              <span class="quick-arrow">→</span>
+            </a>
+            <a href="attendance.html" class="quick-item">
+              <span class="quick-left"><span class="quick-icon">📅</span> View Attendance</span>
+              <span class="quick-arrow">→</span>
+            </a>
+            <a href="#" class="quick-item">
+              <span class="quick-left"><span class="quick-icon">🎟️</span> Download Admit Card</span>
+              <span class="quick-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <span class="footer-brand">Connect<span>2</span>Campus</span>
+      <nav class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="support.html">Help Desk</a>
+        <a href="index.html">Logout</a>
+      </nav>
+      <span class="footer-copy">© 2026 Connect2Campus</span>
+    </footer>
+
+  </div>
 </body>
+
 </html>

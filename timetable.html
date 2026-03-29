@@ -1,425 +1,682 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Timetable — Connect2Campus</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
   <style>
     .day-tabs {
-      display: flex; gap: 6px; flex-wrap: wrap;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
       margin-bottom: 24px;
     }
+
     .day-tab {
-      padding: 8px 18px; border-radius: 20px;
-      font-size: 13px; font-weight: 500;
-      text-decoration: none; color: var(--muted2);
-      background: var(--surface); border: 1px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--muted2);
+      background: var(--surface);
+      border: 1px solid var(--border);
       transition: all .2s;
     }
-    .day-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .day-tab:hover:not(.active) { border-color: var(--accent-glow); color: var(--accent-glow); }
-    .day-tab.today-tab { border-color: var(--gold); color: var(--gold); }
-    .day-tab.today-tab.active { background: var(--gold); color: #000; border-color: var(--gold); }
+
+    .day-tab.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .day-tab:hover:not(.active) {
+      border-color: var(--accent-glow);
+      color: var(--accent-glow);
+    }
+
+    .day-tab.today-tab {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .day-tab.today-tab.active {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+    }
 
     .timetable-grid {
-      display: flex; flex-direction: column; gap: 0;
-      border: 1px solid var(--border); border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       overflow: hidden;
     }
+
     .tt-row {
       display: grid;
       grid-template-columns: 90px 1fr;
       border-bottom: 1px solid var(--border);
     }
-    .tt-row:last-child { border-bottom: none; }
+
+    .tt-row:last-child {
+      border-bottom: none;
+    }
+
     .tt-time {
       padding: 18px 16px;
-      font-size: 12px; font-weight: 600; color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
       background: var(--surface2);
       border-right: 1px solid var(--border);
-      display: flex; align-items: center;
+      display: flex;
+      align-items: center;
       white-space: nowrap;
     }
+
     .tt-slot {
       padding: 14px 18px;
       background: var(--surface);
-      display: flex; align-items: center; gap: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
       transition: background .2s;
     }
-    .tt-slot:hover { background: var(--surface2); }
-    .tt-slot.break-slot { background: rgba(30,45,74,.3); }
-    .tt-slot.break-slot .tt-subject { color: var(--muted); font-style: italic; }
-    .tt-color {
-      width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0;
+
+    .tt-slot:hover {
+      background: var(--surface2);
     }
+
+    .tt-slot.break-slot {
+      background: rgba(30, 45, 74, .3);
+    }
+
+    .tt-slot.break-slot .tt-subject {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .tt-color {
+      width: 4px;
+      align-self: stretch;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
     .tt-subject {
-      font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
       margin-bottom: 3px;
     }
-    .tt-meta { font-size: 12px; color: var(--muted2); display: flex; gap: 14px; flex-wrap: wrap; }
-    .tt-meta span { display: flex; align-items: center; gap: 4px; }
-    .tt-now { background: var(--accent-soft) !important; border-left: 3px solid var(--accent); }
-    .tt-now .tt-time { background: rgba(37,99,235,.15); color: var(--accent-glow); }
+
+    .tt-meta {
+      font-size: 12px;
+      color: var(--muted2);
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .tt-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tt-now {
+      background: var(--accent-soft) !important;
+      border-left: 3px solid var(--accent);
+    }
+
+    .tt-now .tt-time {
+      background: rgba(37, 99, 235, .15);
+      color: var(--accent-glow);
+    }
 
     .weekly-view {
-      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
-    .weekly-table {
-      width: 100%; border-collapse: collapse; min-width: 640px;
-    }
-    .weekly-table thead th {
-      padding: 12px 10px; font-size: 12px; font-weight: 700;
-      text-align: center; color: var(--muted2);
-      background: var(--surface2); border: 1px solid var(--border);
-    }
-    .weekly-table thead th.today-col { color: var(--accent-glow); background: var(--accent-soft); }
-    .weekly-table tbody td {
-      padding: 8px 10px; vertical-align: top;
-      border: 1px solid var(--border); min-height: 60px;
-      font-size: 12px; text-align: center;
-    }
-    .weekly-table tbody tr:hover td { background: transparent; }
-    .weekly-table td.time-col {
-      font-size: 11px; color: var(--muted); font-weight: 600;
-      white-space: nowrap; background: var(--surface2); min-width: 70px;
-    }
-    .week-cell {
-      background: var(--surface2); border-radius: 6px;
-      padding: 6px 8px; margin: 2px 0;
-      display: block; text-align: left;
-    }
-    .week-cell .wc-sub { font-weight: 600; font-size: 12px; margin-bottom: 2px; }
-    .week-cell .wc-room { font-size: 11px; color: var(--muted); }
-    .wc-blue   { border-left: 3px solid var(--accent-glow); }
-    .wc-green  { border-left: 3px solid var(--success); }
-    .wc-amber  { border-left: 3px solid var(--gold); }
-    .wc-purple { border-left: 3px solid var(--purple); }
-    .wc-pink   { border-left: 3px solid #ec4899; }
-    .wc-cyan   { border-left: 3px solid var(--cyan); }
 
-    .faculty-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .weekly-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    .weekly-table thead th {
+      padding: 12px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      color: var(--muted2);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+    }
+
+    .weekly-table thead th.today-col {
+      color: var(--accent-glow);
+      background: var(--accent-soft);
+    }
+
+    .weekly-table tbody td {
+      padding: 8px 10px;
+      vertical-align: top;
+      border: 1px solid var(--border);
+      min-height: 60px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .weekly-table tbody tr:hover td {
+      background: transparent;
+    }
+
+    .weekly-table td.time-col {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+      white-space: nowrap;
+      background: var(--surface2);
+      min-width: 70px;
+    }
+
+    .week-cell {
+      background: var(--surface2);
+      border-radius: 6px;
+      padding: 6px 8px;
+      margin: 2px 0;
+      display: block;
+      text-align: left;
+    }
+
+    .week-cell .wc-sub {
+      font-weight: 600;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    .week-cell .wc-room {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .wc-blue {
+      border-left: 3px solid var(--accent-glow);
+    }
+
+    .wc-green {
+      border-left: 3px solid var(--success);
+    }
+
+    .wc-amber {
+      border-left: 3px solid var(--gold);
+    }
+
+    .wc-purple {
+      border-left: 3px solid var(--purple);
+    }
+
+    .wc-pink {
+      border-left: 3px solid #ec4899;
+    }
+
+    .wc-cyan {
+      border-left: 3px solid var(--cyan);
+    }
+
+    .faculty-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
     .faculty-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); padding: 16px 18px;
-      display: flex; align-items: center; gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
       transition: border-color .2s;
     }
-    .faculty-card:hover { border-color: var(--accent); }
-    .fav-avatar {
-      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; color: #fff;
+
+    .faculty-card:hover {
+      border-color: var(--accent);
     }
-    .fav-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
-    .fav-sub  { font-size: 12px; color: var(--muted2); margin-bottom: 2px; }
-    .fav-room { font-size: 11px; color: var(--muted); }
-    @media (max-width:520px){
-      .faculty-list{
-        grid-template-columns: repeat(1,1fr);
+
+    .fav-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .fav-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .fav-sub {
+      font-size: 12px;
+      color: var(--muted2);
+      margin-bottom: 2px;
+    }
+
+    .fav-room {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    @media (max-width:520px) {
+      .faculty-list {
+        grid-template-columns: repeat(1, 1fr);
       }
     }
   </style>
 </head>
+
 <body>
-<input type="checkbox" id="mob-toggle"/>
-<div class="mob-drawer">
-  <a href="home.html">🏠 Dashboard</a>
-  <a href="attendance.html">📅 Attendance</a>
-  <a href="grades.html">📊 Grades</a>
-  <a href="leave.html">🏖️ Leave</a>
-  <a href="fees.html">💳 Fees</a>
-  <div class="divider"></div>
-  <a href="timetable.html" class="active">🗓️ Timetable</a>
-  <a href="notifications.html">🔔 Notifications</a>
-  <a href="hostel.html">🏠 Hostel &amp; Mess</a>
-  <a href="support.html">🎧 Help &amp; Support</a>
-  <a href="profile.html">👤 My Profile</a>
-  <div class="divider"></div>
-  <a href="index.html">🚪 Logout</a>
-</div>
-
-<div class="page">
-  <nav class="navbar">
-    <a href="index.html" class="nav-brand">
-      <div class="nav-logo">C2</div>
-      <span class="nav-title">Connect<span>2</span>Campus</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="home.html">Dashboard</a></li>
-      <li><a href="attendance.html">Attendance</a></li>
-      <li><a href="grades.html">Grades</a></li>
-      <li><a href="leave.html">Leave</a></li>
-      <li><a href="fees.html">Fees</a></li>
-      <li><a href="timetable.html" class="active">Timetable</a></li>
-      <li><a href="notifications.html">Alerts</a></li>
-      <li><a href="hostel.html">Hostel</a></li>
-      <li><a href="support.html">Support</a></li>
-    </ul>
-    <div class="nav-right">
-      <a href="notifications.html" class="nav-notif" title="Notifications">🔔<span class="dot"></span></a>
-      <a href="profile.html" class="nav-avatar" title="Profile">V</a>
-      <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
-    </div>
-  </nav>
-
-  <div class="page-header">
-    <p class="label">Schedule</p>
-    <h1>Class Timetable</h1>
-    <p>Semester 2 · B.Tech CSE AI &amp; ML Year 1 · Batch 2025–29  G16 </p>
+  <input type="checkbox" id="mob-toggle" />
+  <div class="mob-drawer">
+    <a href="home.html">🏠 Dashboard</a>
+    <a href="attendance.html">📅 Attendance</a>
+    <a href="grades.html">📊 Grades</a>
+    <a href="leave.html">🏖️ Leave</a>
+    <a href="fees.html">💳 Fees</a>
+    <div class="divider"></div>
+    <a href="timetable.html" class="active">🗓️ Timetable</a>
+    <a href="notifications.html">🔔 Notifications</a>
+    <a href="hostel.html">🏠 Hostel &amp; Mess</a>
+    <a href="support.html">🎧 Help &amp; Support</a>
+    <a href="profile.html">👤 My Profile</a>
+    <div class="divider"></div>
+    <a href="index.html">🚪 Logout</a>
   </div>
 
-  <div class="main-content">
-
-    <div class="alert alert-blue" style="margin-bottom:24px;">
-      <span class="ai">📌</span>
-      <div>Today is <strong>Thursday, 26 March 2026</strong>. Your next class is <strong>Front End Engineering</strong> at <strong>4:10 PM</strong> in Room <strong>MB-404</strong>.</div>
-    </div>
-
-    <div class="day-tabs">
-      <a href="timetable.html" class="day-tab">Monday</a>
-      <a href="timetable.html" class="day-tab">Tuesday</a>
-      <a href="timetable.html" class="day-tab">Wednesday</a>
-      <a href="timetable.html" class="day-tab active today-tab">Thursday (Today)</a>
-      <a href="timetable.html" class="day-tab">Friday</a>
-      <a href="timetable.html" class="day-tab">Saturday</a>
-    </div>
-
-    <div class="timetable-grid section-gap" style="margin-bottom:28px;">
-      <div class="tt-row  tt-now">
-        <div class="tt-time">4:10 PM</div>
-        <div class="tt-slot">
-          <div class="tt-color" style="background:var(--accent-glow);"></div>
-          <div>
-            <div class="tt-subject">Front End Engineering<span class="badge badge-blue" style="font-size:10px;margin-left:8px;">Now</span></div>
-            <div class="tt-meta">
-              <span>🏛️ Room MB-404</span>
-              <span>👨‍🏫 Mr. Divyansh Sharma</span>
-              <span>⏱️ 50 min</span>
-            </div>
-          </div>
-        </div>
+  <div class="page">
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-logo">C2</div>
+        <span class="nav-title">Connect<span>2</span>Campus</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html">Dashboard</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="grades.html">Grades</a></li>
+        <li><a href="leave.html">Leave</a></li>
+        <li><a href="fees.html">Fees</a></li>
+        <li><a href="timetable.html" class="active">Timetable</a></li>
+        <li><a href="notifications.html">Alerts</a></li>
+        <li><a href="hostel.html">Hostel</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="notifications.html" class="nav-notif" title="Notifications">🔔<span class="dot"></span></a>
+        <a href="profile.html" class="nav-avatar" title="Profile">V</a>
+        <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
       </div>
-      <div class="tt-row">
-        <div class="tt-time">4:50 PM</div>
-        <div class="tt-slot">
-          <div class="tt-color" style="background:var(--success);"></div>
-          <div>
-            <div class="tt-subject">Operating System &amp; Linux</div>
-            <div class="tt-meta">
-              <span>🏛️ Room MB-404</span>
-              <span>👨‍🏫 Dr. Aakash Kumar</span>
-              <span>⏱️ 50 min</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tt-row">
-        <div class="tt-time">5:50 PM</div>
-        <div class="tt-slot">
-          <div class="tt-color" style="background:var(--gold);"></div>
-          <div>
-            <div class="tt-subject">Discrete Mathematics</div>
-            <div class="tt-meta">
-              <span>🏛️ Room MB-404</span>
-              <span>👨‍🏫 Dr. Gurpreet Singh</span>
-              <span>⏱️ 50 min</span>
-              </div>
-          </div>
-        </div>
-      </div>
-      <div class="tt-row">
-        <div class="tt-time">6:40 PM</div>
-        <div class="tt-slot break-slot">
-          <div class="tt-color" style="background:var(--border);"></div>
-          <div>
-            <div class="tt-subject">Break</div>
-            <div class="tt-meta">
-              
-              <div><span>⏱️ 50 min</span></div></div>
-            
-          </div>
-        </div>
-      </div>
-      <div class="tt-row">
-        <div class="tt-time">7:30 PM</div>
-        <div class="tt-slot break-slot">
-          <div class="tt-color" style="background:var(--border);"></div>
-          <div><div class="tt-subject">Snacks Break</div>
-        <div class="tt-meta">
-              
-              <div><span>⏱️ 20 min</span></div></div>
-        </div>
-      </div></div>
-      <div class="tt-row">
-        <div class="tt-time">7:50 PM</div>
-        <div class="tt-slot">
-          <div class="tt-color" style="background:var(--gold);"></div>
-          <div>
-            <div class="tt-subject">Fundamental of C Programming</div>
-            <div class="tt-meta">
-              <span>🏛️ Room MB-404</span>
-              <span>👨‍🏫 Mr. Anuj</span>
-              <span>⏱️ 50 min</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tt-row">
-        <div class="tt-time">8:40 PM</div>
-        <div class="tt-slot">
-          <div class="tt-color" style="background:var(--cyan);"></div>
-          <div>
-            <div class="tt-subject">Foundation of AI Algorithms</div>
-            <div class="tt-meta">
-              <span>🏛️ MB-404</span>
-              <span>👨‍🏫 Mr. Prabhjot Singh Manocha</span>
-              <span>⏱️ 40 min</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tt-row">
-        <div class="tt-time">9:20 PM</div>
-        <div class="tt-slot break-slot">
-          <div class="tt-color" style="background:var(--border);"></div>
-          <div><div class="tt-subject">Classes End</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card section-gap" style="margin-bottom:28px;">
-      <h3 class="card-title">Weekly Overview</h3>
-      <div class="weekly-view">
-        <table class="weekly-table">
-          <thead>
-            <tr>
-              <th>Time</th>
-              <th >Mon </th>
-              <th>Tue</th>
-              <th>Wed</th>
-              <th class="today-col">Thu ★</th>
-              <th>Fri</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="time-col">4:10 - 5:00 PM</td>
-              <td><span class="week-cell wc-blue"><div class="wc-sub">Fundamental of C Programming</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-purple"><div class="wc-sub">Discrete Mathematics</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-green"><div class="wc-sub">Foundation of AI Algorithms</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-amber"><div class="wc-sub">Front End Engineering</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-blue"><div class="wc-sub">Operating System &amp; Linux</div><div class="wc-room">MB-404</div></span></td>
-              
-            </tr>
-            <tr>
-              <td class="time-col">5:00 PM - 5:50 PM</td>
-              <td><span class="week-cell wc-green"><div class="wc-sub">Front End Engineering</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-blue"><div class="wc-sub">Fundamental of C Programming</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-purple"><div class="wc-sub">Discrete Mathematics</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-green"><div class="wc-sub">Operating System &amp; Linux</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-amber"><div class="wc-sub">Operating System &amp; Linux</div><div class="wc-room">MB-404</div></span></td>
-              
-            <tr>
-              <td class="time-col">5:50 PM - 6:40 PM</td>
-              <td style="color:var(--muted);font-size:11px;">Free</td>
-              <td><span class="week-cell wc-green"><div class="wc-sub">Front End Engineering</div><div class="wc-room">MB-404</div></span></td>
-              <td style="color:var(--muted);font-size:11px;">Free</td>
-              <td><span class="week-cell wc-purple"><div class="wc-sub">Discrete Mathematics</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-green"><div class="wc-sub">Operating System &amp; Linux</div><div class="wc-room">MB-404</div></span></td>
-              
-            </tr>
-            <tr>
-              <td class="time-col">6:40 PM - 7:30 PM</td>
-              <td><span class="week-cell wc-purple"><div class="wc-sub">Discrete Mathematics</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-amber"><div class="wc-sub">Operating System &amp; Linux</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-blue"><div class="wc-sub">Fundamental of C Programming</div><div class="wc-room">MB-404</div></span></td>
-              <td style="color:var(--muted);font-size:11px;">Free</td>
-              <td><span class="week-cell wc-purple"><div class="wc-sub">Foundation of AI Algorithms</div><div class="wc-room">MB-404</div></span></td>
-              
-            </tr>
-            <tr>
-              <td class="time-col">7:50 PM - 8:40 PM</td>
-              <td><span class="week-cell wc-amber"><div class="wc-sub">Discrete Mathematics</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-cyan"><div class="wc-sub">Foundation of AI Algorithms</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-amber"><div class="wc-sub">Operating System &amp; Linux</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-blue"><div class="wc-sub">Fundamental of C Programming</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-green"><div class="wc-sub">Front End Engineering</div><div class="wc-room">MB-404</div></span></td>
-              
-            </tr>
-            <tr>
-              <td class="time-col">8:40 PM - 9:20 PM</td>
-              <td><span class="week-cell wc-cyan"><div class="wc-sub">Front End Engineering</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-cyan"><div class="wc-sub">Discrete Mathematics</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-green"><div class="wc-sub">Fundamental of C Programming</div><div class="wc-room">MB-404</div></span></td>
-              <td><span class="week-cell wc-cyan"><div class="wc-sub">Foundation of AI Algorithms</div><div class="wc-room">MB-404</div></span></td>
-              <td style="color:var(--muted);font-size:11px;">Free</td>
-              
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="card" style="margin-bottom:24px;">
-      <h3 class="card-title">Faculty Contact</h3>
-      <div class="faculty-list">
-        <div class="faculty-card">
-          <div class="fav-avatar" style="background:linear-gradient(135deg,var(--accent),#1d4ed8);">SS</div>
-          <div>
-            <div class="fav-name">Mr. Anuj</div>
-            <div class="fav-sub">Fundamental of C Programming</div>
-            <div class="fav-room">Cabin: M Block, Room 12</div>
-          </div>
-        </div>
-        <div class="faculty-card">
-          <div class="fav-avatar" style="background:linear-gradient(135deg,var(--success),#059669);">AV</div>
-          <div>
-            <div class="fav-name">Mr. Gurpreet Singh</div>
-            <div class="fav-sub">Discrete Mathematics</div>
-            <div class="fav-room">Cabin: CS Block, Room 4</div>
-          </div>
-        </div>
-        <div class="faculty-card">
-          <div class="fav-avatar" style="background:linear-gradient(135deg,var(--purple),#6d28d9);">PG</div>
-          <div>
-            <div class="fav-name">Mr. Prabhjot Singh Manocha</div>
-            <div class="fav-sub">Foundation of AI Algorithms</div>
-            <div class="fav-room">Cabin: CS , Room 8</div>
-          </div>
-        </div>
-        <div class="faculty-card">
-          <div class="fav-avatar" style="background:linear-gradient(135deg,var(--gold),#d97706);">RM</div>
-          <div>
-            <div class="fav-name">Mr. Aakash kumar</div>
-            <div class="fav-sub">Operating System &amp; Linux</div>
-            <div class="fav-room">Cabin: EC Block, Room 3</div>
-          </div>
-        </div>
-        <div class="faculty-card">
-          <div class="fav-avatar" style="background:linear-gradient(135deg,var(--cyan),#0891b2);">NK</div>
-          <div>
-            <div class="fav-name">Mr. Divyansh Sharma</div>
-            <div class="fav-sub">Front End Engineering</div>
-            <div class="fav-room">Cabin: Science Block, Room 6</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <a href="home.html" class="btn btn-outline">← Back to Dashboard</a>
-  </div>
-
-  <footer>
-    <span class="footer-brand">Connect<span>2</span>Campus</span>
-    <nav class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="support.html">Help Desk</a>
-      <a href="index.html">Logout</a>
     </nav>
-    <span class="footer-copy">© 2026 Connect2Campus</span>
-  </footer>
-</div>
+
+    <div class="page-header">
+      <p class="label">Schedule</p>
+      <h1>Class Timetable</h1>
+      <p>Semester 2 · B.Tech CSE AI &amp; ML Year 1 · Batch 2025–29 G16 </p>
+    </div>
+
+    <div class="main-content">
+
+      <div class="alert alert-blue" style="margin-bottom:24px;">
+        <span class="ai">📌</span>
+        <div>Today is <strong>Thursday, 26 March 2026</strong>. Your next class is <strong>Front End
+            Engineering</strong> at <strong>4:10 PM</strong> in Room <strong>MB-404</strong>.</div>
+      </div>
+
+      <div class="day-tabs">
+        <a href="timetable.html" class="day-tab">Monday</a>
+        <a href="timetable.html" class="day-tab">Tuesday</a>
+        <a href="timetable.html" class="day-tab">Wednesday</a>
+        <a href="timetable.html" class="day-tab active today-tab">Thursday (Today)</a>
+        <a href="timetable.html" class="day-tab">Friday</a>
+        <a href="timetable.html" class="day-tab">Saturday</a>
+      </div>
+
+      <div class="timetable-grid section-gap" style="margin-bottom:28px;">
+        <div class="tt-row  tt-now">
+          <div class="tt-time">4:10 PM</div>
+          <div class="tt-slot">
+            <div class="tt-color" style="background:var(--accent-glow);"></div>
+            <div>
+              <div class="tt-subject">Front End Engineering<span class="badge badge-blue"
+                  style="font-size:10px;margin-left:8px;">Now</span></div>
+              <div class="tt-meta">
+                <span>🏛️ Room MB-404</span>
+                <span>👨‍🏫 Mr. Divyansh Sharma</span>
+                <span>⏱️ 50 min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tt-row">
+          <div class="tt-time">4:50 PM</div>
+          <div class="tt-slot">
+            <div class="tt-color" style="background:var(--success);"></div>
+            <div>
+              <div class="tt-subject">Operating System &amp; Linux</div>
+              <div class="tt-meta">
+                <span>🏛️ Room MB-404</span>
+                <span>👨‍🏫 Dr. Aakash Kumar</span>
+                <span>⏱️ 50 min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tt-row">
+          <div class="tt-time">5:50 PM</div>
+          <div class="tt-slot">
+            <div class="tt-color" style="background:var(--gold);"></div>
+            <div>
+              <div class="tt-subject">Discrete Mathematics</div>
+              <div class="tt-meta">
+                <span>🏛️ Room MB-404</span>
+                <span>👨‍🏫 Dr. Gurpreet Singh</span>
+                <span>⏱️ 50 min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tt-row">
+          <div class="tt-time">6:40 PM</div>
+          <div class="tt-slot break-slot">
+            <div class="tt-color" style="background:var(--border);"></div>
+            <div>
+              <div class="tt-subject">Break</div>
+              <div class="tt-meta">
+
+                <div><span>⏱️ 50 min</span></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="tt-row">
+          <div class="tt-time">7:30 PM</div>
+          <div class="tt-slot break-slot">
+            <div class="tt-color" style="background:var(--border);"></div>
+            <div>
+              <div class="tt-subject">Snacks Break</div>
+              <div class="tt-meta">
+
+                <div><span>⏱️ 20 min</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tt-row">
+          <div class="tt-time">7:50 PM</div>
+          <div class="tt-slot">
+            <div class="tt-color" style="background:var(--gold);"></div>
+            <div>
+              <div class="tt-subject">Fundamental of C Programming</div>
+              <div class="tt-meta">
+                <span>🏛️ Room MB-404</span>
+                <span>👨‍🏫 Mr. Anuj</span>
+                <span>⏱️ 50 min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tt-row">
+          <div class="tt-time">8:40 PM</div>
+          <div class="tt-slot">
+            <div class="tt-color" style="background:var(--cyan);"></div>
+            <div>
+              <div class="tt-subject">Foundation of AI Algorithms</div>
+              <div class="tt-meta">
+                <span>🏛️ MB-404</span>
+                <span>👨‍🏫 Mr. Prabhjot Singh Manocha</span>
+                <span>⏱️ 40 min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tt-row">
+          <div class="tt-time">9:20 PM</div>
+          <div class="tt-slot break-slot">
+            <div class="tt-color" style="background:var(--border);"></div>
+            <div>
+              <div class="tt-subject">Classes End</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card section-gap" style="margin-bottom:28px;">
+        <h3 class="card-title">Weekly Overview</h3>
+        <div class="weekly-view">
+          <table class="weekly-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Mon </th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th class="today-col">Thu ★</th>
+                <th>Fri</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="time-col">4:10 - 5:00 PM</td>
+                <td><span class="week-cell wc-blue">
+                    <div class="wc-sub">Fundamental of C Programming</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-purple">
+                    <div class="wc-sub">Discrete Mathematics</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-green">
+                    <div class="wc-sub">Foundation of AI Algorithms</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-amber">
+                    <div class="wc-sub">Front End Engineering</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-blue">
+                    <div class="wc-sub">Operating System &amp; Linux</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+
+              </tr>
+              <tr>
+                <td class="time-col">5:00 PM - 5:50 PM</td>
+                <td><span class="week-cell wc-green">
+                    <div class="wc-sub">Front End Engineering</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-blue">
+                    <div class="wc-sub">Fundamental of C Programming</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-purple">
+                    <div class="wc-sub">Discrete Mathematics</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-green">
+                    <div class="wc-sub">Operating System &amp; Linux</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-amber">
+                    <div class="wc-sub">Operating System &amp; Linux</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+
+              <tr>
+                <td class="time-col">5:50 PM - 6:40 PM</td>
+                <td style="color:var(--muted);font-size:11px;">Free</td>
+                <td><span class="week-cell wc-green">
+                    <div class="wc-sub">Front End Engineering</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td style="color:var(--muted);font-size:11px;">Free</td>
+                <td><span class="week-cell wc-purple">
+                    <div class="wc-sub">Discrete Mathematics</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-green">
+                    <div class="wc-sub">Operating System &amp; Linux</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+
+              </tr>
+              <tr>
+                <td class="time-col">6:40 PM - 7:30 PM</td>
+                <td><span class="week-cell wc-purple">
+                    <div class="wc-sub">Discrete Mathematics</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-amber">
+                    <div class="wc-sub">Operating System &amp; Linux</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-blue">
+                    <div class="wc-sub">Fundamental of C Programming</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td style="color:var(--muted);font-size:11px;">Free</td>
+                <td><span class="week-cell wc-purple">
+                    <div class="wc-sub">Foundation of AI Algorithms</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+
+              </tr>
+              <tr>
+                <td class="time-col">7:50 PM - 8:40 PM</td>
+                <td><span class="week-cell wc-amber">
+                    <div class="wc-sub">Discrete Mathematics</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-cyan">
+                    <div class="wc-sub">Foundation of AI Algorithms</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-amber">
+                    <div class="wc-sub">Operating System &amp; Linux</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-blue">
+                    <div class="wc-sub">Fundamental of C Programming</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-green">
+                    <div class="wc-sub">Front End Engineering</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+
+              </tr>
+              <tr>
+                <td class="time-col">8:40 PM - 9:20 PM</td>
+                <td><span class="week-cell wc-cyan">
+                    <div class="wc-sub">Front End Engineering</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-cyan">
+                    <div class="wc-sub">Discrete Mathematics</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-green">
+                    <div class="wc-sub">Fundamental of C Programming</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td><span class="week-cell wc-cyan">
+                    <div class="wc-sub">Foundation of AI Algorithms</div>
+                    <div class="wc-room">MB-404</div>
+                  </span></td>
+                <td style="color:var(--muted);font-size:11px;">Free</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:24px;">
+        <h3 class="card-title">Faculty Contact</h3>
+        <div class="faculty-list">
+          <div class="faculty-card">
+            <div class="fav-avatar" style="background:linear-gradient(135deg,var(--accent),#1d4ed8);">SS</div>
+            <div>
+              <div class="fav-name">Mr. Anuj</div>
+              <div class="fav-sub">Fundamental of C Programming</div>
+              <div class="fav-room">Cabin: M Block, Room 12</div>
+            </div>
+          </div>
+          <div class="faculty-card">
+            <div class="fav-avatar" style="background:linear-gradient(135deg,var(--success),#059669);">AV</div>
+            <div>
+              <div class="fav-name">Mr. Gurpreet Singh</div>
+              <div class="fav-sub">Discrete Mathematics</div>
+              <div class="fav-room">Cabin: CS Block, Room 4</div>
+            </div>
+          </div>
+          <div class="faculty-card">
+            <div class="fav-avatar" style="background:linear-gradient(135deg,var(--purple),#6d28d9);">PG</div>
+            <div>
+              <div class="fav-name">Mr. Prabhjot Singh Manocha</div>
+              <div class="fav-sub">Foundation of AI Algorithms</div>
+              <div class="fav-room">Cabin: CS , Room 8</div>
+            </div>
+          </div>
+          <div class="faculty-card">
+            <div class="fav-avatar" style="background:linear-gradient(135deg,var(--gold),#d97706);">RM</div>
+            <div>
+              <div class="fav-name">Mr. Aakash kumar</div>
+              <div class="fav-sub">Operating System &amp; Linux</div>
+              <div class="fav-room">Cabin: EC Block, Room 3</div>
+            </div>
+          </div>
+          <div class="faculty-card">
+            <div class="fav-avatar" style="background:linear-gradient(135deg,var(--cyan),#0891b2);">NK</div>
+            <div>
+              <div class="fav-name">Mr. Divyansh Sharma</div>
+              <div class="fav-sub">Front End Engineering</div>
+              <div class="fav-room">Cabin: Science Block, Room 6</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="home.html" class="btn btn-outline">← Back to Dashboard</a>
+    </div>
+
+    <footer>
+      <span class="footer-brand">Connect<span>2</span>Campus</span>
+      <nav class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="support.html">Help Desk</a>
+        <a href="index.html">Logout</a>
+      </nav>
+      <span class="footer-copy">© 2026 Connect2Campus</span>
+    </footer>
+  </div>
 </body>
+
 </html>

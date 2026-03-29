@@ -11,51 +11,96 @@
       border: 1px solid rgba(37,99,235,.3);
       border-radius: var(--radius);
       padding: 28px 32px;
-      display: flex; align-items: center;
-      justify-content: space-between; gap: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
       margin-bottom: 28px;
     }
     .gpa-banner .big-num {
       font-family: 'Syne', sans-serif;
-      font-size: 56px; font-weight: 800;
-      color: var(--accent-glow); line-height: 1;
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--accent-glow);
+      line-height: 1;
     }
-    .gpa-banner .label { font-size: 14px; color: var(--muted2); margin-top: 4px; }
-    .gpa-divider { width: 1px; height: 60px; background: var(--border); }
+    .gpa-banner .label {
+      font-size: 14px;
+      color: var(--muted2);
+      margin-top: 4px;
+    }
+    .gpa-divider {
+      width: 1px;
+      height: 60px;
+      background: var(--border);
+    }
 
     .grade-pill {
       display: inline-block;
-      width: 36px; height: 36px;
+      width: 36px;
+      height: 36px;
       border-radius: 8px;
       font-family: 'Syne', sans-serif;
-      font-weight: 800; font-size: 15px;
-      display: flex; align-items: center; justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .gA  { background: rgba(16,185,129,.2);  color: #34d399; }
-    .gB  { background: rgba(37,99,235,.2);   color: #60a5fa; }
-    .gC  { background: rgba(245,158,11,.2);  color: #fbbf24; }
-    .gD  { background: rgba(239,68,68,.2);   color: #f87171; }
+    .gA  {
+      background: rgba(16,185,129,.2);
+      color: #34d399;
+    }
+    .gB  {
+      background: rgba(37,99,235,.2);   
+      color: #60a5fa;
+    }
+    .gC  {
+      background: rgba(245,158,11,.2);  
+      color: #fbbf24; 
+    }
+    .gD  { 
+      background: rgba(239,68,68,.2);   
+      color: #f87171; 
+    }
 
     .semester-tabs {
-      display: flex; gap: 8px; margin-bottom: 20px;
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
     }
     .sem-tab {
       padding: 8px 18px;
       border-radius: 20px;
-      font-size: 13px; font-weight: 500;
-      text-decoration: none; color: var(--muted2);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--muted2);
       background: var(--surface);
       border: 1px solid var(--border);
       transition: all .2s;
     }
-    .sem-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .sem-tab:not(.active):hover { border-color: var(--accent-glow); color: var(--accent-glow); }
+    .sem-tab.active { 
+      background: var(--accent); 
+      color: #fff; 
+      border-color: var(--accent); 
+    }
+    .sem-tab:not(.active):hover { 
+      border-color: var(--accent-glow); 
+      color: var(--accent-glow); 
+    }
 
     .marks-bar {
-      height: 8px; background: var(--surface2);
-      border-radius: 99px; overflow: hidden; min-width: 120px;
+      height: 8px;
+      background: var(--surface2);
+      border-radius: 99px;
+      overflow: hidden;
+      min-width: 120px;
     }
-    .marks-fill { height: 100%; border-radius: 99px; }
+    .marks-fill {
+      height: 100%; 
+      border-radius: 99px; 
+    }
     @media (max-width:520px){
       .gpa-banner{
         flex-wrap: wrap;
