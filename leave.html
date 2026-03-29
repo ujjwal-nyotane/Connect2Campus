@@ -93,6 +93,17 @@
     .chip-pending  { background: rgba(245,158,11,.15); color: #fbbf24; border: 1px solid rgba(245,158,11,.3); }
     .chip-approved { background: rgba(16,185,129,.15); color: #34d399; border: 1px solid rgba(16,185,129,.3); }
     .chip-rejected { background: rgba(239,68,68,.15);  color: #f87171; border: 1px solid rgba(239,68,68,.3); }
+    @media (max-width:520px) {
+      .leave-balance-strip{
+        grid-template-columns: repeat(2,1fr);
+      }
+      .leave-type-row{
+        flex-wrap: wrap;
+      }
+      .form-grid{
+        grid-template-columns: repeat(1,1fr);
+      }
+    }
   </style>
 </head>
 <body>

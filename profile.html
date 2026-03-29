@@ -41,7 +41,7 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
     .info-row {
       display: flex; justify-content: space-between; align-items: flex-start;
       padding: 13px 0; border-bottom: 1px solid rgba(30,45,74,.5); gap: 12px;
@@ -95,6 +95,11 @@
       border-radius: var(--radius); padding: 28px; margin-bottom: 24px;
     }
     .password-form h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 18px; }
+    @media (max-width:520px){
+      .info-grid{
+        grid-template-columns: repeat(1,1fr);
+      }
+    }
   </style>
 </head>
 <body>
