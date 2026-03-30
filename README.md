@@ -1,6 +1,7 @@
 # Connect2Campus
 
 Connect2Campus is a static, multi-page student portal prototype built with HTML and CSS.
+check the website👉 https://ujjwal-nyotane.github.io/Connect2Campus/
 
 ## Pages
 
