@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notifications — Connect2Campus</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      align-items: center;
+    }
+
+    .filter-btn {
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--muted2);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: all .2s;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .filter-btn:hover:not(.active) {
+      border-color: var(--muted2);
+      color: var(--text);
+    }
+
+    .mark-all {
+      margin-left: auto;
+      font-size: 13px;
+      color: var(--accent-glow);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--accent);
+      background: var(--accent-soft);
+      transition: background .2s;
+    }
+
+    .mark-all:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .notif-group {
+      margin-bottom: 28px;
+    }
+
+    .notif-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+      padding-left: 4px;
+    }
+
+    .notif-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .notif-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: border-color .2s;
+      position: relative;
+    }
+
+    .notif-card:hover {
+      border-color: var(--accent);
+    }
+
+    .notif-card.unread {
+      border-left: 3px solid var(--accent-glow);
+      background: rgba(37, 99, 235, .04);
+    }
+
+    .notif-card.unread::after {
+      content: '';
+      position: absolute;
+      top: 18px;
+      right: 16px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-glow);
+    }
+
+    .notif-icon-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .ni-blue {
+      background: var(--accent-soft);
+    }
+
+    .ni-red {
+      background: rgba(239, 68, 68, .15);
+    }
+
+    .ni-green {
+      background: rgba(16, 185, 129, .15);
+    }
+
+    .ni-amber {
+      background: rgba(245, 158, 11, .15);
+    }
+
+    .ni-purple {
+      background: rgba(139, 92, 246, .15);
+    }
+
+    .ni-cyan {
+      background: rgba(6, 182, 212, .15);
+    }
+
+    .notif-body {
+      flex: 1;
+    }
+
+    .notif-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .notif-desc {
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+
+    .notif-meta {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .notif-meta .tag {
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .notif-action {
+      font-size: 12px;
+      color: var(--accent-glow);
+      text-decoration: none;
+      margin-top: 6px;
+      display: inline-block;
+    }
+
+    .notif-action:hover {
+      text-decoration: underline;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted2);
+    }
+
+    .empty-state .emoji {
+      font-size: 48px;
+      margin-bottom: 14px;
+    }
+
+    .empty-state p {
+      font-size: 15px;
+    }
+
+    .unread-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--danger);
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="checkbox" id="mob-toggle" />
+  <div class="mob-drawer">
+    <a href="home.html">🏠 Dashboard</a>
+    <a href="attendance.html">📅 Attendance</a>
+    <a href="grades.html">📊 Grades</a>
+    <a href="leave.html">🏖️ Leave</a>
+    <a href="fees.html">💳 Fees</a>
+    <div class="divider"></div>
+    <a href="timetable.html">🗓️ Timetable</a>
+    <a href="notifications.html" class="active">🔔 Notifications</a>
+    <a href="hostel.html">🏠 Hostel &amp; Mess</a>
+    <a href="support.html">🎧 Help &amp; Support</a>
+    <a href="profile.html">👤 My Profile</a>
+    <div class="divider"></div>
+    <a href="index.html">🚪 Logout</a>
+  </div>
+
+  <div class="page">
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-logo">C2</div>
+        <span class="nav-title">Connect<span>2</span>Campus</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html">Dashboard</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="grades.html">Grades</a></li>
+        <li><a href="leave.html">Leave</a></li>
+        <li><a href="fees.html">Fees</a></li>
+        <li><a href="timetable.html">Timetable</a></li>
+        <li><a href="notifications.html" class="active">Alerts</a></li>
+        <li><a href="hostel.html">Hostel</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="notifications.html" class="nav-notif" title="Notifications">🔔<span class="dot"></span></a>
+        <a href="profile.html" class="nav-avatar">V</a>
+        <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
+      </div>
+    </nav>
+
+    <div class="page-header">
+      <p class="label">Alerts &amp; Updates</p>
+      <h1>Notifications <span style="font-size:22px;font-weight:400;color:var(--muted2);">· 5 unread</span></h1>
+      <p>Stay on top of academic deadlines, approvals and announcements.</p>
+    </div>
+
+    <div class="main-content">
+
+      <div class="filter-row">
+        <a href="notifications.html" class="filter-btn active">All</a>
+        <a href="notifications.html" class="filter-btn">Academic</a>
+        <a href="notifications.html" class="filter-btn">Finance</a>
+        <a href="notifications.html" class="filter-btn">Leave</a>
+        <a href="notifications.html" class="filter-btn">Events</a>
+        <a href="notifications.html" class="filter-btn">Exam</a>
+        <a href="notifications.html" class="mark-all">✓ Mark all read</a>
+      </div>
+
+      <div class="notif-group">
+        <div class="notif-group-label">Today </div>
+        <div class="notif-list">
+
+          <div class="notif-card unread">
+            <div class="notif-icon-wrap ni-red">⚠️</div>
+            <div class="notif-body">
+              <div class="notif-title">Attendance Shortage Warning — Operating Sysyem &amp; Linux</div>
+              <div class="notif-desc">Your attendance in Operating Sysyem &amp; Linux has dropped to 72%, below the
+                required 75%. Please attend all upcoming classes.</div>
+              <div class="notif-meta">
+                <span class="tag badge-red">Attendance</span>
+                <span>2 hours ago</span>
+                <a href="attendance.html" class="notif-action">View Attendance →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="notif-card unread">
+            <div class="notif-icon-wrap ni-amber">💰</div>
+            <div class="notif-body">
+              <div class="notif-title">Fee Payment Reminder — 5 Days Left</div>
+              <div class="notif-desc">Your Semester 2 fee of ₹12,400 is due by 31 March 2026. Pay now to avoid a late
+                fee of ₹500/week.</div>
+              <div class="notif-meta">
+                <span class="tag badge-amber">Finance</span>
+                <span>5 hours ago</span>
+                <a href="fees.html" class="notif-action">Pay Now →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="notif-card unread">
+            <div class="notif-icon-wrap ni-purple">📝</div>
+            <div class="notif-body">
+              <div class="notif-title">Mid-Semester Exam Schedule Released</div>
+              <div class="notif-desc">The mid-semester examination timetable for Semester 2 has been published. Exams
+                begin 15 June 2026.</div>
+              <div class="notif-meta">
+                <span class="tag badge-purple">Exam</span>
+                <span>8 hours ago</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="notif-group">
+        <div class="notif-group-label">Yesterday </div>
+        <div class="notif-list">
+
+          <div class="notif-card unread">
+            <div class="notif-icon-wrap ni-green">✅</div>
+            <div class="notif-body">
+              <div class="notif-title">Leave Application Approved — #LV-2026-031</div>
+              <div class="notif-desc">Your casual leave request for 10–11 March 2026 has been approved by your class
+                advisor Dr. Priya Gupta.</div>
+              <div class="notif-meta">
+                <span class="tag badge-green">Leave</span>
+                <span>Yesterday, 4:15 PM</span>
+                <a href="leave.html" class="notif-action">View Application →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="notif-card unread">
+            <div class="notif-icon-wrap ni-blue">🎉</div>
+            <div class="notif-body">
+              <div class="notif-title">Cultural Fest 2026 — Registration Open</div>
+              <div class="notif-desc">Registrations for TechCultura 2026 are now open. Last date to register is 5 April
+                2025. Over 20 events across technical and cultural categories.</div>
+              <div class="notif-meta">
+                <span class="tag badge-blue">Event</span>
+                <span>Yesterday, 11:00 AM</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="notif-group">
+        <div class="notif-group-label">This Week</div>
+        <div class="notif-list">
+
+          <div class="notif-card">
+            <div class="notif-icon-wrap ni-cyan">📚</div>
+            <div class="notif-body">
+              <div class="notif-title">Library — 2 Books Due for Return</div>
+              <div class="notif-desc">You have 2 borrowed books due for return by 28 March 2026: "Discrete Mathematics"
+                and "C Programming Concepts".</div>
+              <div class="notif-meta">
+                <span class="tag badge-cyan">Library</span>
+                <span>22 Mar 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="notif-card">
+            <div class="notif-icon-wrap ni-amber">🏫</div>
+            <div class="notif-body">
+              <div class="notif-title">Hostel Maintenance — Block B, 25 March</div>
+              <div class="notif-desc">Scheduled water supply shutdown from 9 AM – 1 PM on 27 March 2026 for Block B
+                residents due to pipe maintenance.</div>
+              <div class="notif-meta">
+                <span class="tag badge-amber">Hostel</span>
+                <span>21 Mar 2026</span>
+                <a href="hostel.html" class="notif-action">View Hostel Info →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="notif-card">
+            <div class="notif-icon-wrap ni-red">❌</div>
+            <div class="notif-body">
+              <div class="notif-title">Leave Application Rejected — #LV-2026-015</div>
+              <div class="notif-desc">Your leave application for the Hackathon event (5 Feb) was not approved. Reason:
+                Clash with scheduled Internal Assessment.</div>
+              <div class="notif-meta">
+                <span class="tag badge-red">Leave</span>
+                <span>20 Mar 2026</span>
+                <a href="leave.html" class="notif-action">View Details →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="notif-card">
+            <div class="notif-icon-wrap ni-blue">📣</div>
+            <div class="notif-body">
+              <div class="notif-title">Internal Assessment-2 Schedule — Fundamentals of C Programming</div>
+              <div class="notif-desc">IA-2 for Fundamentals of C Programming will be held on 2 April 2026, 11:00 AM in
+                Room MB-404. Syllabus: Array, String Array, Pointers.</div>
+              <div class="notif-meta">
+                <span class="tag badge-blue">Academic</span>
+                <span>19 Mar 2026</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <a href="home.html" class="btn btn-outline">← Back to Dashboard</a>
+    </div>
+
+    <footer>
+      <span class="footer-brand">Connect<span>2</span>Campus</span>
+      <nav class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="support.html">Help Desk</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </nav>
+      <span class="footer-copy">© 2026 Connect2Campus</span>
+    </footer>
+  </div>
+
+  <script src="js/guard.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
