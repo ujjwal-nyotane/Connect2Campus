@@ -5,22 +5,24 @@ document.addEventListener("DOMContentLoaded", function () {
     if (localStorage.getItem("isLoggedIn") == "true"){
     window.location.href="home.html";
     }
-    form.addEventListener("submit", function (e) {
-        e.preventDefault(); 
-        if(localStorage.length===0){
+    if(localStorage.length === 0){
             
             
             localStorage.setItem("users",JSON.stringify(users));
             localStorage.setItem("departments",JSON.stringify(departments));
             localStorage.setItem("results",JSON.stringify(results));
             localStorage.setItem("attendance", JSON.stringify(attendance));
+            localStorage.setItem("hostels", JSON.stringify(hostels));
         }
+    form.addEventListener("submit", function (e) {
+        e.preventDefault(); 
+        
         // Get values
         const enrollment = document.getElementById("enroll").value.trim();
         const password = document.getElementById("pass").value.trim();
 
         // Find user
-        
+        const users = JSON.parse(localStorage.getItem("users"));
         const user = users[enrollment];
         console.log(user);
         
@@ -38,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   
             window.location.href = "home.html";
         } else {
-            
+            alert("Invalid enrollment number or password.");
         }
     });
 

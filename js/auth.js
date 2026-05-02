@@ -149,6 +149,7 @@ const users = {
     department: "CSE AI & ML",
     hostel:"Alfred Nobel",
     RoomNo:"205",
+    Messplan:"Active",
     DOB: "2007-08-15",
     Gender:"Male",
     Nationality:"Indian",
@@ -158,6 +159,7 @@ const users = {
     Religon:"Hindu",
     AdmissionType:"Jee Mains",
     PersonalEmail:"vishwas.mahiwal@example.com",
+    UniversityEmail:"vishwas.mahiwal@university.edu",
     PersonalContact:"8954231597",
     FatherName:"Dilbag Singh",
     FatherContact:"9856321245",
@@ -165,9 +167,10 @@ const users = {
     MotherName:"Suman Singh",
     MotherContact:"9876543210",
     AnnualIncome:"10,00,000",
-    EmercengyContact:"9876543210",
+    EmergencyContact:"9876543210",
     PermanentAddress:"123, Green Street, Jaipur- 302001",
     currentAddress:"123, Green Street, Jaipur- 302001",
+    
 
 
   }
@@ -228,6 +231,138 @@ const results = {
   
 
 };
+const hostels = {
+  "Alfred Nobel": {
+    hostelname: "Alfred Nobel",
+    warden: "Mr. Vijay Singh",
+    contact: "9876543210",
+    RoomsTypes: "Four Seater Non AC Attached Washroom",
+    Mess:"ALred Nobel Mess",
+    Timigs:"24x7",
+    Facilities: {
+      Wifi: "Available",
+      Laundry: "Wed,Sat",
+      Gymnasium: "Available",
+      CommonRoom: "Available",
+      Canteen:"7:00 AM - 10:00 PM",
+      MedicalRoom:"24x7",
+      HotWater:"7-9am,7-10pm",
+      Parking:" Not Available",
+
+    }
+  },
+  MessMenu: {
+    Monday: 
+    { 
+      Breakfast:{
+         Veg:["Aloo Paratha", "Curd", "Tea"], NonVeg:["Omelette" ] 
+        }, 
+      Lunch:{
+         Veg:["Dal", "Rice", "Salad"], NonVeg:["Chicken"] 
+        }, 
+      Snacks: {
+         Veg:["Pani Puri"], NonVeg:["Chicken Tikka"] 
+        }, 
+      Dinner: {
+          Veg:["Khichdi", "Raita", "Papdi"], NonVeg:["Chicken Biryani"]
+      },
+    },
+    Tuesday: 
+    { 
+      Breakfast:{
+         Veg:["Masala dosa", "Chutney", "Tea","Sambhar"], NonVeg:["Egg Bhurji"] 
+        }, 
+      Lunch:{
+         Veg:["Rajma", "Chawal", "Roti", "Salad"], NonVeg:["fish curry"] 
+        }, 
+      Snacks: {
+         Veg:["Mad angles"],NonVeg:["Chicken Roll"]  
+        }, 
+      Dinner: {
+         Veg:["Kofta Curry","Raita","Gulab Jamun","Roti"], NonVeg:["Mutton Curry"] 
+        }
+     },
+    Wednesday: 
+    { 
+      Breakfast:{
+         Veg:["Paneer Paratha", "Curd", "Tea"], NonVeg:["Egg Paratha" ] 
+        }, 
+      Lunch:{
+         Veg:["Moong Dal", "Chawal", "Roti"], NonVeg:["Egg Curry"] 
+        }, 
+      Snacks: {
+         Veg:["Poha"], NonVeg:["Chicken lollipop"] 
+        }, 
+      Dinner: {
+          Veg:["Dal Tadka", "Rice", "Naan"], NonVeg:["Chicken Korma"]
+      },
+    },
+    Thursday: 
+    { 
+      Breakfast:{
+         Veg:["Potato Sandwich","Tea"], NonVeg:["Egg Sandwich"] 
+        }, 
+      Lunch:{
+         Veg:["Chole","Chawal","Roti"], NonVeg:["Egg Butter Masala"] 
+        }, 
+      Snacks: {
+         Veg:["Breadroll"], NonVeg:["Chicken Roll"] 
+        }, 
+      Dinner: {
+          Veg:["Rajma", "Chawal", "Roti"], NonVeg:["Fish Curry"]
+      },
+    },
+    Friday: 
+    { 
+      Breakfast:{
+         Veg:["Plain paratha","Curd", "Tea"], NonVeg:["Egg Paratha" ] 
+        }, 
+      Lunch:{
+         Veg:["Black Chana", "Chawal", "Roti"], NonVeg:["Chicken Curry"] 
+        }, 
+      Snacks: {
+         Veg:["Biscuits"], NonVeg:["Chicken Nuggets"] 
+        }, 
+      Dinner: {
+          Veg:["Shahi Paneer","Roti","Gulab Jamun"], NonVeg:["Mutton Biryani"]
+      },
+    },
+    Saturday: 
+    { 
+      Breakfast:{
+         Veg:["Paneer Sandwich", "Poha", "Tea"], NonVeg:["Egg Sandwich" ] 
+        }, 
+      Lunch:{
+         Veg:["Arhar Dal", "Chawal", "Roti"], NonVeg:["Egg Curry"] 
+        }, 
+      Snacks: {
+         Veg:["Pani Puri"], NonVeg:["Chicken Tikka"] 
+        }, 
+      Dinner: {
+          Veg:["Shahi Chaap", "Rice", "Naan"], NonVeg:["Chicken lollipop"]
+      },
+    },
+    Sunday: 
+    { 
+      Breakfast:{
+         Veg:["Mix Paratha", "Curd", "Tea"], NonVeg:["Egg Paratha" ] 
+        }, 
+      Lunch:{
+         Veg:["Malai Kofta", "Raita", "Roti"], NonVeg:["Mutton Curry"] 
+        }, 
+      Snacks: {
+         Veg:["Cream Roll"], NonVeg:["Chicken Roll"] 
+        }, 
+      Dinner: {
+          Veg:["Kofta Curry","Raita","Gulab Jamun","Roti"], NonVeg:["Fish Curry"] 
+      },
+    },
+  },
+  Notices: {
+    "Maintence Work": "Hostel maintenance work will be carried out on 8th May. Please ensure to keep your rooms clean and cooperate with the staff.-02 May 2026",
+  }
+};
+
 const attendance = {
   "CSE AI & ML": {
     "2": {

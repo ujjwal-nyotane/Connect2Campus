@@ -387,109 +387,49 @@
           <div class="section-title-sm">📞 Contact Details</div>
           <div class="info-grid">
             <div class="info-row"><span class="info-key">Personal Email</span><span
-                class="info-val">Vikas2006@gmail.com</span></div>
+                class="info-val PersonalEmail"></span></div>
             <div class="info-row"><span class="info-key">University Email</span><span
-                class="info-val">Vikas3660.beai@Chitkara.edu.in</span></div>
-            <div class="info-row"><span class="info-key">Mobile</span><span class="info-val">+91 9999910000</span></div>
-            <div class="info-row"><span class="info-key">Permanent Address</span><span class="info-val">42, Garstin
-                Baston Road, Delhi - 110011 </span></div>
-            <div class="info-row"><span class="info-key">Current Address</span><span class="info-val">Room A-205, Hostel
-                Alfred A</span></div>
+                class="info-val UniversityEmail"></span></div>
+            <div class="info-row"><span class="info-key">Mobile</span><span class="info-val PersonalContact"></span></div>
+            <div class="info-row"><span class="info-key">Permanent Address</span><span class="info-val PermanentAddress"></span></div>
+            <div class="info-row"><span class="info-key">Current Address</span><span class="info-val currentAddress"></span></div>
           </div>
         </div>
 
         <div class="card">
           <div class="section-title-sm">👨‍👩‍👧 Guardian Information</div>
           <div class="info-grid">
-            <div class="info-row"><span class="info-key">Father's Name</span><span class="info-val">Kuldeep Kumar</span>
+            <div class="info-row"><span class="info-key">Father's Name</span><span class="info-val FatherName"></span>
             </div>
-            <div class="info-row"><span class="info-key">Father's Mobile</span><span class="info-val">+91
-                9999912000</span></div>
-            <div class="info-row"><span class="info-key">Father's Occupation</span><span class="info-val">Government
-                Employee</span></div>
-            <div class="info-row"><span class="info-key">Mother's Name</span><span class="info-val">Sushma Devi </span>
+            <div class="info-row"><span class="info-key">Father's Mobile</span><span class="info-val FatherContact"></span></div>
+            <div class="info-row"><span class="info-key">Father's Occupation</span><span class="info-val FatherOccupation"></span></div>
+            <div class="info-row"><span class="info-key">Mother's Name</span><span class="info-val MotherName"></span>
             </div>
-            <div class="info-row"><span class="info-key">Mother's Mobile</span><span class="info-val">+91
-                9999911000</span></div>
-            <div class="info-row"><span class="info-key">Annual Income</span><span class="info-val">₹12,00,000</span>
+            <div class="info-row"><span class="info-key">Mother's Mobile</span><span class="info-val MotherContact"></span></div>
+            <div class="info-row"><span class="info-key">Annual Income</span><span class="info-val AnnualIncome"></span>
             </div>
-            <div class="info-row"><span class="info-key">Emergency Contact</span><span class="info-val">+91
-                9999912000</span></div>
+            <div class="info-row"><span class="info-key">Emergency Contact</span><span class="info-val EmergencyContact"></span></div>
           </div>
         </div>
       </div>
 
-      <div class="card" style="margin-bottom:24px;">
-        <div class="section-title-sm">📄 Documents &amp; Downloads</div>
-        <div class="doc-list">
-          <div class="doc-item">
-            <div class="doc-left">
-              <span class="doc-icon">🎟️</span>
-              <div>
-                <div class="doc-name">Admission Letter 2025</div>
-                <div class="doc-meta">Issued: 15 Jul 2025 · PDF</div>
-              </div>
-            </div>
-            <a href="#" class="doc-dl">Download</a>
-          </div>
-          <div class="doc-item">
-            <div class="doc-left">
-              <span class="doc-icon">📋</span>
-              <div>
-                <div class="doc-name">Bonafide Certificate</div>
-                <div class="doc-meta">Generated: 01 Jan 2026 · PDF</div>
-              </div>
-            </div>
-            <a href="#" class="doc-dl">Download</a>
-          </div>
-          <div class="doc-item">
-            <div class="doc-left">
-              <span class="doc-icon">📊</span>
-              <div>
-                <div class="doc-name">Semester 1 Marksheet</div>
-                <div class="doc-meta">Issued: 20 Jan 2026 · PDF</div>
-              </div>
-            </div>
-            <a href="#" class="doc-dl">Download</a>
-          </div>
-          <div class="doc-item">
-            <div class="doc-left">
-              <span class="doc-icon">🪪</span>
-              <div>
-                <div class="doc-name">Student Identity Card</div>
-                <div class="doc-meta">Valid until: Jul 2029 · PDF</div>
-              </div>
-            </div>
-            <a href="#" class="doc-dl">Download</a>
-          </div>
-          <div class="doc-item">
-            <div class="doc-left">
-              <span class="doc-icon">🧾</span>
-              <div>
-                <div class="doc-name">Fee Receipt — Semester 1</div>
-                <div class="doc-meta">Paid: 8 Nov 2025 · ₹34,000 · PDF</div>
-              </div>
-            </div>
-            <a href="#" class="doc-dl">Download</a>
-          </div>
-        </div>
-      </div>
+      
 
       <div class="edit-section">
         <h3>✏️ Update Contact Details</h3>
-        <form action="profile.html">
+        <form id="edit-details">
           <div class="form-grid-2">
             <div class="form-field">
               <label>Personal Email</label>
-              <input type="email" value="Vishubab2006@gmail.com" />
+              <input type="email"  name="email" />
             </div>
             <div class="form-field">
               <label>Mobile Number</label>
-              <input type="tel" value="+91 9999910000" />
+              <input type="tel" value="" name="contact"/>
             </div>
             <div class="form-field full">
               <label>Permanent Address</label>
-              <textarea style="min-height:70px;">42, Garstin Baston Road, Delhi — 110011</textarea>
+              <textarea style="min-height:70px;" name="address"></textarea>
             </div>
           </div>
           <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -498,20 +438,20 @@
 
       <div class="password-form">
         <h3>🔒 Change Password</h3>
-        <form action="profile.html">
+        <form id="change-password-form">
           <div class="form-grid-2">
             <div class="form-field">
               <label>Current Password</label>
-              <input type="password" placeholder="Enter current password" />
+              <input type="password" placeholder="Enter current password" name="current-password"/>
             </div>
             <div class="form-field" style="opacity:0;pointer-events:none;"></div>
             <div class="form-field">
               <label>New Password</label>
-              <input type="password" placeholder="Min 8 characters" />
+              <input type="password" placeholder="Min 8 characters" name="new-password"/>
             </div>
             <div class="form-field">
               <label>Confirm New Password</label>
-              <input type="password" placeholder="Re-enter new password" />
+              <input type="password" placeholder="Re-enter new password" name="confirm-password" />
             </div>
           </div>
           <button type="submit" class="btn btn-primary">Update Password</button>
@@ -520,7 +460,7 @@
 
       <div style="display:flex;gap:12px;flex-wrap:wrap;">
         <a href="home.html" class="btn btn-outline">← Back to Dashboard</a>
-        <a href="index.html" class="btn btn-danger">🚪 Logout</a>
+        <a href="index.html"onclick="logout()" class="btn btn-danger">🚪 Logout</a>
       </div>
 
     </div>

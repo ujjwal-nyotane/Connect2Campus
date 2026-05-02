@@ -137,7 +137,7 @@
       font-size: 10px;
     }
 
-    .veg-tag {
+    .Veg-tag {
       display: inline-block;
       width: 10px;
       height: 10px;
@@ -147,7 +147,7 @@
       flex-shrink: 0;
     }
 
-    .nonveg-tag {
+    .NonVeg-tag {
       display: inline-block;
       width: 10px;
       height: 10px;
@@ -227,6 +227,7 @@
       flex-direction: column;
       gap: 10px;
     }
+    
 
     .notice-item {
       background: var(--surface2);
@@ -237,7 +238,16 @@
       gap: 12px;
       align-items: flex-start;
     }
+    .notice-title{
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 2px;
 
+    }
+    .notice-desc{
+      font-size: 12px;
+      color: var(--muted);
+    }
     .notice-dot {
       width: 8px;
       height: 8px;
@@ -245,7 +255,18 @@
       flex-shrink: 0;
       margin-top: 5px;
     }
-
+    .notice-dot-1{
+      background-color: var(--accent-glow);
+    }
+    .notice-dot-2{
+      background-color: var(--gold);
+    }
+    .notice-dot-3{
+      background-color: var(--danger);
+    }
+    .notice-dot-4{
+      background-color: var(--success);
+    }
     @media (max-width:520px) {
       .room-info-grid {
         grid-template-columns: repeat(1, 1fr);
@@ -277,7 +298,7 @@
     <a href="support.html">🎧 Help &amp; Support</a>
     <a href="profile.html">👤 My Profile</a>
     <div class="divider"></div>
-    <a href="index.html">🚪 Logout</a>
+    <a href="index.html" onclick="logout()">🚪 Logout</a>
   </div>
 
   <div class="page">
@@ -314,13 +335,13 @@
 
       <div class="hostel-banner">
         <div>
-          <h2>🏠 Alfred A - 205 </h2>
-          <p>Alfred Nobel Boys Hostel &nbsp;·&nbsp; Second Floor</p>
+          <h2>🏠 <span class="hostelname"></span> - <span class="roomno"></span> </h2>
+          <p> <span class="hostelname"></span> Hostel</p>
           <div class="details">
-            <div class="det-item">Room Type: <strong>Double Sharing</strong></div>
-            <div class="det-item">Roommate: <strong>Adi Chandhiok</strong></div>
-            <div class="det-item">Warden: <strong>Mr. Vijay Kumar</strong></div>
-            <div class="det-item">Mess: <strong>Franklin - B</strong></div>
+            <div class="det-item">Room Type: <strong class="Roomtype"></strong></div>
+           
+            <div class="det-item">Warden: <strong class="warden"></strong></div>
+            <div class="det-item">Mess: <strong class="hostelname"></strong></div>
           </div>
         </div>
         <span class="badge badge-green" style="font-size:13px;padding:7px 16px;white-space:nowrap;">Allotted ✓</span>
@@ -329,22 +350,22 @@
       <div class="grid-4 section-gap" style="margin-bottom:24px;">
         <div class="stat-card">
           <div class="icon">🛏️</div>
-          <div class="num">205</div>
+          <div class="num roomno">205</div>
           <div class="lbl">Room Number</div>
         </div>
         <div class="stat-card">
           <div class="icon">🍽️</div>
-          <div class="num" style="color:var(--success);">Active</div>
+          <div class="num MessPlan" style="color:var(--success);"></div>
           <div class="lbl">Mess Plan</div>
         </div>
         <div class="stat-card">
           <div class="icon">🔧</div>
-          <div class="num" style="color:var(--gold);">1</div>
+          <div class="num" style="color:var(--gold);"></div>
           <div class="lbl">Open Complaints</div>
         </div>
         <div class="stat-card">
           <div class="icon">📅</div>
-          <div class="num">Aug 2025</div>
+          <div class="num"></div>
           <div class="lbl">Allotment Date</div>
         </div>
       </div>
@@ -352,79 +373,34 @@
       <div class="card" style="margin-bottom:24px;">
         <h3 class="card-title">🍽️ Mess Menu — Week of 24 March 2026</h3>
         <div class="mess-day-tabs">
-          <a href="hostel.html" class="mess-tab">Monday</a>
-          <a href="hostel.html" class="mess-tab">Tuesday</a>
-          <a href="hostel.html" class="mess-tab">Wednesday</a>
-          <a href="hostel.html" class="mess-tab active">Thursday(Today)</a>
-          <a href="hostel.html" class="mess-tab">Friday</a>
-          <a href="hostel.html" class="mess-tab">Saturday</a>
-          <a href="hostel.html" class="mess-tab">Sunday</a>
+          <a class="mess-tab">Monday</a>
+          <a class="mess-tab">Tuesday</a>
+          <a class="mess-tab">Wednesday</a>
+          <a class="mess-tab">Thursday</a>
+          <a class="mess-tab">Friday</a>
+          <a class="mess-tab">Saturday</a>
+          <a class="mess-tab">Sunday</a>
         </div>
         <div class="meal-cards">
-          <div class="meal-card">
-            <div class="meal-time">🌅 Breakfast · 7:30–9:00 AM</div>
-            <div class="meal-name">Morning Meal</div>
-            <div class="meal-items">
-              <div class="meal-item"><span class="veg-tag"></span>Aloo Paratha</div>
-              <div class="meal-item"><span class="veg-tag"></span>Curd &amp; Pickle</div>
-              <div class="meal-item"><span class="veg-tag"></span>Bread &amp; Butter</div>
-              <div class="meal-item"><span class="veg-tag"></span>Tea / Coffee</div>
-              <div class="meal-item"><span class="veg-tag"></span>Banana</div>
-            </div>
-          </div>
-          <div class="meal-card">
-            <div class="meal-time">☀️ Lunch · 12:30–2:30 PM</div>
-            <div class="meal-name">Afternoon Meal</div>
-            <div class="meal-items">
-              <div class="meal-item"><span class="veg-tag"></span>Dal Tadka</div>
-              <div class="meal-item"><span class="veg-tag"></span>Jeera Rice</div>
-              <div class="meal-item"><span class="nonveg-tag"></span>Chicken Curry</div>
-              <div class="meal-item"><span class="veg-tag"></span>Chapati (4)</div>
-              <div class="meal-item"><span class="veg-tag"></span>Salad &amp; Papad</div>
-            </div>
-          </div>
-          <div class="meal-card">
-            <div class="meal-time">🌤️ Snacks · 5:00–6:00 PM</div>
-            <div class="meal-name">Evening Snacks</div>
-            <div class="meal-items">
-              <div class="meal-item"><span class="veg-tag"></span>Samosa (2)</div>
-              <div class="meal-item"><span class="veg-tag"></span>Tea / Milk</div>
-              <div class="meal-item"><span class="veg-tag"></span>Biscuits</div>
-            </div>
-          </div>
-          <div class="meal-card">
-            <div class="meal-time">🌙 Dinner · 8:00–9:30 PM</div>
-            <div class="meal-name">Night Meal</div>
-            <div class="meal-items">
-              <div class="meal-item"><span class="veg-tag"></span>Paneer Butter Masala</div>
-              <div class="meal-item"><span class="nonveg-tag"></span>Egg Curry</div>
-              <div class="meal-item"><span class="veg-tag"></span>Chapati (4)</div>
-              <div class="meal-item"><span class="veg-tag"></span>Steamed Rice</div>
-              <div class="meal-item"><span class="veg-tag"></span>Kheer (Dessert)</div>
-            </div>
-          </div>
-        </div>
-        <div style="display:flex;gap:12px;align-items:center;font-size:12px;color:var(--muted);">
-          <div style="display:flex;align-items:center;gap:5px;"><span class="veg-tag"></span> Vegetarian</div>
-          <div style="display:flex;align-items:center;gap:5px;"><span class="nonveg-tag"></span> Non-Vegetarian</div>
+
         </div>
       </div>
+      
 
       <div class="room-info-grid">
         <div class="card">
           <h3 class="card-title">🏠 Room Information</h3>
           <div>
-            <div class="info-row"><span class="label-k">Block</span><span class="label-v">Block A — Alfred Nobel
-                Hostel</span></div>
-            <div class="info-row"><span class="label-k">Room Number</span><span class="label-v">A-205</span></div>
-            <div class="info-row"><span class="label-k">Floor</span><span class="label-v">Second Floor</span></div>
-            <div class="info-row"><span class="label-k">Room Type</span><span class="label-v">Double Sharing</span>
+            <div class="info-row"><span class="label-k">Block</span><span class="label-v hostelname"></span></div>
+            <div class="info-row"><span class="label-k">Room Number</span><span class="label-v roomno"></span></div>
+           
+            <div class="info-row"><span class="label-k">Room Type</span><span class="label-v Roomtype"></span>
             </div>
-            <div class="info-row"><span class="label-k">Roommate</span><span class="label-v">Adi Chandhiok</span></div>
-            <div class="info-row"><span class="label-k">Warden</span><span class="label-v">Mr. Vijay Kumar</span></div>
-            <div class="info-row"><span class="label-k">Warden Contact</span><span class="label-v">+91 9813982082</span>
+            
+            <div class="info-row"><span class="label-k">Warden</span><span class="label-v warden"></span></div>
+            <div class="info-row"><span class="label-k">Warden Contact</span><span class="label-v wardencontact"></span>
             </div>
-            <div class="info-row"><span class="label-k">Gate Closing Time</span><span class="label-v">10:30 PM</span>
+            <div class="info-row"><span class="label-k">Timings</span><span class="label-v timings"></span>
             </div>
           </div>
         </div>
@@ -432,35 +408,7 @@
         <div class="card">
           <h3 class="card-title">🔔 Hostel Notices</h3>
           <div class="notice-list">
-            <div class="notice-item">
-              <span class="notice-dot" style="background:var(--danger);"></span>
-              <div>
-                <p style="font-size:14px;font-weight:500;margin-bottom:2px;">Water Supply Shutdown — 27 Mar, 9 AM–1 PM
-                </p>
-                <p style="font-size:12px;color:var(--muted);">Block A only · Maintenance work</p>
-              </div>
-            </div>
-            <div class="notice-item">
-              <span class="notice-dot" style="background:var(--gold);"></span>
-              <div>
-                <p style="font-size:14px;font-weight:500;margin-bottom:2px;">Parents Visit Day — 30 March 2026</p>
-                <p style="font-size:12px;color:var(--muted);">10 AM – 5 PM · Visitor passes required</p>
-              </div>
-            </div>
-            <div class="notice-item">
-              <span class="notice-dot" style="background:var(--accent-glow);"></span>
-              <div>
-                <p style="font-size:14px;font-weight:500;margin-bottom:2px;">Library Timings Extended to 10 PM</p>
-                <p style="font-size:12px;color:var(--muted);">Effective 20 March onwards</p>
-              </div>
-            </div>
-            <div class="notice-item">
-              <span class="notice-dot" style="background:var(--success);"></span>
-              <div>
-                <p style="font-size:14px;font-weight:500;margin-bottom:2px;">New Gym Equipment Installed</p>
-                <p style="font-size:12px;color:var(--muted);">Sports complex · Open 6 AM – 9 PM</p>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
