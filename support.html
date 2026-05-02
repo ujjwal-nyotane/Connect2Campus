@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help &amp; Support — Connect2Campus</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .support-channels {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .channel-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      text-align: center;
+      text-decoration: none;
+      transition: border-color .2s, transform .2s;
+      display: block;
+    }
+
+    .channel-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .channel-card .ch-icon {
+      font-size: 30px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .channel-card .ch-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .channel-card .ch-desc {
+      font-size: 12px;
+      color: var(--muted2);
+      margin-bottom: 10px;
+    }
+
+    .channel-card .ch-status {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .online {
+      background: rgba(16, 185, 129, .15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, .3);
+    }
+
+    .offline {
+      background: rgba(100, 116, 139, .1);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .ticket-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .ticket-form h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .priority-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .priority-btn {
+      flex: 1;
+      padding: 10px 8px;
+      border-radius: var(--radius-sm);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted2);
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .priority-btn.high {
+      border-color: var(--danger);
+      color: var(--danger);
+      background: rgba(239, 68, 68, .08);
+    }
+
+    .priority-btn:hover {
+      border-color: var(--muted2);
+      color: var(--text);
+    }
+
+    .ticket-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ticket-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      transition: border-color .2s;
+    }
+
+    .ticket-item:hover {
+      border-color: var(--accent);
+    }
+
+    .ticket-left {
+      flex: 1;
+    }
+
+    .ticket-id {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: .5px;
+      margin-bottom: 5px;
+    }
+
+    .ticket-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .ticket-desc {
+      font-size: 13px;
+      color: var(--muted2);
+      margin-bottom: 8px;
+    }
+
+    .ticket-meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .ticket-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .chip-open {
+      background: rgba(37, 99, 235, .15);
+      color: #60a5fa;
+      border: 1px solid rgba(37, 99, 235, .3);
+    }
+
+    .chip-progress {
+      background: rgba(245, 158, 11, .15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, .3);
+    }
+
+    .chip-resolved {
+      background: rgba(16, 185, 129, .15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, .3);
+    }
+
+    .chip-high {
+      background: rgba(239, 68, 68, .15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, .3);
+    }
+
+    .chip-medium {
+      background: rgba(245, 158, 11, .15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, .3);
+    }
+
+    .chip-low {
+      background: rgba(100, 116, 139, .1);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      transition: border-color .2s;
+    }
+
+    .faq-item:hover {
+      border-color: var(--accent);
+    }
+
+    .faq-q {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-q::after {
+      content: '›';
+      font-size: 18px;
+      color: var(--muted);
+    }
+
+    .faq-a {
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.6;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .contact-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+    }
+
+    .contact-card .cc-dept {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .contact-card .cc-name {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .contact-card .cc-info {
+      font-size: 12px;
+      color: var(--muted2);
+      line-height: 1.7;
+    }
+
+    @media (max-width:520px) {
+      .support-channels {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <input type="checkbox" id="mob-toggle" />
+  <div class="mob-drawer">
+    <a href="home.html">🏠 Dashboard</a>
+    <a href="attendance.html">📅 Attendance</a>
+    <a href="grades.html">📊 Grades</a>
+    <a href="leave.html">🏖️ Leave</a>
+    <a href="fees.html">💳 Fees</a>
+    <div class="divider"></div>
+    <a href="timetable.html">🗓️ Timetable</a>
+    <a href="notifications.html">🔔 Notifications</a>
+    <a href="hostel.html">🏠 Hostel &amp; Mess</a>
+    <a href="support.html" class="active">🎧 Help &amp; Support</a>
+    <a href="profile.html">👤 My Profile</a>
+    <div class="divider"></div>
+    <a href="index.html">🚪 Logout</a>
+  </div>
+
+  <div class="page">
+    <input type="checkbox" id="mob-toggle" />
+    <div class="mob-drawer">
+      <a href="home.html">🏠 Dashboard</a>
+      <a href="attendance.html">📅 Attendance</a>
+      <a href="grades.html">📊 Grades</a>
+      <a href="leave.html">🏖️ Leave</a>
+      <a href="fees.html">💳 Fees</a>
+      <div class="divider"></div>
+      <a href="timetable.html">🗓️ Timetable</a>
+      <a href="notifications.html">🔔 Notifications</a>
+      <a href="hostel.html">🏠 Hostel &amp; Mess</a>
+      <a href="support.html" class="active">🎧 Help &amp; Support</a>
+      <a href="profile.html">👤 My Profile</a>
+      <div class="divider"></div>
+      <a href="index.html">🚪 Logout</a>
+    </div>
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-logo">C2</div>
+        <span class="nav-title">Connect<span>2</span>Campus</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html">Dashboard</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="grades.html">Grades</a></li>
+        <li><a href="leave.html">Leave</a></li>
+        <li><a href="fees.html">Fees</a></li>
+        <li><a href="timetable.html">Timetable</a></li>
+        <li><a href="notifications.html">Alerts</a></li>
+        <li><a href="hostel.html">Hostel</a></li>
+        <li><a href="support.html" class="active">Support</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="notifications.html" class="nav-notif">🔔<span class="dot"></span></a>
+        <a href="profile.html" class="nav-avatar">V</a>
+        <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
+      </div>
+    </nav>
+
+    <div class="page-header">
+      <p class="label">Help &amp; Support</p>
+      <h1>Student Help Desk</h1>
+      <p>Raise grievances, track ticket status, and get help fast.</p>
+    </div>
+
+    <div class="main-content">
+
+      <div class="support-channels">
+        <a href="#raise-ticket" class="channel-card">
+          <span class="ch-icon">🎫</span>
+          <div class="ch-name">Raise Ticket</div>
+          <div class="ch-desc">Submit a formal grievance or support request</div>
+          <span class="ch-status online">Available</span>
+        </a>
+        <a href="#" class="channel-card">
+          <span class="ch-icon">💬</span>
+          <div class="ch-name">Live Chat</div>
+          <div class="ch-desc">Chat with student support staff</div>
+          <span class="ch-status online">Online · 9AM–5PM</span>
+        </a>
+        <a href="#" class="channel-card">
+          <span class="ch-icon">📞</span>
+          <div class="ch-name">Call Helpline</div>
+          <div class="ch-desc">+91 1800-180-2200 (toll free)</div>
+          <span class="ch-status online">Mon–Sat, 9–6 PM</span>
+        </a>
+        <a href="#" class="channel-card">
+          <span class="ch-icon">📧</span>
+          <div class="ch-name">Email Support</div>
+          <div class="ch-desc">helpdesk@connect2campus.edu</div>
+          <span class="ch-status offline">Reply in 24 hrs</span>
+        </a>
+      </div>
+
+      <div class="ticket-form" id="raise-ticket">
+        <h3>🎫 Raise a New Ticket</h3>
+        <form action="support.html">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Issue Category</label>
+              <select>
+                <option>Academics / Results</option>
+                <option>Attendance Dispute</option>
+                <option>Fee / Payment</option>
+                <option>Hostel / Mess</option>
+                <option>Library</option>
+                <option>IT / Portal Issue</option>
+                <option>Scholarship</option>
+                <option>Certificate / Documents</option>
+                <option>Ragging / Misconduct</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Priority Level</label>
+              <select>
+                <option>Low — General Query</option>
+                <option>Medium — Needs attention soon</option>
+                <option>High — Urgent issue</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Subject / Title</label>
+              <input type="text" placeholder="Brief title of your issue" />
+            </div>
+            <div class="form-field">
+              <label>Preferred Contact</label>
+              <select>
+                <option>Email</option>
+                <option>Phone Call</option>
+                <option>Portal Notification</option>
+              </select>
+            </div>
+            <div class="form-field full">
+              <label>Detailed Description</label>
+              <textarea
+                placeholder="Describe your issue in detail. Include dates, reference numbers or any other relevant information..."></textarea>
+            </div>
+            <div class="form-field full">
+              <label>Attach Supporting Document (optional)</label>
+              <input type="text" placeholder="File upload will be enabled in the next version" />
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <button type="submit" class="btn btn-primary">📤 Submit Ticket</button>
+            <a href="support.html" class="btn btn-outline">Clear Form</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="card" style="margin-bottom:24px;">
+        <h3 class="card-title">📋 My Tickets</h3>
+        <div class="ticket-list">
+
+          <div class="ticket-item">
+            <div class="ticket-left">
+              <div class="ticket-id">#TKT-2026-0312</div>
+              <div class="ticket-title">Attendance marked wrong for 12 March</div>
+              <div class="ticket-desc">I was present in Chemistry class on 12 March but the system shows me absent.
+                Please review and correct.</div>
+              <div class="ticket-meta">
+                <span>Academic</span>
+                <span>Submitted: 14 Mar 2026</span>
+                <span>Last updated: 18 Mar 2026</span>
+              </div>
+            </div>
+            <div class="ticket-right">
+              <span class="chip chip-progress">In Progress</span>
+              <span class="chip chip-medium">Medium</span>
+            </div>
+          </div>
+
+          <div class="ticket-item">
+            <div class="ticket-left">
+              <div class="ticket-id">#TKT-2026-0287</div>
+              <div class="ticket-title">Fee receipt not generated after payment</div>
+              <div class="ticket-desc">Paid Semester 1 fee via net banking on 8 Nov 2024. Transaction was successful but
+                receipt was not emailed.</div>
+              <div class="ticket-meta">
+                <span>Finance</span>
+                <span>Submitted: 9 Nov 2025</span>
+              </div>
+            </div>
+            <div class="ticket-right">
+              <span class="chip chip-resolved">✓ Resolved</span>
+              <span class="chip chip-low">Low</span>
+            </div>
+          </div>
+
+          <div class="ticket-item">
+            <div class="ticket-left">
+              <div class="ticket-id">#TKT-2026-0341</div>
+              <div class="ticket-title">Wi-Fi not working in Room A-205</div>
+              <div class="ticket-desc">Internet connectivity has been intermittent for 3 days. Other rooms in the block
+                seem to be fine.</div>
+              <div class="ticket-meta">
+                <span>IT / Hostel</span>
+                <span>Submitted: 22 Mar 2026</span>
+              </div>
+            </div>
+            <div class="ticket-right">
+              <span class="chip chip-open">Open</span>
+              <span class="chip chip-high">High</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:24px;">
+        <div class="card">
+          <h3 class="card-title">❓ Frequently Asked Questions</h3>
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-q">How do I apply for a bonafide certificate?</div>
+              <div class="faq-a">Visit the Academic Section (Admin Block, Room 5) with your ID card. You can also raise
+                a ticket under "Certificate / Documents" and it will be couriered.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">What is the minimum attendance to appear in exams?</div>
+              <div class="faq-a">You must maintain at least 75% attendance in each subject to be eligible to appear in
+                semester exams. Shortage can be condoned in medical cases with valid proof.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">How long does a leave application take to get approved?</div>
+              <div class="faq-a">Leave applications are typically reviewed within 2 working days by your class advisor.
+                You will receive a notification on this portal once a decision is made.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">How do I apply for a scholarship?</div>
+              <div class="faq-a">Scholarship applications open in August and January each year. Visit the Finance office
+                or raise a ticket under "Scholarship" for guidance on eligibility and documents required.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">What should I do if I face ragging?</div>
+              <div class="faq-a">Report immediately to the Anti-Ragging Committee at antirangging@connect2campus.edu or
+                call the 24×7 helpline. All complaints are treated with strict confidentiality.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">📞 Key Contacts</h3>
+          <div class="contact-grid">
+            <div class="contact-card">
+              <div class="cc-dept">Academics</div>
+              <div class="cc-name">Dr. Saravjeet Singh</div>
+              <div class="cc-info">Dean of Studies<br />acadmic@c2c.edu<br />Ext: 101</div>
+            </div>
+            <div class="contact-card">
+              <div class="cc-dept">Finance</div>
+              <div class="cc-name">Mr. A. Joshi</div>
+              <div class="cc-info">Accounts Officer<br />finance@c2c.edu<br />Ext: 210</div>
+            </div>
+            <div class="contact-card">
+              <div class="cc-dept">Hostel</div>
+              <div class="cc-name">Mr. Vijay Kumar</div>
+              <div class="cc-info">Chief Warden<br />hostel@c2c.edu<br />+91 9813982082</div>
+            </div>
+            <div class="contact-card">
+              <div class="cc-dept">IT Support</div>
+              <div class="cc-name">IT Help Desk</div>
+              <div class="cc-info">it@c2c.edu<br />Mon–Sat 9AM–6PM<br />Ext: 305</div>
+            </div>
+            <div class="contact-card">
+              <div class="cc-dept">Medical</div>
+              <div class="cc-name">Health Centre</div>
+              <div class="cc-info">health@c2c.edu<br />24×7 Emergency<br />+91 98765-11111</div>
+            </div>
+            <div class="contact-card">
+              <div class="cc-dept">Anti-Ragging</div>
+              <div class="cc-name">Committee</div>
+              <div class="cc-info">anti-ragging@c2c.edu<br />24×7 Helpline<br />1800-XXX-0000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="home.html" class="btn btn-outline">← Back to Dashboard</a>
+    </div>
+
+    <footer>
+      <span class="footer-brand">Connect<span>2</span>Campus</span>
+      <nav class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="support.html">Help Desk</a>
+       <a href="#" onclick="logout()">Logout</a>
+      </nav>
+      <span class="footer-copy">© 2026 Connect2Campus</span>
+    </footer>
+  </div>
+  
+  <script src="js/guard.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
