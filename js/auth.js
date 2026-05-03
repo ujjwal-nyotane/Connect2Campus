@@ -5,6 +5,35 @@ const departments = {
     duration: "4",
     block: "Martin Block",
     Advisor: "Dr. Ramesh Kumar Meena",
+    Notifications: {
+      Academic :{ 
+        "Midterm Exams": "Midterm exams for all subjects will be held from 15th to 20th May. Please check the timetable for details.-10 May 2026",
+      },
+      Finance: {
+        "Fee Payment Deadline": "The deadline for fee payment for the upcoming semester is 30th June. Please ensure to complete the payment to avoid late fees.-25 April 2026",
+      },
+      Events: {
+        "Tech Talk": "Join us for an exciting tech talk on 'The Future of AI' by Dr. Anjali Sharma on 5th May at 3 PM in the Martin Block Auditorium.-28 April 2026",
+      },
+        General: {
+        "Department Meeting": "There will be a department meeting on 12th May at 2 PM in the conference room. All students are encouraged to attend.-5 May 2026",
+        },
+    },
+    KeyContacts: { 
+      "Academics":{ Name: "Dr. Saravjeet Singh",Position : "Dean of Department", Email: "dr.saravjeet@college.edu" ,Contact:"9876553210"},
+      "Hostel":{ Name: "Mr. Bipin Jamwal",Position : "Chief Warden", Email: "mr.bipin@college.edu" ,Contact:"9876542210"},
+      "Finance":{ Name: "Ms. Anjali Sharma",Position : "Finance Officer", Email: "ms.anjali@college.edu" ,Contact:"9876548210"},
+      "IT Support":{ Name: "Mr. Raghav",Position : "IT Support Head", Email: "mr.raghav@college.edu" ,Contact:"8876549210"},
+      "Health Center":{ Name: "Dr. Priya",Position : "Chief Medical Officer", Email: "dr.priya@college.edu" ,Contact:"9876547210"},
+      "Anti Ragging Cell":{ Name: "Ms. Kavita",Position : "Anti Ragging Officer", Email: "ms.kavita@college.edu" ,Contact:"9876546210"},
+    },
+    FAQs: {
+      "How to register for courses?": "You can register for courses through the student portal. Log in with your credentials, navigate to the 'Course Registration' section, and select your desired courses for the semester.",
+      "What are the library timings?": "The library is open from 8 AM to 10 PM on weekdays and from 9 AM to 5 PM on weekends. It is closed on public holidays.",
+      "How to apply for hostel accommodation?": "To apply for hostel accommodation, please fill out the hostel application form available on the student portal. Submit the form along with the required documents before the deadline.",
+      "What is the procedure for applying for leave?": "To apply for leave, please fill out the leave application form available on the student portal. Submit the form along with the required documents before the deadline.",
+      "Is there a student counseling service available?": "Yes, we have a student counseling service available. You can book an appointment with our counselors through the student portal or visit the counseling center located in the Martin Block.",
+    },
     subjects: {
       '1': {
         S1: { name: "Python Fundamentals", credit: "5", teacher: "Mrs. Deepali" },
@@ -170,10 +199,20 @@ const users = {
     EmergencyContact:"9876543210",
     PermanentAddress:"123, Green Street, Jaipur- 302001",
     currentAddress:"123, Green Street, Jaipur- 302001",
-    
+    myTickets: {
+      TKT86451320: {
+        "Category": "Academic/Results",
+        "Priority": "Medium",
+        "contactmethod": "Email",
+        "Submitted": "2026-04-25 14:30",
+        "Status": "Open",
+        "Title": "Attendance marked wrong in the portal",
+        "Description": "I have noticed that my attendance for the subject 'Discrete Mathematics' is marked as absent for the date 20th April, but I was present in the class. Kindly look into this issue and update my attendance record accordingly.",
+      },
 
 
-  }
+  },
+},
 };
 const results = {
   "2510993660": {
@@ -249,7 +288,15 @@ const hostels = {
       HotWater:"7-9am,7-10pm",
       Parking:" Not Available",
 
-    }
+    },
+    Complaints: {
+      "CMP20264414324733": {
+        "Category": "Plumber",
+        "Location": "Alfred Nobel - 205",
+        "Description": "Leaking water in the bathroom",
+        "Status": "Pending"
+      }
+    },
   },
   MessMenu: {
     Monday: 

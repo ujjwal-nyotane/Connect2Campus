@@ -249,7 +249,7 @@
     }
 
     .faq-q::after {
-      content: '›';
+      content: '';
       font-size: 18px;
       color: var(--muted);
     }
@@ -401,11 +401,11 @@
 
       <div class="ticket-form" id="raise-ticket">
         <h3>🎫 Raise a New Ticket</h3>
-        <form action="support.html">
+        <form id="ticket-form">
           <div class="form-grid-2">
             <div class="form-field">
               <label>Issue Category</label>
-              <select>
+              <select name="Category" required>
                 <option>Academics / Results</option>
                 <option>Attendance Dispute</option>
                 <option>Fee / Payment</option>
@@ -420,7 +420,7 @@
             </div>
             <div class="form-field">
               <label>Priority Level</label>
-              <select>
+              <select name="Priority" required>
                 <option>Low — General Query</option>
                 <option>Medium — Needs attention soon</option>
                 <option>High — Urgent issue</option>
@@ -428,11 +428,11 @@
             </div>
             <div class="form-field">
               <label>Subject / Title</label>
-              <input type="text" placeholder="Brief title of your issue" />
+              <input type="text" required name="Title" placeholder="Brief title of your issue" />
             </div>
             <div class="form-field">
               <label>Preferred Contact</label>
-              <select>
+              <select name="contactmethod" required>
                 <option>Email</option>
                 <option>Phone Call</option>
                 <option>Portal Notification</option>
@@ -441,16 +441,13 @@
             <div class="form-field full">
               <label>Detailed Description</label>
               <textarea
-                placeholder="Describe your issue in detail. Include dates, reference numbers or any other relevant information..."></textarea>
+                name="Description" required placeholder="Describe your issue in detail. Include dates, reference numbers or any other relevant information..."></textarea>
             </div>
-            <div class="form-field full">
-              <label>Attach Supporting Document (optional)</label>
-              <input type="text" placeholder="File upload will be enabled in the next version" />
-            </div>
+            
           </div>
           <div style="display:flex;gap:12px;">
-            <button type="submit" class="btn btn-primary">📤 Submit Ticket</button>
-            <a href="support.html" class="btn btn-outline">Clear Form</a>
+            <button type="submit" name="submit" class="btn btn-primary">📤 Submit Ticket</button>
+            <a  class="btn btn-outline">Clear Form</a>
           </div>
         </form>
       </div>
@@ -459,57 +456,7 @@
         <h3 class="card-title">📋 My Tickets</h3>
         <div class="ticket-list">
 
-          <div class="ticket-item">
-            <div class="ticket-left">
-              <div class="ticket-id">#TKT-2026-0312</div>
-              <div class="ticket-title">Attendance marked wrong for 12 March</div>
-              <div class="ticket-desc">I was present in Chemistry class on 12 March but the system shows me absent.
-                Please review and correct.</div>
-              <div class="ticket-meta">
-                <span>Academic</span>
-                <span>Submitted: 14 Mar 2026</span>
-                <span>Last updated: 18 Mar 2026</span>
-              </div>
-            </div>
-            <div class="ticket-right">
-              <span class="chip chip-progress">In Progress</span>
-              <span class="chip chip-medium">Medium</span>
-            </div>
-          </div>
-
-          <div class="ticket-item">
-            <div class="ticket-left">
-              <div class="ticket-id">#TKT-2026-0287</div>
-              <div class="ticket-title">Fee receipt not generated after payment</div>
-              <div class="ticket-desc">Paid Semester 1 fee via net banking on 8 Nov 2024. Transaction was successful but
-                receipt was not emailed.</div>
-              <div class="ticket-meta">
-                <span>Finance</span>
-                <span>Submitted: 9 Nov 2025</span>
-              </div>
-            </div>
-            <div class="ticket-right">
-              <span class="chip chip-resolved">✓ Resolved</span>
-              <span class="chip chip-low">Low</span>
-            </div>
-          </div>
-
-          <div class="ticket-item">
-            <div class="ticket-left">
-              <div class="ticket-id">#TKT-2026-0341</div>
-              <div class="ticket-title">Wi-Fi not working in Room A-205</div>
-              <div class="ticket-desc">Internet connectivity has been intermittent for 3 days. Other rooms in the block
-                seem to be fine.</div>
-              <div class="ticket-meta">
-                <span>IT / Hostel</span>
-                <span>Submitted: 22 Mar 2026</span>
-              </div>
-            </div>
-            <div class="ticket-right">
-              <span class="chip chip-open">Open</span>
-              <span class="chip chip-high">High</span>
-            </div>
-          </div>
+          
 
         </div>
       </div>
@@ -518,67 +465,14 @@
         <div class="card">
           <h3 class="card-title">❓ Frequently Asked Questions</h3>
           <div class="faq-list">
-            <div class="faq-item">
-              <div class="faq-q">How do I apply for a bonafide certificate?</div>
-              <div class="faq-a">Visit the Academic Section (Admin Block, Room 5) with your ID card. You can also raise
-                a ticket under "Certificate / Documents" and it will be couriered.</div>
-            </div>
-            <div class="faq-item">
-              <div class="faq-q">What is the minimum attendance to appear in exams?</div>
-              <div class="faq-a">You must maintain at least 75% attendance in each subject to be eligible to appear in
-                semester exams. Shortage can be condoned in medical cases with valid proof.</div>
-            </div>
-            <div class="faq-item">
-              <div class="faq-q">How long does a leave application take to get approved?</div>
-              <div class="faq-a">Leave applications are typically reviewed within 2 working days by your class advisor.
-                You will receive a notification on this portal once a decision is made.</div>
-            </div>
-            <div class="faq-item">
-              <div class="faq-q">How do I apply for a scholarship?</div>
-              <div class="faq-a">Scholarship applications open in August and January each year. Visit the Finance office
-                or raise a ticket under "Scholarship" for guidance on eligibility and documents required.</div>
-            </div>
-            <div class="faq-item">
-              <div class="faq-q">What should I do if I face ragging?</div>
-              <div class="faq-a">Report immediately to the Anti-Ragging Committee at antirangging@connect2campus.edu or
-                call the 24×7 helpline. All complaints are treated with strict confidentiality.</div>
-            </div>
+            
           </div>
         </div>
 
         <div class="card">
           <h3 class="card-title">📞 Key Contacts</h3>
           <div class="contact-grid">
-            <div class="contact-card">
-              <div class="cc-dept">Academics</div>
-              <div class="cc-name">Dr. Saravjeet Singh</div>
-              <div class="cc-info">Dean of Studies<br />acadmic@c2c.edu<br />Ext: 101</div>
-            </div>
-            <div class="contact-card">
-              <div class="cc-dept">Finance</div>
-              <div class="cc-name">Mr. A. Joshi</div>
-              <div class="cc-info">Accounts Officer<br />finance@c2c.edu<br />Ext: 210</div>
-            </div>
-            <div class="contact-card">
-              <div class="cc-dept">Hostel</div>
-              <div class="cc-name">Mr. Vijay Kumar</div>
-              <div class="cc-info">Chief Warden<br />hostel@c2c.edu<br />+91 9813982082</div>
-            </div>
-            <div class="contact-card">
-              <div class="cc-dept">IT Support</div>
-              <div class="cc-name">IT Help Desk</div>
-              <div class="cc-info">it@c2c.edu<br />Mon–Sat 9AM–6PM<br />Ext: 305</div>
-            </div>
-            <div class="contact-card">
-              <div class="cc-dept">Medical</div>
-              <div class="cc-name">Health Centre</div>
-              <div class="cc-info">health@c2c.edu<br />24×7 Emergency<br />+91 98765-11111</div>
-            </div>
-            <div class="contact-card">
-              <div class="cc-dept">Anti-Ragging</div>
-              <div class="cc-name">Committee</div>
-              <div class="cc-info">anti-ragging@c2c.edu<br />24×7 Helpline<br />1800-XXX-0000</div>
-            </div>
+            
           </div>
         </div>
       </div>

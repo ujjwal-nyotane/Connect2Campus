@@ -909,7 +909,7 @@ function calcleaves() {
         if (dept.leaves[details.rollNo][i].approvestatus == "pending") {
             pdl++;
         }
-        if (dept.leaves[details.rollNo][i].approvestatus == "approve") {
+        if (dept.leaves[details.rollNo][i].approvestatus == "approved") {
             apl++;
         }
     }
@@ -947,22 +947,22 @@ function feesbreakdown() {
 let paymentmethod = "Card";
 
 const paymentmode = $(".payment-modes");
-if(paymentmode){
-paymentmode.addEventListener("click", (e) => {
-    {
-        const pym = $$(".pm-btn");
-        pym.forEach((t) => {
-            t.classList.remove("sel")
-        })
-        paymentmethod = e.target.closest("div").id;
-        e.target.closest("div").classList.add("sel");
-        payfee();
+if (paymentmode) {
+    paymentmode.addEventListener("click", (e) => {
+        {
+            const pym = $$(".pm-btn");
+            pym.forEach((t) => {
+                t.classList.remove("sel")
+            })
+            paymentmethod = e.target.closest("div").id;
+            e.target.closest("div").classList.add("sel");
+            payfee();
 
-    }
-})
+        }
+    })
 }
 function payfee() {
-    if(!$(".payment-form")) return;
+    if (!$(".payment-form")) return;
     if (paymentmethod == "Card") {
         $("#Cardpay").style.display = "block";
         $("#UPIpay").style.display = "none";
@@ -978,16 +978,16 @@ function payfee() {
         $("#UPIpay").style.display = "none";
         $("#NetBankingpay").style.display = "block";
     }
-    
+
 }
-let paymentformdata={};
+let paymentformdata = {};
 function submitpayment() {
-    if(!$(".payment-form")) return;
+    if (!$(".payment-form")) return;
 
     $(".payment-form").addEventListener("submit", (e) => {
         e.preventDefault();
-        
-        
+
+
         transactionid = `TXN${new Date().getTime()}`;
         const form = new FormData(e.target.closest("form"));
         const feeamount = form.get("feeamount");
@@ -999,17 +999,17 @@ function submitpayment() {
         localStorage.setItem("departments", JSON.stringify(departments));
         showfeepaymenthistory();
         alert("Payment successful!");
-        
-        
+
+
     });
 }
 function showfeepaymenthistory() {
     const list = $(".paymenthistory");
-   
-    if(!list) return;
+
+    if (!list) return;
     list.innerText = "";
-    
-    for(i in dept.fees.feehistory[details.rollNo][currentSemester]){
+
+    for (i in dept.fees.feehistory[details.rollNo][currentSemester]) {
 
         const row = document.createElement("div");
         row.classList.add("receipt-row");
@@ -1044,32 +1044,32 @@ function showfeepaymenthistory() {
     updatedue();
 }
 
-function updatedue(){
+function updatedue() {
     totalfees = 0;
     paidfees = 0;
     for (i in dept.fees.feedetails) {
         totalfees += Number(dept.fees.feedetails[i]);
     }
-    for(i in dept.fees.feehistory[details.rollNo][currentSemester]){
+    for (i in dept.fees.feehistory[details.rollNo][currentSemester]) {
         paidfees += Number(dept.fees.feehistory[details.rollNo][currentSemester][i].amount);
     }
     setText(".feesPaid", `₹${paidfees}`);
-    setText(".feePending", `₹${totalfees-paidfees}`);
+    setText(".feePending", `₹${totalfees - paidfees}`);
     const myInput = $$("input[name='feeamount']");
-    if(myInput){
+    if (myInput) {
         myInput.forEach(input => input.max = totalfees - paidfees);
     }
-    return totalfees - paidfees;    
+    return totalfees - paidfees;
 }
 
-function editdetails(){
-    if(!$("#edit-details")) return;
+function editdetails() {
+    if (!$("#edit-details")) return;
     const inputs = $("#edit-details");
     inputs.email.value = details.PersonalEmail;
     inputs.contact.value = details.PersonalContact;
     inputs.address.value = details.PermanentAddress;
-    
-    $("#edit-details").addEventListener("submit",(e)=>{
+
+    $("#edit-details").addEventListener("submit", (e) => {
         e.preventDefault();
         const form = new FormData(e.target.closest("form"));
         details.PersonalEmail = form.get("email");
@@ -1084,19 +1084,19 @@ function editdetails(){
 
     });
 }
-function changepassword(){
-    if(!$("#change-password-form")) return;
-    $("#change-password-form").addEventListener("submit",(e)=>{
+function changepassword() {
+    if (!$("#change-password-form")) return;
+    $("#change-password-form").addEventListener("submit", (e) => {
         e.preventDefault();
         const form = new FormData(e.target.closest("form"));
         const current = form.get("current-password");
         const newpass = form.get("new-password");
         const confirmpass = form.get("confirm-password");
-        if(current != details.password){
+        if (current != details.password) {
             alert("Current password is incorrect!");
             return;
         }
-        if(newpass != confirmpass){
+        if (newpass != confirmpass) {
             alert("New passwords do not match!");
             return;
         }
@@ -1108,24 +1108,24 @@ function changepassword(){
     });
 }
 let messday;
-function hostelinfo(){
+function hostelinfo() {
     setText(".hostelname", details.hostel);
     setText(".roomno", details.RoomNo);
     setText(".Roomtype", hostels[details.hostel].RoomsTypes);
     setText(".warden", hostels[details.hostel].warden);
-    setText(".MessPlan",details.Messplan);
+    setText(".MessPlan", details.Messplan);
     setText(".wardencontact", hostels[details.hostel].contact);
     setText(".timings", hostels[details.hostel].Timigs);
 
     const noticelist = $(".notice-list");
-    if(noticelist){
+    if (noticelist) {
         noticelist.innerHTML = "";
-        for(i in hostels.Notices){
+        for (i in hostels.Notices) {
             const notice = document.createElement("div");
             notice.classList.add("notice-item");
             const dot = document.createElement("span");
             dot.classList.add("notice-dot");
-            dot.classList.add(`notice-dot-${Math.ceil(Math.random()*4)}`);
+            dot.classList.add(`notice-dot-${Math.ceil(Math.random() * 4)}`);
             const con = document.createElement("div");
             const title = document.createElement("p");
             title.classList.add("notice-title");
@@ -1134,7 +1134,7 @@ function hostelinfo(){
             const desc = document.createElement("p");
             desc.classList.add("notice-desc");
             desc.innerText = hostels.Notices[i];
-            
+
             con.appendChild(title);
             con.appendChild(desc);
             notice.appendChild(dot);
@@ -1142,57 +1142,299 @@ function hostelinfo(){
             noticelist.appendChild(notice);
         }
     }
+    const facilitygrid = $(".facility-grid");
+    if (facilitygrid) {
+        facilitygrid.innerHTML = "";
+        for (i in hostels[details.hostel].Facilities) {
+            const facility = document.createElement("div");
+            facility.classList.add("facility-item");
+            const group = document.createElement("div");
+            const name = document.createElement("div");
+            name.innerText = i;
+            name.style.fontWeight = "800";
+            name.style.fontSize = "1rem";
+
+            const desc = document.createElement("div");
+            desc.innerText = hostels[details.hostel].Facilities[i];
+            desc.style.color = "var(--success)";
+            group.appendChild(name);
+            group.appendChild(desc);
+            facility.appendChild(group);
+            facilitygrid.appendChild(facility);
+        }
+    }
     const messdaytabs = $(".mess-day-tabs");
-    if(!messdaytabs) return;
+    if (!messdaytabs) return;
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    messday=dayNames[now.getDay()];
-    $$(".mess-tab").forEach(tab=>{
-        if(tab.innerText == messday){
+    messday = dayNames[now.getDay()];
+    $$(".mess-tab").forEach(tab => {
+        if (tab.innerText == messday) {
             tab.classList.add("active");
         }
     });
     loadMessMenu(messday);
-    messdaytabs.addEventListener("click",(e)=>{
-        $$(".mess-tab").forEach(tab=>tab.classList.remove("active"));
+    messdaytabs.addEventListener("click", (e) => {
+        $$(".mess-tab").forEach(tab => tab.classList.remove("active"));
         e.target.classList.add("active");
         messday = e.target.innerText;
         loadMessMenu(messday);
     });
 
 }
-function loadMessMenu(day){
+function loadMessMenu(day) {
     const mealcards = $(".meal-cards");
-    if(!mealcards) {
-        
-    return;
-}
+    if (!mealcards) {
+
+        return;
+    }
     mealcards.innerHTML = "";
-    for(k in hostels.MessMenu[day]){
+    for (k in hostels.MessMenu[day]) {
         const mealcard = document.createElement("div");
         mealcard.classList.add("meal-card");
-        
-        
-        
-        
+
+
+
+
         const mealname = document.createElement("div");
         mealname.classList.add("meal-name");
         mealname.innerText = `${k}`;
 
         const mealitems = document.createElement("div");
         mealitems.classList.add("meal-items");
-        for(i in hostels.MessMenu[day][k]){
-            for(j of hostels.MessMenu[day][k][i]){
+        for (i in hostels.MessMenu[day][k]) {
+            for (j of hostels.MessMenu[day][k][i]) {
                 const item = document.createElement("div");
                 item.classList.add("meal-item");
-                item.innerHTML=`<span class="${i}-tag"></span>${j}`;
+                item.innerHTML = `<span class="${i}-tag"></span>${j}`;
                 mealitems.appendChild(item);
             }
         }
-        
+
         mealcard.appendChild(mealname);
         mealcard.appendChild(mealitems);
-    
+
         mealcards.appendChild(mealcard);
+    }
+}
+function activehostelcomplain() {
+    if (!$$(".active-complaints")) return;
+    let num = 0
+    for (i in hostels[details.hostel].Complaints) {
+        if (hostels[details.hostel].Complaints[i].Status == "Pending") {
+            num++
+        }
+    }
+    setText(".active-complaints", num);
+
+}
+function hostelcomplain() {
+    if (!$("#complain-form")) return;
+    $("#complaint-location").value = details.hostel + " - " + details.RoomNo;
+    $("#complain-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        let complaindata = {};
+        complaindata["Category"] = $("#cmpcategory").value;
+        complaindata["Location"] = $("#complaint-location").value;
+        complaindata["Description"] = $("#cpmdetails").value;
+        complaindata["Status"] = "Pending";
+        hostels[details.hostel].Complaints[`CMP${new Date().getTime()}`] = complaindata;
+        localStorage.setItem("hostels", JSON.stringify(hostels));
+        alert("Complaint submitted successfully!");
+        activehostelcomplain();
+    });
+}
+function loadalerts() {
+    const filterow = $(".filter-row");
+    if (!filterow) return;
+    let filter = "All";
+    showalerts(filter);
+    filterow.addEventListener("click", (e) => {
+        if (e.target.classList.contains("filter-btn")) {
+            $$(".filter-btn").forEach(btn => btn.classList.remove("active"));
+            e.target.classList.add("active");
+            const filter = e.target.innerText;
+            showalerts(filter);
+        }
+
+    });
+    function showalerts(filter) {
+        const alertlist = $(".notif-list");
+        if (!alertlist) return;
+        alertlist.innerHTML = "";
+        if (filter == "All") {
+            for (i in dept.Notifications) {
+
+                for (j in dept.Notifications[i]) {
+                    const card = document.createElement("div");
+                    card.classList.add("notif-card");
+
+                    const body = document.createElement("div");
+                    body.classList.add("notif-body");
+                    const title = document.createElement("div");
+                    title.classList.add("notif-title");
+                    title.innerText = [j];
+
+                    const desc = document.createElement("div");
+                    desc.classList.add("notif-desc");
+                    desc.innerText = dept.Notifications[i][j];
+
+                    const meta = document.createElement("div");
+                    meta.classList.add("notif-meta");
+                    meta.innerText = `Category: ${i}`;
+
+                    body.appendChild(title);
+                    body.appendChild(desc);
+                    body.appendChild(meta);
+                    card.appendChild(body);
+                    alertlist.appendChild(card);
+                }
+            }
+        }
+        else {
+            for (i in dept.Notifications[filter]) {
+                const card = document.createElement("div");
+                card.classList.add("notif-card");
+
+                const body = document.createElement("div");
+                body.classList.add("notif-body");
+                const title = document.createElement("div");
+                title.classList.add("notif-title");
+                title.innerText = [i];
+
+                const desc = document.createElement("div");
+                desc.classList.add("notif-desc");
+                desc.innerText = dept.Notifications[filter][i];
+
+                const meta = document.createElement("div");
+                meta.classList.add("notif-meta");
+                meta.innerText = `Category: ${filter}`;
+
+                body.appendChild(title);
+                body.appendChild(desc);
+                body.appendChild(meta);
+                card.appendChild(body);
+                alertlist.appendChild(card);
+            }
+        }
+    }
+}
+function supportpage() {
+    const contactgrid = $(".contact-grid");
+    if (contactgrid) {
+        contactgrid.innerHTML = "";
+        for (i in dept.KeyContacts) {
+
+            const card = document.createElement("div");
+            card.classList.add("contact-card");
+
+            const dep = document.createElement("div");
+            dep.classList.add("cc-dept");
+            dep.innerText = i;
+
+            const name = document.createElement("div");
+            name.classList.add("cc-name");
+            name.innerText = dept.KeyContacts[i].Name;
+
+            const info = document.createElement("div");
+            info.classList.add("cc-info");
+            info.innerHTML = ` ${dept.KeyContacts[i].Position}<br>
+            ${dept.KeyContacts[i].Email}<br> ${dept.KeyContacts[i].Contact}`;
+
+            card.appendChild(dep);
+            card.appendChild(name);
+            card.appendChild(info);
+            contactgrid.appendChild(card);
+        }
+    }
+    const faqlist = $(".faq-list");
+    if (faqlist) {
+        faqlist.innerHTML = "";
+        for (i in dept.FAQs) {
+            const item = document.createElement("div");
+            item.classList.add("faq-item");
+
+            const q = document.createElement("div");
+            q.classList.add("faq-q");
+            q.innerText = i;
+
+            const a = document.createElement("div");
+            a.classList.add("faq-a");
+            a.innerText = dept.FAQs[i];
+
+            item.appendChild(q);
+            item.appendChild(a);
+            faqlist.appendChild(item);
+        }
+    }
+}
+function ticketform() {
+    if (!$("#ticket-form")) return;
+    showtickethistory();
+    $("#ticket-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const form = new FormData(e.target.closest("form"));
+        const formdata = Object.fromEntries(form.entries());
+        formdata["Priority"] = ((formdata.Priority).split(" "))[0];
+        formdata.Status = "Open";
+        formdata.Submitted = `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`;
+        const ticketid = `TICK${new Date().getTime()}`;
+        details.myTickets[ticketid] = formdata;
+        users[details.rollNo] = details;
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Ticket submitted successfully!");
+        showtickethistory();
+    });
+    function showtickethistory() {
+        const ticketlist = $(".ticket-list");
+        if (ticketlist) {
+            ticketlist.innerHTML = "";
+            // Load and display ticket history here
+            for (i in details.myTickets) {
+                const ticket = document.createElement("div");
+                ticket.classList.add("ticket-item");
+
+                const left = document.createElement("div");
+                left.classList.add("ticket-left");
+
+                const id = document.createElement("div");
+                id.classList.add("ticket-id");
+                id.innerText = i;
+
+                const title = document.createElement("div");
+                title.classList.add("ticket-title");
+                title.innerText = details.myTickets[i].Title;
+
+                const desc = document.createElement("div");
+                desc.classList.add("ticket-desc");
+                desc.innerText = details.myTickets[i].Description;
+
+                const meta = document.createElement("div");
+                meta.classList.add("ticket-meta");
+                meta.innerHTML = `<span>${details.myTickets[i].Category}</span> <span>Submitted on: ${details.myTickets[i].Submitted}</span>`;
+
+                left.appendChild(id);
+                left.appendChild(title);
+                left.appendChild(desc);
+                left.appendChild(meta);
+
+                const right = document.createElement("div");
+                right.classList.add("ticket-right");
+                const status = document.createElement("span");
+                status.classList.add("chip", `chip-${details.myTickets[i].Status.toLowerCase()}`);
+                status.innerText = details.myTickets[i].Status;
+                const priority = document.createElement("span");
+                priority.classList.add("chip", `chip-${details.myTickets[i].Priority.toLowerCase()}`);
+                priority.innerText = details.myTickets[i].Priority;
+
+                right.appendChild(status);
+                right.appendChild(priority);
+
+                ticket.appendChild(left);
+                ticket.appendChild(right);
+                ticketlist.appendChild(ticket);
+            }
+
+        }
     }
 }
 calcSemester();
@@ -1221,3 +1463,11 @@ editdetails();
 changepassword();
 
 hostelinfo();
+hostelcomplain();
+activehostelcomplain();
+
+
+loadalerts();
+
+supportpage();
+ticketform();

@@ -360,7 +360,7 @@
         </div>
         <div class="stat-card">
           <div class="icon">🔧</div>
-          <div class="num" style="color:var(--gold);"></div>
+          <div class="num active-complaints" style="color:var(--gold);"></div>
           <div class="lbl">Open Complaints</div>
         </div>
         <div class="stat-card">
@@ -416,64 +416,17 @@
       <div class="card" style="margin-bottom:24px;">
         <h3 class="card-title">🔧 Hostel Facilities</h3>
         <div class="facility-grid">
-          <div class="facility-item"><span class="ficon">📶</span>
-            <div>
-              <div>Wi-Fi</div>
-              <div class="fstatus" style="color:var(--success);">Active</div>
-            </div>
-          </div>
-          <div class="facility-item"><span class="ficon">💧</span>
-            <div>
-              <div>Hot Water</div>
-              <div class="fstatus" style="color:var(--success);">6–9 AM, 6–9 PM</div>
-            </div>
-          </div>
-          <div class="facility-item"><span class="ficon">🏋️</span>
-            <div>
-              <div>Gymnasium</div>
-              <div class="fstatus" style="color:var(--success);">Open</div>
-            </div>
-          </div>
-          <div class="facility-item"><span class="ficon">🧺</span>
-            <div>
-              <div>Laundry</div>
-              <div class="fstatus" style="color:var(--success);">Mon, Wed, Fri</div>
-            </div>
-          </div>
-          <div class="facility-item"><span class="ficon">🏪</span>
-            <div>
-              <div>Canteen</div>
-              <div class="fstatus" style="color:var(--success);">7 AM – 10 PM</div>
-            </div>
-          </div>
-          <div class="facility-item"><span class="ficon">📦</span>
-            <div>
-              <div>Storage Room</div>
-              <div class="fstatus" style="color:var(--success);">Available</div>
-            </div>
-          </div>
-          <div class="facility-item"><span class="ficon">🚗</span>
-            <div>
-              <div>Parking</div>
-              <div class="fstatus" style="color:var(--muted);">Cycle only</div>
-            </div>
-          </div>
-          <div class="facility-item"><span class="ficon">🏥</span>
-            <div>
-              <div>Medical Room</div>
-              <div class="fstatus" style="color:var(--success);">24×7</div>
-            </div>
-          </div>
+         
         </div>
       </div>
 
       <div class="card" style="margin-bottom:24px;">
         <h3 class="card-title">📝 Raise Hostel Complaint</h3>
-        <form action="hostel.html">
+        <form id="complain-form">
           <div class="form-grid-2">
             <div class="form-field">
               <label>Complaint Category</label>
-              <select>
+              <select id="cmpcategory">
                 <option>Plumbing / Water Issue</option>
                 <option>Electrical Issue</option>
                 <option>Room Maintenance</option>
@@ -485,11 +438,11 @@
             </div>
             <div class="form-field">
               <label>Room / Location</label>
-              <input type="text" value="Block A — Room A-205" readonly />
+              <input type="text" value="" id="complaint-location" readonly />
             </div>
             <div class="form-field full">
               <label>Describe the Issue</label>
-              <textarea placeholder="Please describe your complaint in detail..."></textarea>
+              <textarea id="cpmdetails" placeholder="Please describe your complaint in detail..."></textarea>
             </div>
           </div>
           <button type="submit" class="btn btn-primary">Submit Complaint</button>
