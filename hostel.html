@@ -347,7 +347,7 @@
         <span class="badge badge-green" style="font-size:13px;padding:7px 16px;white-space:nowrap;">Allotted ✓</span>
       </div>
 
-      <div class="grid-4 section-gap" style="margin-bottom:24px;">
+      <div class="grid-3 section-gap" style="margin-bottom:24px;">
         <div class="stat-card">
           <div class="icon">🛏️</div>
           <div class="num roomno">205</div>
@@ -358,14 +358,10 @@
           <div class="num MessPlan" style="color:var(--success);"></div>
           <div class="lbl">Mess Plan</div>
         </div>
-        <div class="stat-card">
-          <div class="icon">🔧</div>
-          <div class="num active-complaints" style="color:var(--gold);"></div>
-          <div class="lbl">Open Complaints</div>
-        </div>
+        
         <div class="stat-card">
           <div class="icon">📅</div>
-          <div class="num"></div>
+          <div class="num allotmentdate"></div>
           <div class="lbl">Allotment Date</div>
         </div>
       </div>
@@ -420,34 +416,7 @@
         </div>
       </div>
 
-      <div class="card" style="margin-bottom:24px;">
-        <h3 class="card-title">📝 Raise Hostel Complaint</h3>
-        <form id="complain-form">
-          <div class="form-grid-2">
-            <div class="form-field">
-              <label>Complaint Category</label>
-              <select id="cmpcategory">
-                <option>Plumbing / Water Issue</option>
-                <option>Electrical Issue</option>
-                <option>Room Maintenance</option>
-                <option>Mess / Food Quality</option>
-                <option>Internet / Wi-Fi</option>
-                <option>Security Concern</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label>Room / Location</label>
-              <input type="text" value="" id="complaint-location" readonly />
-            </div>
-            <div class="form-field full">
-              <label>Describe the Issue</label>
-              <textarea id="cpmdetails" placeholder="Please describe your complaint in detail..."></textarea>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit Complaint</button>
-        </form>
-      </div>
+     
 
       <a href="home.html" class="btn btn-outline">← Back to Dashboard</a>
     </div>

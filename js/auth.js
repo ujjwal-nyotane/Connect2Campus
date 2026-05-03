@@ -191,6 +191,7 @@ const users = {
     UniversityEmail:"vishwas.mahiwal@university.edu",
     PersonalContact:"8954231597",
     FatherName:"Dilbag Singh",
+    HostelAllotment:"Aug 2025",
     FatherContact:"9856321245",
     FatherOccupation:"Businessman",
     MotherName:"Suman Singh",
@@ -289,14 +290,8 @@ const hostels = {
       Parking:" Not Available",
 
     },
-    Complaints: {
-      "CMP20264414324733": {
-        "Category": "Plumber",
-        "Location": "Alfred Nobel - 205",
-        "Description": "Leaking water in the bathroom",
-        "Status": "Pending"
-      }
-    },
+    
+  
   },
   MessMenu: {
     Monday: 

@@ -44,7 +44,7 @@
 
     .module-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
       margin-bottom: 28px;
     }
@@ -134,15 +134,16 @@
 
     .bottom-grid {
       display: grid;
-      grid-template-columns: 1.4fr 1fr;
+      grid-template-columns: 1fr ;
       gap: 20px;
     }
 
     .announce-item {
       display: flex;
       align-items: flex-start;
+      flex-direction: row;
       gap: 12px;
-      padding: 14px 0;
+      padding: 14px 10px;
       border-bottom: 1px solid rgba(30, 45, 74, .5);
     }
 
@@ -170,9 +171,29 @@
       background: var(--gold);
     }
 
-    .a-dot.red {
-      background: var(--danger);
+    .a-dot.pink {
+      background: #f472b6;
     }
+    .a-dot.cyan {
+      background: #22d3ee;
+    }
+    .a-dot.purple {
+      background: #a78bfa;
+    }
+    .announce-item:hover {
+      border:solid var(--accent-glow) 1px;
+      border-radius: var(--radius);
+      background-color: var(--surface2);
+
+    }
+    .announce-item::after{
+     content: "→";
+     margin-left:auto;
+
+      
+      
+    }
+    
 
     .a-head {
       font-size: 14px;
@@ -230,6 +251,11 @@
       }
 
       .bottom-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 520px){
+      .module-grid{
         grid-template-columns: 1fr;
       }
     }
@@ -348,51 +374,13 @@
           <div class="m-desc">View dues, pay fees online and download receipts.</div>
           <span class="m-arrow">Pay Fees →</span>
         </a>
-        <a href="#" class="module-card m-pink">
-          <div class="m-icon">📝</div>
-          <div class="m-name">Exam Centre</div>
-          <div class="m-desc">Download admit cards and view exam schedules.</div>
-          <span class="m-arrow">View Exams →</span>
-        </a>
-        <a href="#" class="module-card m-cyan">
-          <div class="m-icon">📚</div>
-          <div class="m-name">Library</div>
-          <div class="m-desc">Issue books, renew resources and access e-journals.</div>
-          <span class="m-arrow">Browse Library →</span>
-        </a>
       </div>
-
+      <div class="grid-2">
       <div class="bottom-grid">
         <div class="card">
           <h3 class="card-title">📢 Latest Announcements</h3>
-          <div>
-            <div class="announce-item">
-              <span class="a-dot red"></span>
-              <div>
-                <p class="a-head">Mid-Semester Exam Schedule Released</p>
-                <p class="a-meta">Academics · 24 Mar 2026</p>
-              </div>
-            </div>
-            <div class="announce-item">
-              <span class="a-dot blue"></span>
-              <div>
-                <p class="a-head">Fee Payment Deadline — Last Date: 31 Mar</p>
-                <p class="a-meta">Finance · 22 Mar 2026</p>
-              </div>
-            </div>
-            <div class="announce-item">
-              <span class="a-dot green"></span>
-              <div>
-                <p class="a-head">Cultural Fest 2026 Registrations Open</p>
-                <p class="a-meta">Events · 20 Mar 2026</p>
-              </div>
-            </div>
-            <div class="announce-item">
-              <span class="a-dot amber"></span>
-              <div>
-                <p class="a-head">Library Timings Extended to 10 PM</p>
-                <p class="a-meta">Library · 18 Mar 2026</p>
-              </div>
+          <div class="notification-list" >
+            
             </div>
           </div>
         </div>
@@ -416,11 +404,9 @@
               <span class="quick-left"><span class="quick-icon">📅</span> View Attendance</span>
               <span class="quick-arrow">→</span>
             </a>
-            <a href="#" class="quick-item">
-              <span class="quick-left"><span class="quick-icon">🎟️</span> Download Admit Card</span>
-              <span class="quick-arrow">→</span>
-            </a>
+            
           </div>
+        </div>
         </div>
       </div>
 

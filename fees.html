@@ -319,14 +319,7 @@
 
     <div class="main-content">
 
-      <div class="dues-alert">
-        <div class="left">
-          <span style="font-size:22px;">⚠️</span>
-          <p><strong>₹12,400 due</strong> — Semester 2 fee payment deadline is <strong>31 March 2026</strong>. Late fee
-            of ₹500/week applies after deadline.</p>
-        </div>
-        <a href="#pay-section" class="pay-now-btn">Pay Now</a>
-      </div>
+      
 
       <div class="grid-4" style="margin-bottom:24px;">
         <div class="stat-card">
@@ -341,12 +334,12 @@
         </div>
         <div class="stat-card">
           <div class="icon">📅</div>
-          <div class="num">31 Mar</div>
+          <div class="num lastdateofpayment"></div>
           <div class="lbl">Payment Deadline</div>
         </div>
         <div class="stat-card">
           <div class="icon">🧾</div>
-          <div class="num">3</div>
+          <div class="num receipts"></div>
           <div class="lbl">Receipts Available</div>
         </div>
       </div>
@@ -384,25 +377,25 @@
           <form id="Cardpay" style="display: none;" class="feepay">
             <div class="form-field">
               <label>Card Number</label>
-              <input type="text" placeholder="XXXX  XXXX  XXXX  XXXX" maxlength="19" />
+              <input type="text" required placeholder="XXXX  XXXX  XXXX  XXXX" maxlength="19" />
             </div>
             <div class="card-row">
               <div class="form-field">
                 <label>Expiry Date</label>
-                <input type="text" placeholder="MM / YY" maxlength="5" />
+                <input type="text" required placeholder="MM / YY" maxlength="5" />
               </div>
               <div class="form-field">
                 <label>CVV</label>
-                <input type="text" placeholder="***" maxlength="3" />
+                <input type="text" required placeholder="***" maxlength="3" />
               </div>
             </div>
             <div class="form-field">
               <label>Cardholder Name</label>
-              <input type="text" placeholder="Name as on card" />
+              <input type="text" required placeholder="Name as on card" />
             </div>
             <div class="form-field">
               <label>Amount to Pay</label>
-              <input type="number" name="feeamount" min="1" required style="color:var(--accent-glow);font-weight:600;" />
+              <input type="number"  name="feeamount" min="1" required style="color:var(--accent-glow);font-weight:600;" />
             </div>
             <button type="submit" name="sumitbtn" class="btn btn-primary" id="feepay"
               style="width:100%;justify-content:center;margin-top:4px;">
@@ -418,7 +411,7 @@
             </div>
             <div class="form-field">
               <label>Enter Amount To Pay</label>
-              <input type="number" min="1" required name="feeamount" style="color:var(--accent-glow);font-weight: 600;">
+              <input type="number"  min="1" required name="feeamount" style="color:var(--accent-glow);font-weight: 600;">
             </div>
             <button type="submit" name="sumitbtn" class="btn btn-primary" id="feepay"
               style="width:100%;justify-content:center;margin-top:4px;">Procced to Pay</button>
@@ -426,11 +419,11 @@
           <form id="NetBankingpay" style="display: none;" class="feepay">
             <div class="form-field">
               <label>User ID</label>
-              <input type="text" placeholder="123abc****" />
+              <input type="text" required placeholder="123abc****" />
             </div>
             <div class="form-field">
               <label>Password</label>
-              <input type="password" placeholder="123****" />
+              <input type="password" required placeholder="123****" />
             </div>
             <div class="form-field">
               <label>Enter Amount To Pay</label>

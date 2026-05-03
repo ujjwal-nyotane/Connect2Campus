@@ -477,6 +477,10 @@ function loadAttendanceCalendar(subjid, month, year) {
 
 
 
+
+    const time = new Date(year, month);
+    setText(".monthtext", time.toLocaleString("default", { month: "long" }));
+    setText(".yearfull", `${time.getFullYear()}`);
     const deptName = details.department;
     const sem = String(currentSemester);
     const roll = details.rollNo;
@@ -1042,6 +1046,17 @@ function showfeepaymenthistory() {
 
     }
     updatedue();
+    setText(".receipts", Object.keys(dept.fees.feehistory[details.rollNo][currentSemester]).length);
+    setText(".lastdateofpayment", lastdateofpayment());
+    function lastdateofpayment() {
+        if(currentSemester%2==0){
+            return "30th July";
+        }
+        else{
+                        return "31st December";
+        }
+    }
+
 }
 
 function updatedue() {
@@ -1116,6 +1131,7 @@ function hostelinfo() {
     setText(".MessPlan", details.Messplan);
     setText(".wardencontact", hostels[details.hostel].contact);
     setText(".timings", hostels[details.hostel].Timigs);
+    setText(".allotmentdate", details.HostelAllotment);
 
     const noticelist = $(".notice-list");
     if (noticelist) {
@@ -1216,33 +1232,8 @@ function loadMessMenu(day) {
         mealcards.appendChild(mealcard);
     }
 }
-function activehostelcomplain() {
-    if (!$$(".active-complaints")) return;
-    let num = 0
-    for (i in hostels[details.hostel].Complaints) {
-        if (hostels[details.hostel].Complaints[i].Status == "Pending") {
-            num++
-        }
-    }
-    setText(".active-complaints", num);
 
-}
-function hostelcomplain() {
-    if (!$("#complain-form")) return;
-    $("#complaint-location").value = details.hostel + " - " + details.RoomNo;
-    $("#complain-form").addEventListener("submit", (e) => {
-        e.preventDefault();
-        let complaindata = {};
-        complaindata["Category"] = $("#cmpcategory").value;
-        complaindata["Location"] = $("#complaint-location").value;
-        complaindata["Description"] = $("#cpmdetails").value;
-        complaindata["Status"] = "Pending";
-        hostels[details.hostel].Complaints[`CMP${new Date().getTime()}`] = complaindata;
-        localStorage.setItem("hostels", JSON.stringify(hostels));
-        alert("Complaint submitted successfully!");
-        activehostelcomplain();
-    });
-}
+
 function loadalerts() {
     const filterow = $(".filter-row");
     if (!filterow) return;
@@ -1437,9 +1428,46 @@ function ticketform() {
         }
     }
 }
+function showannouncements() {
+    if(!$(".notification-list")) return;
+    const notiflist = $(".notification-list");
+    
+    notiflist.innerHTML = "";
+    for (i in dept.Notifications) {
+        for (j in dept.Notifications[i]) {
+             const announceitem = document.createElement("div");
+                    announceitem.classList.add("announce-item");
+
+                    const dot = document.createElement("span");
+                    dot.classList.add("a-dot");
+                    dot.classList.add(`${selectperiodcolor(Math.ceil(Math.random() * 6))}`);
+                    
+                    const body = document.createElement("div");
+                    const head = document.createElement("div");
+                    head.classList.add("a-head");
+                    head.innerText = j;
+
+                    const meta = document.createElement("div");
+                    meta.classList.add("a-meta");
+                    meta.innerHTML = `Category: ${i} | ${dept.Notifications[i][j].substring(0, 40)}...`;
+
+                    body.appendChild(head);
+                    body.appendChild(meta);
+                    announceitem.appendChild(dot);
+                    announceitem.appendChild(body);
+                    notiflist.appendChild(announceitem);
+        }
+    }
+    notiflist.addEventListener("click",(e)=>{
+       
+            window.location.href = "notifications.html";
+        
+    });
+}
 calcSemester();
 
 loadStudentInfo();
+showannouncements();
 
 createSemesterTabs();
 
@@ -1463,8 +1491,7 @@ editdetails();
 changepassword();
 
 hostelinfo();
-hostelcomplain();
-activehostelcomplain();
+
 
 
 loadalerts();
