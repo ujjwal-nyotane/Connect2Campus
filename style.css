@@ -216,6 +216,48 @@ body::before {
   display: none;
 }
 
+    .popup {
+     display: flex;
+      position: fixed;
+      z-index: 999;
+
+      width: 300px;
+      height: 100px;
+
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      background: var(--surface2);
+      box-shadow: 0 4px 20px rgba(37, 99, 235, .35);
+      border-radius: 10%;
+
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .popup p {
+      margin: 10px;
+      color: var(--text);
+      
+    }
+
+    .overlay {
+      
+        position: fixed;
+        inset: 0;
+
+        
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        z-index: 998;
+        display: none;
+
+      
+    }
+
 .mob-drawer {
   display: none;
   position: fixed;

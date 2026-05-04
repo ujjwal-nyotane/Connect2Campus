@@ -307,6 +307,13 @@
 </head>
 
 <body>
+     <div class="overlay submitticket">
+    <div class="popup">
+      <p>Ticket Submitted</p>
+      <p style="color: var(--success)">Succesfully</p>
+    </div>
+  </div>
+
   <input type="checkbox" id="mob-toggle" />
   <div class="mob-drawer">
     <a href="home.html">🏠 Dashboard</a>
@@ -447,7 +454,7 @@
           </div>
           <div style="display:flex;gap:12px;">
             <button type="submit" name="submit" class="btn btn-primary">📤 Submit Ticket</button>
-            <a  class="btn btn-outline">Clear Form</a>
+            <button type="reset" class="btn btn-outline">Clear Form</button>
           </div>
         </form>
       </div>

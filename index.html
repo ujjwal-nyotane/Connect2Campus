@@ -282,6 +282,7 @@
       transform: translateY(-1px);
     }
 
+
     .divider {
       display: flex;
       align-items: center;
@@ -328,6 +329,7 @@
       background: var(--surface2);
     }
 
+
     .card-footer-note {
       text-align: center;
       margin-top: 20px;
@@ -355,6 +357,20 @@
 </head>
 
 <body>
+  <div class="overlay logindone">
+    <div class="popup">
+      <p style="color:var(--success)">Login Successfull.</p>
+      <p>Redirecting....</p>
+
+    </div>
+  </div>
+  <div class="overlay loginfailed">
+    <div class="popup">
+      <p style="color:var(--danger)">Login Failed</p>
+      <p>Invalid Roll No. or Password.</p>
+
+    </div>
+  </div>
   <div class="page">
 
     <nav class="navbar">
@@ -367,6 +383,7 @@
 
       </ul>
     </nav>
+
 
     <section class="login-wrap">
 
@@ -408,7 +425,7 @@
         <div class="tab-bar">
           <a href="index.html" class="tab active">Student</a>
           <a href="index.html" class="tab">Faculty</a>
-          
+
         </div>
 
         <form>
@@ -428,7 +445,7 @@
             </div>
           </div>
 
-          
+
 
           <div class="check-row">
             <label class="check-label">
@@ -440,13 +457,13 @@
 
           <button type="submit" class="login-btn">Sign In to Portal →</button>
 
-          
 
-          
+
+
         </form>
 
         <p class="card-footer-note">
-          New student? Contact Faculty   
+          New student? Contact Faculty
         </p>
       </div>
 
@@ -464,10 +481,10 @@
 
   </div>
   <script src="js/auth.js"></script>
-  
-   <script src="js/login.js"></script>
-   
-   
+
+  <script src="js/login.js"></script>
+
+
 </body>
 
 </html>

@@ -267,6 +267,12 @@
 
 <body>
 
+   <div class="overlay feesucessfull">
+    <div class="popup">
+      <p>Fees Submitted</p>
+      <p style="color: var(--success)">Succesfully</p>
+    </div>
+  </div>
 
   <div class="page">
     <input type="checkbox" id="mob-toggle" />
@@ -377,12 +383,12 @@
           <form id="Cardpay" style="display: none;" class="feepay">
             <div class="form-field">
               <label>Card Number</label>
-              <input type="text" required placeholder="XXXX  XXXX  XXXX  XXXX" maxlength="19" />
+              <input type="text" required placeholder="XXXX  XXXX  XXXX  XXXX" maxlength="16" minlength="16" />
             </div>
             <div class="card-row">
               <div class="form-field">
                 <label>Expiry Date</label>
-                <input type="text" required placeholder="MM / YY" maxlength="5" />
+                <input type="month" required style="color:var(--muted2);" />
               </div>
               <div class="form-field">
                 <label>CVV</label>

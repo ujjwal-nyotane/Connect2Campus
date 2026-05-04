@@ -180,6 +180,12 @@
 
 <body>
 
+  <div class="overlay leavesucessfull">
+    <div class="popup">
+      <p>Leave Submitted</p>
+      <p style="color: var(--success)">Succesfully</p>
+    </div>
+  </div>
 
   <div class="page">
     <input type="checkbox" id="mob-toggle" />
@@ -234,7 +240,7 @@
         <div class="stat-card">
           <div class="icon">✅</div>
           <div class="num approvedleaves" style="color:var(--success);"></div>
-          <div class="lbl">Approved This Sem</div>
+          <div class="lbl">Approved </div>
         </div>
         <div class="stat-card">
           <div class="icon">⏳</div>
@@ -286,7 +292,7 @@
             </div>
             <div class="form-field">
               <label for="l-contact">Contact During Leave</label>
-              <input type="tel" id="l-contact" name="contact" placeholder="+91 9XXXXXXXXX" required/>
+              <input type="tel" id="l-contact" name="contact" placeholder="9XXXXXXXXX" required maxlength="10" minlength="10"/>
             </div>
             <div class="form-field">
               <label for="l-guardian">Guardian Name</label>
@@ -300,7 +306,7 @@
             <div class="form-field full">
               <label for="l-doc">Supporting Document (optional)</label>
               <input type="text" id="l-doc" name="doc"
-                placeholder="e.g. Medical certificate, Event letter (file upload in next part)" />
+                placeholder="e.g. Medical certificate,event letter or other" />
             </div>
           </div>
           <div class="note-box">

@@ -24,10 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Find user
         const users = JSON.parse(localStorage.getItem("users"));
         const user = users[enrollment];
-        console.log(user);
+         
         
 
-        if (user.password===password) {
+        if (user && user.password===password) {
             // Store login state
             localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("user_ID", user.user_ID);
@@ -37,10 +37,23 @@ document.addEventListener("DOMContentLoaded", function () {
             // Redirect
             let login = (new Date()).toString();
             localStorage.setItem("LastLogin",login);
-                  
-            window.location.href = "home.html";
+            
+
+            const popup = document.querySelector(".logindone");
+            popup.style.display="block";
+            
+            setTimeout (function () {
+                window.location.href = "home.html"; 
+                popup.style.display="none";
+                
+            },2000);
+
         } else {
-            alert("Invalid enrollment number or password.");
+            const popup = document.querySelector(".loginfailed");
+            popup.style.display="block";
+            setTimeout(function(){
+                popup.style.display="none";
+            },2000);
         }
     });
 

@@ -29,13 +29,12 @@ let currentYear = 0;
 let selectedsemester = 0;
 
 
-const $ = sel => document.querySelector(sel);
-const $$ = sel => document.querySelectorAll(sel);
+
 
 function setText(selector, value) {
-    $$(selector).forEach(el => el.innerText = value);
+    document.querySelectorAll(selector).forEach(el => el.innerText = value);
 }
-if ($(".chgmonthbtn")) {
+if (document.querySelector(".chgmonthbtn")) {
     document.querySelector(".chgmonthbtn[value='dec']").addEventListener("click", () => {
         Calmonth--;
 
@@ -50,11 +49,11 @@ if ($(".chgmonthbtn")) {
 }
 
 let leaveformdata;
-const leaveform = $("#leaveapplication");
+const leaveform = document.querySelector("#leaveapplication");
 
 if (leaveform) {
-    const datefrom = $("#l-from");
-    const dateto = $("#l-to");
+    const datefrom = document.querySelector("#l-from");
+    const dateto = document.querySelector("#l-to");
     datefrom.addEventListener("change", (e) => {
         e.preventDefault();
         dateto.setAttribute('min', datefrom.value);
@@ -65,6 +64,7 @@ if (leaveform) {
 
         leaveformdata = Object.fromEntries(form.entries());
         leaveselect();
+        leaveform.reset();
 
     })
 }
@@ -159,7 +159,7 @@ function loadStudentInfo() {
     if (!studentactive) {
         setText(".currentStatus", "NOT ACTIVE");
 
-        $$(".Statuscolor").forEach(el => {
+        document.querySelectorAll(".Statuscolor").forEach(el => {
             el.style.backgroundColor = "rgba(255,0,0,.15)";
             el.style.borderColor = "rgba(240,63,63,.5)";
         });
@@ -170,7 +170,7 @@ function loadStudentInfo() {
 
 
 function createSemesterTabs() {
-    const container = $("#semester-tabs");
+    const container = document.querySelector("#semester-tabs");
     if (!container) return;
 
     for (let i = 1; i <= currentSemester; i++) {
@@ -194,7 +194,7 @@ function createSemesterTabs() {
     container.addEventListener("click", e => {
         if (!e.target.classList.contains("sem-tab")) return;
 
-        $$(".sem-tab").forEach(tab => tab.classList.remove("active"));
+        document.querySelectorAll(".sem-tab").forEach(tab => tab.classList.remove("active"));
         e.target.classList.add("active");
 
         selectedsemester = Number(e.target.dataset.sem);
@@ -207,13 +207,13 @@ function showResult() {
     const semData = results[details.rollNo][selectedsemester];
     const subjects = dept.subjects[selectedsemester];
 
-    $("#fullresult").style.display =
+    document.querySelector("#fullresult").style.display =
         selectedsemester < currentSemester ? "grid" : "none";
 
     setText(".selectedSemester", selectedsemester);
 
-    const subjecttable = $("#subjecttable");
-    const internalresult = $("#Internalresult");
+    const subjecttable = document.querySelector("#subjecttable");
+    const internalresult = document.querySelector("#Internalresult");
 
     subjecttable.innerHTML = "";
     internalresult.innerHTML = "";
@@ -452,7 +452,7 @@ function selectAttendanceCalendar() {
     calsubid = attendancelist.firstElementChild.id;
     loadAttendanceCalendar(calsubid, Calmonth, Calyear);
     attendancelist.addEventListener("click", (e) => {
-        $$(".att-subject-row").forEach(line => line.classList.remove("active"));
+        document.querySelectorAll(".att-subject-row").forEach(line => line.classList.remove("active"));
 
 
         e.target.closest("tr").classList.add("active");
@@ -469,7 +469,7 @@ function loadAttendanceCalendar(subjid, month, year) {
 
     const wrap = document.querySelector(".calendar-grid");
     if (!wrap) return;
-    const body = $("body");
+    const body = document.querySelector("body");
 
 
 
@@ -634,7 +634,7 @@ function selectperiodcolor() {
 function loadtimetable() {
     const now = (new Date().getDay());
     const weekname = weekdaytext(now);
-    const weeklytimetable = $(".weekly-view");
+    const weeklytimetable = document.querySelector(".weekly-view");
     if (!weeklytimetable) return;
     const table = document.createElement("table");
     table.classList.add("weekly-table");
@@ -707,7 +707,7 @@ function DailyTable(input) {
 
     }
 
-    const table = $(".timetable-grid");
+    const table = document.querySelector(".timetable-grid");
     table.innerText = "";
     for (i in dept.timetable[currentSemester][day]) {
         const row = document.createElement("div");
@@ -750,9 +750,9 @@ function DailyTable(input) {
     }
 }
 function loadDailytable() {
-    const daytabs = $(".day-tabs");
+    const daytabs = document.querySelector(".day-tabs");
     if (!daytabs) return;
-    const tab = $$(".day-tab");
+    const tab = document.querySelectorAll(".day-tab");
 
     if (tab[weekday - 1]) {
         tab[weekday - 1].classList.add("active", "today-tab");
@@ -786,7 +786,7 @@ function subname(name) {
     return smallname;
 }
 function faculty() {
-    const facultylist = $(".faculty-list");
+    const facultylist = document.querySelector(".faculty-list");
     if (!facultylist) return;
     for (i in dept.subjects[currentSemester]) {
         const facultycard = document.createElement("div");
@@ -825,9 +825,9 @@ function faculty() {
 }
 let leavetype = "casual";
 function leaveapply() {
-    const leavetyperow = $(".leave-type-row");
+    const leavetyperow = document.querySelector(".leave-type-row");
     if (!leavetyperow) return;
-    const leavetypebtns = $$(".leave-type-btn");
+    const leavetypebtns = document.querySelectorAll(".leave-type-btn");
 
 
     leavetyperow.addEventListener("click", (b) => {
@@ -854,11 +854,16 @@ function leaveselect() {
     departments[details.department] = dept;
 
     localStorage.setItem("departments", JSON.stringify(departments));
-    alert("Leave applied successfully!");
+    const leavesuccessfull = document.querySelector(".leavesucessfull");
+    leavesuccessfull.style.display = "block";
+    setTimeout(function () {
+        leavesuccessfull.style.display = "none";
+
+    }, 2000)
     showleaves()
 }
 function showleaves() {
-    const list = $("#leavehistory");
+    const list = document.querySelector("#leavehistory");
     if (!list) return;
     list.innerText = "";
     for (i in dept.leaves[details.rollNo]) {
@@ -921,7 +926,7 @@ function calcleaves() {
     setText(".pendingleaves", pdl);
 }
 function feesbreakdown() {
-    const feestructure = $(".feestructure");
+    const feestructure = document.querySelector(".feestructure");
     if (!feestructure) return;
     let totalfees = 0;
     feestructure.innerHTML = "";
@@ -944,17 +949,17 @@ function feesbreakdown() {
 
 
     }
-    const total = $(".netpayableamt");
+    const total = document.querySelector(".netpayableamt");
     total.innerText = `₹${totalfees}`;
 
 }
 let paymentmethod = "Card";
 
-const paymentmode = $(".payment-modes");
+const paymentmode = document.querySelector(".payment-modes");
 if (paymentmode) {
     paymentmode.addEventListener("click", (e) => {
         {
-            const pym = $$(".pm-btn");
+            const pym = document.querySelectorAll(".pm-btn");
             pym.forEach((t) => {
                 t.classList.remove("sel")
             })
@@ -966,29 +971,29 @@ if (paymentmode) {
     })
 }
 function payfee() {
-    if (!$(".payment-form")) return;
+    if (!document.querySelector(".payment-form")) return;
     if (paymentmethod == "Card") {
-        $("#Cardpay").style.display = "block";
-        $("#UPIpay").style.display = "none";
-        $("#NetBankingpay").style.display = "none";
+        document.querySelector("#Cardpay").style.display = "block";
+        document.querySelector("#UPIpay").style.display = "none";
+        document.querySelector("#NetBankingpay").style.display = "none";
     }
     else if (paymentmethod == "UPI") {
-        $("#Cardpay").style.display = "none";
-        $("#UPIpay").style.display = "block";
-        $("#NetBankingpay").style.display = "none";
+        document.querySelector("#Cardpay").style.display = "none";
+        document.querySelector("#UPIpay").style.display = "block";
+        document.querySelector("#NetBankingpay").style.display = "none";
     }
     else {
-        $("#Cardpay").style.display = "none";
-        $("#UPIpay").style.display = "none";
-        $("#NetBankingpay").style.display = "block";
+        document.querySelector("#Cardpay").style.display = "none";
+        document.querySelector("#UPIpay").style.display = "none";
+        document.querySelector("#NetBankingpay").style.display = "block";
     }
 
 }
 let paymentformdata = {};
 function submitpayment() {
-    if (!$(".payment-form")) return;
+    if (!document.querySelector(".payment-form")) return;
 
-    $(".payment-form").addEventListener("submit", (e) => {
+    document.querySelector(".payment-form").addEventListener("submit", (e) => {
         e.preventDefault();
 
 
@@ -1001,14 +1006,21 @@ function submitpayment() {
         dept.fees.feehistory[details.rollNo][currentSemester][transactionid] = paymentformdata;
         departments[details.department] = dept;
         localStorage.setItem("departments", JSON.stringify(departments));
+        const feesuccessfull = document.querySelector(".feesucessfull");
+        feesuccessfull.style.display = "block";
+        setTimeout(function () {
+            feesuccessfull.style.display = "none";
+
+        }, 2000);
+        e.target.closest("form").reset();
         showfeepaymenthistory();
-        alert("Payment successful!");
+
 
 
     });
 }
 function showfeepaymenthistory() {
-    const list = $(".paymenthistory");
+    const list = document.querySelector(".paymenthistory");
 
     if (!list) return;
     list.innerText = "";
@@ -1049,11 +1061,11 @@ function showfeepaymenthistory() {
     setText(".receipts", Object.keys(dept.fees.feehistory[details.rollNo][currentSemester]).length);
     setText(".lastdateofpayment", lastdateofpayment());
     function lastdateofpayment() {
-        if(currentSemester%2==0){
+        if (currentSemester % 2 == 0) {
             return "30th July";
         }
-        else{
-                        return "31st December";
+        else {
+            return "31st December";
         }
     }
 
@@ -1070,7 +1082,7 @@ function updatedue() {
     }
     setText(".feesPaid", `₹${paidfees}`);
     setText(".feePending", `₹${totalfees - paidfees}`);
-    const myInput = $$("input[name='feeamount']");
+    const myInput = document.querySelectorAll("input[name='feeamount']");
     if (myInput) {
         myInput.forEach(input => input.max = totalfees - paidfees);
     }
@@ -1078,13 +1090,13 @@ function updatedue() {
 }
 
 function editdetails() {
-    if (!$("#edit-details")) return;
-    const inputs = $("#edit-details");
+    if (!document.querySelector("#edit-details")) return;
+    const inputs = document.querySelector("#edit-details");
     inputs.email.value = details.PersonalEmail;
     inputs.contact.value = details.PersonalContact;
     inputs.address.value = details.PermanentAddress;
-
-    $("#edit-details").addEventListener("submit", (e) => {
+    
+    document.querySelector("#edit-details").addEventListener("submit", (e) => {
         e.preventDefault();
         const form = new FormData(e.target.closest("form"));
         details.PersonalEmail = form.get("email");
@@ -1095,30 +1107,52 @@ function editdetails() {
         setText(".PermanentAddress", details.PermanentAddress);
         users[details.rollNo] = details;
         localStorage.setItem("users", JSON.stringify(users));
-        alert("Details updated successfully!");
+        const detailssuccessfull = document.querySelector(".detailssucessfull");
+        detailssuccessfull.style.display = "block";
+        setTimeout(function () {
+            detailssuccessfull.style.display = "none";
+            e.target.closest("form").reset();
+        }, 2000);
 
     });
 }
 function changepassword() {
-    if (!$("#change-password-form")) return;
-    $("#change-password-form").addEventListener("submit", (e) => {
+    if (!document.querySelector("#change-password-form")) return;
+    document.querySelector("#change-password-form").addEventListener("submit", (e) => {
         e.preventDefault();
         const form = new FormData(e.target.closest("form"));
         const current = form.get("current-password");
         const newpass = form.get("new-password");
         const confirmpass = form.get("confirm-password");
         if (current != details.password) {
-            alert("Current password is incorrect!");
+            const passwordfail = document.querySelector(".passwordfail");
+            passwordfail.style.display = "block";
+            setTimeout(function () {
+                passwordfail.style.display = "none";
+
+            }, 2000)
+
             return;
         }
         if (newpass != confirmpass) {
-            alert("New passwords do not match!");
+            const confirm = document.querySelector(".confirmmismatch");
+            confirm.style.display="block";
+            setTimeout(function(){
+                confirm.style.display="none";
+                 e.target.closest("form").reset();
+            },2000);
             return;
         }
         details.password = newpass;
         users[details.rollNo] = details;
         localStorage.setItem("users", JSON.stringify(users));
-        alert("Password changed successfully!");
+        const passwordsuccess = document.querySelector(".passwordsuccess");
+        passwordsuccess.style.display = "block";
+        setTimeout(function () {
+            passwordsuccess.style.display = "none";
+
+        }, 2000)
+        showleaves()
         logout();
     });
 }
@@ -1133,7 +1167,7 @@ function hostelinfo() {
     setText(".timings", hostels[details.hostel].Timigs);
     setText(".allotmentdate", details.HostelAllotment);
 
-    const noticelist = $(".notice-list");
+    const noticelist = document.querySelector(".notice-list");
     if (noticelist) {
         noticelist.innerHTML = "";
         for (i in hostels.Notices) {
@@ -1158,7 +1192,7 @@ function hostelinfo() {
             noticelist.appendChild(notice);
         }
     }
-    const facilitygrid = $(".facility-grid");
+    const facilitygrid = document.querySelector(".facility-grid");
     if (facilitygrid) {
         facilitygrid.innerHTML = "";
         for (i in hostels[details.hostel].Facilities) {
@@ -1179,18 +1213,18 @@ function hostelinfo() {
             facilitygrid.appendChild(facility);
         }
     }
-    const messdaytabs = $(".mess-day-tabs");
+    const messdaytabs = document.querySelector(".mess-day-tabs");
     if (!messdaytabs) return;
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     messday = dayNames[now.getDay()];
-    $$(".mess-tab").forEach(tab => {
+    document.querySelectorAll(".mess-tab").forEach(tab => {
         if (tab.innerText == messday) {
             tab.classList.add("active");
         }
     });
     loadMessMenu(messday);
     messdaytabs.addEventListener("click", (e) => {
-        $$(".mess-tab").forEach(tab => tab.classList.remove("active"));
+        document.querySelectorAll(".mess-tab").forEach(tab => tab.classList.remove("active"));
         e.target.classList.add("active");
         messday = e.target.innerText;
         loadMessMenu(messday);
@@ -1198,7 +1232,7 @@ function hostelinfo() {
 
 }
 function loadMessMenu(day) {
-    const mealcards = $(".meal-cards");
+    const mealcards = document.querySelector(".meal-cards");
     if (!mealcards) {
 
         return;
@@ -1235,13 +1269,13 @@ function loadMessMenu(day) {
 
 
 function loadalerts() {
-    const filterow = $(".filter-row");
+    const filterow = document.querySelector(".filter-row");
     if (!filterow) return;
     let filter = "All";
     showalerts(filter);
     filterow.addEventListener("click", (e) => {
         if (e.target.classList.contains("filter-btn")) {
-            $$(".filter-btn").forEach(btn => btn.classList.remove("active"));
+            document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
             e.target.classList.add("active");
             const filter = e.target.innerText;
             showalerts(filter);
@@ -1249,7 +1283,7 @@ function loadalerts() {
 
     });
     function showalerts(filter) {
-        const alertlist = $(".notif-list");
+        const alertlist = document.querySelector(".notif-list");
         if (!alertlist) return;
         alertlist.innerHTML = "";
         if (filter == "All") {
@@ -1310,7 +1344,7 @@ function loadalerts() {
     }
 }
 function supportpage() {
-    const contactgrid = $(".contact-grid");
+    const contactgrid = document.querySelector(".contact-grid");
     if (contactgrid) {
         contactgrid.innerHTML = "";
         for (i in dept.KeyContacts) {
@@ -1337,7 +1371,7 @@ function supportpage() {
             contactgrid.appendChild(card);
         }
     }
-    const faqlist = $(".faq-list");
+    const faqlist = document.querySelector(".faq-list");
     if (faqlist) {
         faqlist.innerHTML = "";
         for (i in dept.FAQs) {
@@ -1359,9 +1393,9 @@ function supportpage() {
     }
 }
 function ticketform() {
-    if (!$("#ticket-form")) return;
+    if (!document.querySelector("#ticket-form")) return;
     showtickethistory();
-    $("#ticket-form").addEventListener("submit", (e) => {
+    document.querySelector("#ticket-form").addEventListener("submit", (e) => {
         e.preventDefault();
         const form = new FormData(e.target.closest("form"));
         const formdata = Object.fromEntries(form.entries());
@@ -1372,11 +1406,17 @@ function ticketform() {
         details.myTickets[ticketid] = formdata;
         users[details.rollNo] = details;
         localStorage.setItem("users", JSON.stringify(users));
-        alert("Ticket submitted successfully!");
+        const submitticket = document.querySelector(".submitticket");
+        submitticket.style.display = "block";
+        setTimeout(function () {
+            submitticket.style.display = "none";
+
+        }, 2000)
+        e.target.closest("form").reset();
         showtickethistory();
     });
     function showtickethistory() {
-        const ticketlist = $(".ticket-list");
+        const ticketlist = document.querySelector(".ticket-list");
         if (ticketlist) {
             ticketlist.innerHTML = "";
             // Load and display ticket history here
@@ -1429,39 +1469,39 @@ function ticketform() {
     }
 }
 function showannouncements() {
-    if(!$(".notification-list")) return;
-    const notiflist = $(".notification-list");
-    
+    if (!document.querySelector(".notification-list")) return;
+    const notiflist = document.querySelector(".notification-list");
+
     notiflist.innerHTML = "";
     for (i in dept.Notifications) {
         for (j in dept.Notifications[i]) {
-             const announceitem = document.createElement("div");
-                    announceitem.classList.add("announce-item");
+            const announceitem = document.createElement("div");
+            announceitem.classList.add("announce-item");
 
-                    const dot = document.createElement("span");
-                    dot.classList.add("a-dot");
-                    dot.classList.add(`${selectperiodcolor(Math.ceil(Math.random() * 6))}`);
-                    
-                    const body = document.createElement("div");
-                    const head = document.createElement("div");
-                    head.classList.add("a-head");
-                    head.innerText = j;
+            const dot = document.createElement("span");
+            dot.classList.add("a-dot");
+            dot.classList.add(`${selectperiodcolor(Math.ceil(Math.random() * 6))}`);
 
-                    const meta = document.createElement("div");
-                    meta.classList.add("a-meta");
-                    meta.innerHTML = `Category: ${i} | ${dept.Notifications[i][j].substring(0, 40)}...`;
+            const body = document.createElement("div");
+            const head = document.createElement("div");
+            head.classList.add("a-head");
+            head.innerText = j;
 
-                    body.appendChild(head);
-                    body.appendChild(meta);
-                    announceitem.appendChild(dot);
-                    announceitem.appendChild(body);
-                    notiflist.appendChild(announceitem);
+            const meta = document.createElement("div");
+            meta.classList.add("a-meta");
+            meta.innerHTML = `Category: ${i} | ${dept.Notifications[i][j].substring(0, 40)}...`;
+
+            body.appendChild(head);
+            body.appendChild(meta);
+            announceitem.appendChild(dot);
+            announceitem.appendChild(body);
+            notiflist.appendChild(announceitem);
         }
     }
-    notiflist.addEventListener("click",(e)=>{
-       
-            window.location.href = "notifications.html";
-        
+    notiflist.addEventListener("click", (e) => {
+
+        window.location.href = "notifications.html";
+
     });
 }
 calcSemester();
