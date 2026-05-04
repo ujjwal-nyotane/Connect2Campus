@@ -644,7 +644,7 @@ function loadtimetable() {
     const tableheadingrow = document.createElement("tr");
     tableheading.appendChild(tableheadingrow);
     const periodheading = document.createElement("th");
-    periodheading.innerText = "Period";
+    periodheading.innerText = "Lecture";
     tableheadingrow.appendChild(periodheading);
     for (let i in dept.timetable[currentSemester]) {
         const theading = document.createElement("th");
@@ -665,7 +665,7 @@ function loadtimetable() {
         const tbodyrow = document.createElement("tr");
         const period = (document.createElement("td"));
         period.classList.add("time-col")
-        period.innerText = `${i} Period`;
+        period.innerText = `${i} Lecture`;
         tbodyrow.appendChild(period);
         for (j in dept.timetable[currentSemester]) {
             const temp = document.createElement("td");
@@ -715,7 +715,7 @@ function DailyTable(input) {
 
         const time = document.createElement("div");
         time.classList.add("tt-time");
-        time.innerText = `Period ${i}`;
+        time.innerText = `Lecture ${i}`;
         row.appendChild(time);
 
 
