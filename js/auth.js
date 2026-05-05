@@ -286,8 +286,7 @@ const departments = {
         S39: { name: "Finite Element Analysis in Practice", credit: "4", teacher: "Dr. Anjali Arora" },
         S40: { name: "Mechatronic Systems in Industry", credit: "3", teacher: "Mr. Tanishq" },
         S41: { name: "Aerospace Systems Design", credit: "3", teacher: "Dr. Ruhan Gupta" },
-      },
-      
+      }
 
 
 
