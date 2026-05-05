@@ -356,7 +356,7 @@ function calculateattendedclass(subject) {
 
     let att = 0;
     let total = 0
-    for (i in attendance[details.department][currentSemester]) {
+    for (i in attendance) {
         const [d, m, y] = i.split('-');
         const date = new Date(y, m - 1, d);
         const weekdays = [
@@ -366,7 +366,7 @@ function calculateattendedclass(subject) {
         for (j in dept.timetable[currentSemester][weekday]) {
             if (subject == dept.timetable[currentSemester][weekday][j]) {
                 total++;
-                if (attendance[details.department][currentSemester][i][j][details.rollNo] == "P" || attendance[details.department][currentSemester][i][details.rollNo] == "L") {
+                if (attendance[i][j][details.rollNo] == "P" || attendance[i][j][details.rollNo] == "L") {
                     att++;
                 }
             }
@@ -495,8 +495,7 @@ function loadAttendanceCalendar(subjid, month, year) {
 
 
     if (
-        !attendance[deptName] ||
-        !attendance[deptName][sem]
+        !attendance
     ) return;
 
 
@@ -528,7 +527,7 @@ function loadAttendanceCalendar(subjid, month, year) {
 
         let cls = "holiday";
 
-        const dayData = attendance[deptName][sem][fullDate];
+        const dayData = attendance[fullDate];
 
         if (dayData) {
 
@@ -913,6 +912,7 @@ function showleaves() {
 function calcleaves() {
     let pdl = 0;
     let apl = 0;
+    ;
     for (i in dept.leaves[details.rollNo]) {
 
         if (dept.leaves[details.rollNo][i].approvestatus == "pending") {
