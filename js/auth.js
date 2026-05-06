@@ -158,7 +158,7 @@ const departments = {
     },
     "leaves": {
       "2510993660": {
-        "LV20264414324733": {
+        "LV65778324733": {
           approvestatus: "pending",
           contact: "9354551403",
           doc: "",
@@ -167,6 +167,17 @@ const departments = {
           reason: "arm fracture",
           to: "2026-05-01",
           type: "casual",
+          applytime: "30-4-2026",
+        },
+        "LV57685467523": {
+          approvestatus: "approved",
+          contact: "7896541230",
+          doc: "",
+          from: "2026-04-20",
+          guardian: "Dilbag Singh",
+          reason: "arm fracture",
+          to: "2026-04-21",
+          type: "medical",
           applytime: "30-4-2026",
         }
       }
