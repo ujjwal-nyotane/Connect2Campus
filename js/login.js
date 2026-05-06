@@ -3,7 +3,12 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const form = document.querySelector("form");
     if (localStorage.getItem("isLoggedIn") == "true"){
-    window.location.href="home.html";
+        if(localStorage.getItem("role") === "admin"){
+            window.location.href="faculty.html";
+        }
+        if(localStorage.getItem("role") === "student"){
+            window.location.href="home.html";
+        }
     }
     if(localStorage.length === 0){
             
@@ -43,7 +48,12 @@ document.addEventListener("DOMContentLoaded", function () {
             popup.style.display="block";
             
             setTimeout (function () {
-                window.location.href = "home.html"; 
+                if(user.role === "admin"){
+                    window.location.href = "faculty.html"; 
+                }
+                if(user.role === "student"){
+                    window.location.href = "home.html"; 
+                }
                 popup.style.display="none";
                 
             },2000);

@@ -156,7 +156,7 @@ const departments = {
         "FRI": { "1": "S37", "2": "S40", "3": "S39", "4": "S38", "5": "S38", "6": "S41" },
       },
     },
-    "leaves": {
+    leaves: {
       "2510993660": {
         "LV65778324733": {
           approvestatus: "pending",
@@ -170,16 +170,19 @@ const departments = {
           applytime: "30-4-2026",
         },
         "LV57685467523": {
-          approvestatus: "approved",
+          approvestatus: "pending",
           contact: "7896541230",
           doc: "",
           from: "2026-04-20",
           guardian: "Dilbag Singh",
-          reason: "arm fracture",
+          reason: "fever",
           to: "2026-04-21",
           type: "medical",
           applytime: "30-4-2026",
         }
+      },
+      "2510993661": {
+
       }
     },
     "fees": {
@@ -368,6 +371,7 @@ const departments = {
 
     leaves: {
       "2510993662": {
+
       },
     },
     fees: {
@@ -395,6 +399,7 @@ const users = {
   "2510993660": {
     user_ID: "2510993660",
     password: "123123Vm@",
+    role: "student",
     firstName: "Vishwas",
     lastName: "Mahiwal",
     rollNo: "2510993660",
@@ -441,6 +446,7 @@ const users = {
   "2510993661": {
     user_ID: "2510993661",
     password: "123123As@",
+    role: "student",
     firstName: "Anjali",
     lastName: "Sharma",
     rollNo: "2510993661",
@@ -487,6 +493,7 @@ const users = {
   "2510993662": {
     user_ID: "2510993662",
     password: "123123Rv@",
+    role: "student",
     firstName: "Rahul",
     lastName: "Verma",
     rollNo: "2510993662",
@@ -529,6 +536,11 @@ const users = {
 
 
     },
+  },
+  "CET001": {
+    user_ID: "CET001",
+    password: "123123Cet@",
+    role: "admin"
   }
 }
 const results = {

@@ -1,13 +1,19 @@
 (function () {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-
+  const role = localStorage.getItem("role");
   if (isLoggedIn !== "true") {
-    // not logged in → force back to login page
+
     window.location.href = "index.html";
   }
   
+  if(role === "admin" && !window.location.href.includes("faculty.html")){
+    window.location.href = "faculty.html"; 
+  }
+  if(role === "student" && window.location.href.includes("faculty.html")){
+    window.location.href = "home.html";
+  }
 })();
-// js/logout.js OR add in guard.js
+
 
 function logout() {
   localStorage.setItem("isLoggedIn", false);

@@ -12,7 +12,7 @@ const weekday = now.getDay();
 let totalfees = 0;
 let paidfees = 0;
 
-
+const role = localStorage.getItem("role");
 const users = JSON.parse(localStorage.getItem("users")) || {};
 const departments = JSON.parse(localStorage.getItem("departments")) || {};
 const results = JSON.parse(localStorage.getItem("results")) || {};
@@ -366,6 +366,7 @@ function calculateattendedclass(subject) {
         for (j in dept.timetable[currentSemester][weekday]) {
             if (subject == dept.timetable[currentSemester][weekday][j]) {
                 total++;
+                console.log(attendance[i]);
                 if (attendance[i][j][details.rollNo] == "P" || attendance[i][j][details.rollNo] == "L") {
                     att++;
                 }
@@ -1095,7 +1096,7 @@ function editdetails() {
     inputs.email.value = details.PersonalEmail;
     inputs.contact.value = details.PersonalContact;
     inputs.address.value = details.PermanentAddress;
-    
+
     document.querySelector("#edit-details").addEventListener("submit", (e) => {
         e.preventDefault();
         const form = new FormData(e.target.closest("form"));
@@ -1136,11 +1137,11 @@ function changepassword() {
         }
         if (newpass != confirmpass) {
             const confirm = document.querySelector(".confirmmismatch");
-            confirm.style.display="block";
-            setTimeout(function(){
-                confirm.style.display="none";
-                 e.target.closest("form").reset();
-            },2000);
+            confirm.style.display = "block";
+            setTimeout(function () {
+                confirm.style.display = "none";
+                e.target.closest("form").reset();
+            }, 2000);
             return;
         }
         details.password = newpass;
@@ -1504,37 +1505,157 @@ function showannouncements() {
 
     });
 }
-calcSemester();
+function showofpendingleaves(dept, roll) {
+    return `
+    <table>
+    <thead>
+    <tr>
+    <th>Leave ID</th>
+    <th>Type</th>
+<th>From</th>
+<th>To</th>
+<th>Days</th>
+<th>Reason</th>
+<th>Applied On</th>
+<th>Status</th>
+</tr>
+    </thead>
+    <tbody>
+    ${(() => {
+            let temp = '';
+            for (let i in departments[dept].leaves[roll]) {
 
-loadStudentInfo();
-showannouncements();
-
-createSemesterTabs();
-
-selectAttendanceCalendar();
-
-loadtimetable();
-loadDailytable();
-faculty();
-
-leaveapply();
-showleaves();
-calcleaves();
-
-feesbreakdown();
-payfee();
-submitpayment();
-showfeepaymenthistory();
-updatedue();
-
-editdetails();
-changepassword();
-
-hostelinfo();
+                const row = `<tr>
+            <td>${i}</td>
+            <td>${departments[dept].leaves[roll][i].type}</td>
+            <td>${departments[dept].leaves[roll][i].from}</td>
+            <td>${departments[dept].leaves[roll][i].to}</td>
+            <td>${(() => {
+                        const d1 = new Date(departments[dept].leaves[roll][i].from);
+                        const d2 = new Date(departments[dept].leaves[roll][i].to);
+                        return ((d2 - d1) / (1000 * 60 * 60 * 24) + 1);
+                    })()}</td>
+            <td>${departments[dept].leaves[roll][i].reason}</td>
+            <td>${departments[dept].leaves[roll][i].applytime}</td>
+            <td><select onChange="updateleavestatus(this.value,'${dept}','${roll}','${i}')">
+                <option value="pending" ${departments[dept].leaves[roll][i].approvestatus == 'pending' ? 'selected' : ''}>Pending</option>
+                <option value="approved" ${departments[dept].leaves[roll][i].approvestatus == 'approved' ? 'selected' : ''}>Approved</option>
+                <option value="rejected" ${departments[dept].leaves[roll][i].approvestatus == 'rejected' ? 'selected' : ''}>Rejected</option>
+            </select></td>
+            </tr>`;
 
 
+                temp += row;
 
-loadalerts();
+            }
 
-supportpage();
-ticketform();
+            return temp;
+        })()}
+    </tbody>
+    </table>
+    `;
+
+
+}
+function updateleavestatus(status, dept, roll, i) {
+    departments[dept].leaves[roll][i].approvestatus = status;
+    localStorage.setItem("departments", JSON.stringify(departments));
+    const d1 = new Date(departments[dept].leaves[roll][i].from);
+    const d2 = new Date(departments[dept].leaves[roll][i].to);
+    const days = ((d2 - d1) / (1000 * 60 * 60 * 24) + 1);
+    for (let i = 1; i <= days; i++) {
+        const date = new Date(d1.getTime() + (i - 1) * (1000 * 60 * 60 * 24));
+        const dateString = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+
+        if (!attendance[dateString]) {
+            attendance[dateString] = {1:{},2:{},3:{},4:{},5:{},6:{}};
+        }
+        for (let j in attendance[dateString]) {
+            
+            if(status == "approved") {
+                attendance[dateString][j][roll] = "L";
+        }
+        else {
+            attendance[dateString][j][roll] = "A";
+        }
+
+    }
+    localStorage.setItem("attendance", JSON.stringify(attendance));
+}
+}
+function appliedleaves() {
+    const body = document.querySelector(".leaverequestbody");
+    if (body) {
+        body.innerHTML = "";
+
+        for (let i in departments) {
+
+            for (let j in departments[i].leaves) {
+
+                if (Object.keys(departments[i].leaves[j]).length > 0) {
+
+                    body.innerHTML += `
+                <tr class="studentrow">
+                <td>${users[j].firstName} ${users[j].lastName}</td>
+                <td>${i}</td>
+                <td>${j}</td>
+                </tr>
+                <tr style="display: none;" class="studentleaverow">
+                <td colspan="3">
+                ${showofpendingleaves(i, j)}
+                </td>
+                </tr>
+                    `;
+
+                }
+            }
+        }
+        body.addEventListener("click", (e) => {
+            if (e.target.closest(".studentrow")) {
+                document.querySelectorAll(".studentleaverow").forEach(row => row.style.display = "none");
+                (e.target.closest(".studentrow").nextElementSibling).style.display = "table-row";
+            }
+
+        });
+    }
+}
+
+if (role == "student") {
+    calcSemester();
+
+    loadStudentInfo();
+    showannouncements();
+
+    createSemesterTabs();
+
+    selectAttendanceCalendar();
+
+    loadtimetable();
+    loadDailytable();
+    faculty();
+
+    leaveapply();
+    showleaves();
+    calcleaves();
+
+    feesbreakdown();
+    payfee();
+    submitpayment();
+    showfeepaymenthistory();
+    updatedue();
+
+    editdetails();
+    changepassword();
+
+    hostelinfo();
+
+
+
+    loadalerts();
+
+    supportpage();
+    ticketform();
+}
+if (role == "admin") {
+    appliedleaves();
+}
