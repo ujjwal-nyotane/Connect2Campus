@@ -364,9 +364,9 @@ function calculateattendedclass(subject) {
         ]
         const weekday = weekdays[date.getDay()];
         for (j in dept.timetable[currentSemester][weekday]) {
-            if (subject == dept.timetable[currentSemester][weekday][j]) {
+            if (subject == dept.timetable[currentSemester][weekday][j] && attendance[i][j] && attendance[i][j][details.rollNo]) {
                 total++;
-                console.log(attendance[i]);
+
                 if (attendance[i][j][details.rollNo] == "P" || attendance[i][j][details.rollNo] == "L") {
                     att++;
                 }
@@ -551,6 +551,7 @@ function loadAttendanceCalendar(subjid, month, year) {
 
                             if (st === "A") absent = true;
                             if (st === "L") leave = true;
+                            
 
 
                         }
@@ -1568,20 +1569,20 @@ function updateleavestatus(status, dept, roll, i) {
         const dateString = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
 
         if (!attendance[dateString]) {
-            attendance[dateString] = {1:{},2:{},3:{},4:{},5:{},6:{}};
+            attendance[dateString] = { 1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {} };
         }
         for (let j in attendance[dateString]) {
-            
-            if(status == "approved") {
-                attendance[dateString][j][roll] = "L";
-        }
-        else {
-            attendance[dateString][j][roll] = "A";
-        }
 
+            if (status == "approved") {
+                attendance[dateString][j][roll] = "L";
+            }
+            else {
+                attendance[dateString][j][roll] = "A";
+            }
+
+        }
+        localStorage.setItem("attendance", JSON.stringify(attendance));
     }
-    localStorage.setItem("attendance", JSON.stringify(attendance));
-}
 }
 function appliedleaves() {
     const body = document.querySelector(".leaverequestbody");
@@ -1619,8 +1620,71 @@ function appliedleaves() {
         });
     }
 }
+function getAttendance() {
+    const form = document.querySelector("#attendanceform");
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            
+            const formdata = new FormData(e.target.closest("form"));
+            let [year,month,day] = formdata.get("date").split("-");
+            const lec = formdata.get("lecture");
+            if(!lec || !day || !month || !year){
 
+            } ;
+
+            
+            const date = `${(String(day).padStart(2, '0'))}-${String(month).padStart(2, '0')}-${year}`;
+            if(!attendance[date]){
+                attendance[date] = {1:{},2:{},3:{},4:{},5:{},6:{}};
+            }
+            const body = document.querySelector(".attendanceofstudents");
+            const now = new Date(form.date.value);
+            
+            if(now.getDay() == 0 || now.getDay() == 6){
+                body.innerHTML="<tr><td colspan='4'>No Lecture on weekends</td></tr>";
+                
+            }
+             else if(!lec || !day || !month || !year){
+                body.innerHTML="<tr><td colspan='4'>Please fill in all the fields</td></tr>";
+            }
+            else{
+            body.innerHTML = "";
+            for(let i in users){
+                if(users[i].role == "student"){
+                    body.innerHTML += `
+                    <tr>
+                    <td>${users[i].firstName} ${users[i].lastName}</td>
+                    <td>${users[i].department}</td>
+                    <td>${users[i].rollNo}</td>
+                    
+                    <td><select onChange="updateAttendance(this.value,'${date}','${lec}',${i})">
+                        <option value="">Select Status</option>
+                        <option value="L" ${attendance[date][lec]?.[i] === "L" ? "selected" : ""}>Leave</option>
+                        <option value="P" ${attendance[date][lec]?.[i] === "P" ? "selected" : ""}>Present</option>
+                        <option value="A" ${attendance[date][lec]?.[i] === "A" ? "selected" : ""}>Absent</option>
+                    </select></td>
+                    </tr>`;
+                }
+            }
+        }
+    });
+    }
+}
+function updateAttendance(status,date,lec,i){
+    if(!attendance[date]){
+        attendance[date] = {1:{},2:{},3:{},4:{},5:{},6:{}};
+    }
+    if(status == ""){
+        delete attendance[date][lec][i];
+    }
+    else {
+    attendance[date][lec][i] = status;
+    }
+    localStorage.setItem("attendance", JSON.stringify(attendance));
+}
 if (role == "student") {
+
     calcSemester();
 
     loadStudentInfo();
@@ -1658,4 +1722,5 @@ if (role == "student") {
 }
 if (role == "admin") {
     appliedleaves();
+    getAttendance();
 }
