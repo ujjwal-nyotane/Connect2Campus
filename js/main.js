@@ -337,7 +337,7 @@ function calctotalatt() {
     let totalatt = 0;
     let totalclasses = 0;
     let per = 0;
-    for (i in dept.subjects[currentSemester]) {
+    for (let i in dept.subjects[currentSemester]) {
         const [att, tot] = calculateattendedclass(i);
         totalatt = totalatt + att;
         totalclasses = totalclasses + tot;
@@ -356,14 +356,14 @@ function calculateattendedclass(subject) {
 
     let att = 0;
     let total = 0
-    for (i in attendance) {
+    for (let i in attendance) {
         const [d, m, y] = i.split('-');
         const date = new Date(y, m - 1, d);
         const weekdays = [
             "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"
         ]
         const weekday = weekdays[date.getDay()];
-        for (j in dept.timetable[currentSemester][weekday]) {
+        for (let j in dept.timetable[currentSemester][weekday]) {
             if (subject == dept.timetable[currentSemester][weekday][j] && attendance[i][j] && attendance[i][j][details.rollNo]) {
                 total++;
 
@@ -390,7 +390,7 @@ function badsel(percent) {
 function selectAttendanceCalendar() {
     const attendancelist = document.querySelector("#subject-attendance-list");
     if (!attendancelist) return;
-    for (i in dept.subjects[currentSemester]) {
+    for (let i in dept.subjects[currentSemester]) {
         const subatten = document.createElement("tr");
         subatten.classList.add("att-subject-row");
         subatten.id = i;
@@ -539,7 +539,7 @@ function loadAttendanceCalendar(subjid, month, year) {
             let weekday = weekdaytext(week.getDay());
 
             if (dept.timetable[currentSemester][weekday]) {
-                for (sub in dept.timetable[currentSemester][weekday]) {
+                for (let sub in dept.timetable[currentSemester][weekday]) {
 
                     if (dept.timetable[currentSemester][weekday][sub] == subjid) {
 
@@ -668,7 +668,7 @@ function loadtimetable() {
         period.classList.add("time-col")
         period.innerText = `${i} Lecture`;
         tbodyrow.appendChild(period);
-        for (j in dept.timetable[currentSemester]) {
+        for (let j in dept.timetable[currentSemester]) {
             const temp = document.createElement("td");
             temp.innerHTML = `<span class="week-cell wc-${selectperiodcolor()}"><div class='wc-sub'>${dept.subjects[currentSemester][dept.timetable[currentSemester][j][i]].name}</div></span>`;
             tbodyrow.appendChild(temp);
@@ -710,7 +710,7 @@ function DailyTable(input) {
 
     const table = document.querySelector(".timetable-grid");
     table.innerText = "";
-    for (i in dept.timetable[currentSemester][day]) {
+    for (let i in dept.timetable[currentSemester][day]) {
         const row = document.createElement("div");
         row.classList.add("tt-row");
 
@@ -789,7 +789,7 @@ function subname(name) {
 function faculty() {
     const facultylist = document.querySelector(".faculty-list");
     if (!facultylist) return;
-    for (i in dept.subjects[currentSemester]) {
+    for (let i in dept.subjects[currentSemester]) {
         const facultycard = document.createElement("div");
         facultycard.classList.add("faculty-card");
 
@@ -867,7 +867,7 @@ function showleaves() {
     const list = document.querySelector("#leavehistory");
     if (!list) return;
     list.innerText = "";
-    for (i in dept.leaves[details.rollNo]) {
+    for (let i in dept.leaves[details.rollNo]) {
 
 
         const leaverow = document.createElement("tr");
@@ -915,7 +915,7 @@ function calcleaves() {
     let pdl = 0;
     let apl = 0;
     ;
-    for (i in dept.leaves[details.rollNo]) {
+    for (let i in dept.leaves[details.rollNo]) {
 
         if (dept.leaves[details.rollNo][i].approvestatus == "pending") {
             pdl++;
@@ -932,7 +932,7 @@ function feesbreakdown() {
     if (!feestructure) return;
     let totalfees = 0;
     feestructure.innerHTML = "";
-    for (i in dept.fees.feedetails) {
+    for (let i in dept.fees.feedetails) {
         const feerow = document.createElement("div");
         feerow.classList.add("fee-row");
 
@@ -1027,7 +1027,7 @@ function showfeepaymenthistory() {
     if (!list) return;
     list.innerText = "";
 
-    for (i in dept.fees.feehistory[details.rollNo][currentSemester]) {
+    for (let i in dept.fees.feehistory[details.rollNo][currentSemester]) {
 
         const row = document.createElement("div");
         row.classList.add("receipt-row");
@@ -1076,10 +1076,10 @@ function showfeepaymenthistory() {
 function updatedue() {
     totalfees = 0;
     paidfees = 0;
-    for (i in dept.fees.feedetails) {
+    for (let i in dept.fees.feedetails) {
         totalfees += Number(dept.fees.feedetails[i]);
     }
-    for (i in dept.fees.feehistory[details.rollNo][currentSemester]) {
+    for (let i in dept.fees.feehistory[details.rollNo][currentSemester]) {
         paidfees += Number(dept.fees.feehistory[details.rollNo][currentSemester][i].amount);
     }
     setText(".feesPaid", `₹${paidfees}`);
@@ -1172,7 +1172,7 @@ function hostelinfo() {
     const noticelist = document.querySelector(".notice-list");
     if (noticelist) {
         noticelist.innerHTML = "";
-        for (i in hostels.Notices) {
+        for (let i in hostels.Notices) {
             const notice = document.createElement("div");
             notice.classList.add("notice-item");
             const dot = document.createElement("span");
@@ -1197,7 +1197,7 @@ function hostelinfo() {
     const facilitygrid = document.querySelector(".facility-grid");
     if (facilitygrid) {
         facilitygrid.innerHTML = "";
-        for (i in hostels[details.hostel].Facilities) {
+        for (let i in hostels[details.hostel].Facilities) {
             const facility = document.createElement("div");
             facility.classList.add("facility-item");
             const group = document.createElement("div");
@@ -1240,7 +1240,7 @@ function loadMessMenu(day) {
         return;
     }
     mealcards.innerHTML = "";
-    for (k in hostels.MessMenu[day]) {
+    for (let k in hostels.MessMenu[day]) {
         const mealcard = document.createElement("div");
         mealcard.classList.add("meal-card");
 
@@ -1253,8 +1253,8 @@ function loadMessMenu(day) {
 
         const mealitems = document.createElement("div");
         mealitems.classList.add("meal-items");
-        for (i in hostels.MessMenu[day][k]) {
-            for (j of hostels.MessMenu[day][k][i]) {
+        for (let i in hostels.MessMenu[day][k]) {
+            for (let j of hostels.MessMenu[day][k][i]) {
                 const item = document.createElement("div");
                 item.classList.add("meal-item");
                 item.innerHTML = `<span class="${i}-tag"></span>${j}`;
@@ -1289,9 +1289,9 @@ function loadalerts() {
         if (!alertlist) return;
         alertlist.innerHTML = "";
         if (filter == "All") {
-            for (i in dept.Notifications) {
+            for (let i in dept.Notifications) {
 
-                for (j in dept.Notifications[i]) {
+                for (let j in dept.Notifications[i]) {
                     const card = document.createElement("div");
                     card.classList.add("notif-card");
 
@@ -1318,7 +1318,7 @@ function loadalerts() {
             }
         }
         else {
-            for (i in dept.Notifications[filter]) {
+            for (let i in dept.Notifications[filter]) {
                 const card = document.createElement("div");
                 card.classList.add("notif-card");
 
@@ -1349,7 +1349,7 @@ function supportpage() {
     const contactgrid = document.querySelector(".contact-grid");
     if (contactgrid) {
         contactgrid.innerHTML = "";
-        for (i in dept.KeyContacts) {
+        for (let i in dept.KeyContacts) {
 
             const card = document.createElement("div");
             card.classList.add("contact-card");
@@ -1376,7 +1376,7 @@ function supportpage() {
     const faqlist = document.querySelector(".faq-list");
     if (faqlist) {
         faqlist.innerHTML = "";
-        for (i in dept.FAQs) {
+        for (let i in dept.FAQs) {
             const item = document.createElement("div");
             item.classList.add("faq-item");
 
@@ -1422,7 +1422,7 @@ function ticketform() {
         if (ticketlist) {
             ticketlist.innerHTML = "";
             // Load and display ticket history here
-            for (i in details.myTickets) {
+            for (let i in details.myTickets) {
                 const ticket = document.createElement("div");
                 ticket.classList.add("ticket-item");
 
@@ -1475,8 +1475,8 @@ function showannouncements() {
     const notiflist = document.querySelector(".notification-list");
 
     notiflist.innerHTML = "";
-    for (i in dept.Notifications) {
-        for (j in dept.Notifications[i]) {
+    for (let i in dept.Notifications) {
+        for (let j in dept.Notifications[i]) {
             const announceitem = document.createElement("div");
             announceitem.classList.add("announce-item");
 
