@@ -105,10 +105,11 @@ function calcSemester() {
 }
 
 function getGreeting() {
+
     if (hour < 12) return "Morning";
     if (hour < 17) return "Afternoon";
-    if (hour < 21) return "Evening";
-    return "Night";
+    return "Evening";
+
 }
 
 
