@@ -1642,21 +1642,29 @@ function getAttendance() {
             const now = new Date(form.date.value);
             
             if(now.getDay() == 0 || now.getDay() == 6){
-                body.innerHTML="<tr><td colspan='4'>No Lecture on weekends</td></tr>";
+                body.innerHTML="<tr><td colspan='5'>No Lecture on weekends</td></tr>";
                 
             }
              else if(!lec || !day || !month || !year){
-                body.innerHTML="<tr><td colspan='4'>Please fill in all the fields</td></tr>";
+                body.innerHTML="<tr><td colspan='5'>Please fill in all the fields</td></tr>";
             }
             else{
+                const now = new Date(form.date.value);
+                const week = ["","MON","TUE","WED","THU","FRI",""];
+                
             body.innerHTML = "";
             for(let i in users){
                 if(users[i].role == "student"){
+                    
+                    const sem = (Number(now.getFullYear())-Number(users[i].enrollmentYear))*2;
+                    if (month>6) sem++;
+                   
                     body.innerHTML += `
                     <tr>
                     <td>${users[i].firstName} ${users[i].lastName}</td>
                     <td>${users[i].department}</td>
                     <td>${users[i].rollNo}</td>
+                    <td>${departments[users[i].department].subjects[sem][departments[users[i].department].timetable[sem][week[now.getDay()]][lec]].name}</td>
                     
                     <td><select onChange="updateAttendance(this.value,'${date}','${lec}',${i})">
                         <option value="">Select Status</option>
