@@ -1519,7 +1519,7 @@ function showofpendingleaves(dept, roll) {
 <th>Reason</th>
 <th>Applied On</th>
 <th>Status</th>
-</tr>
+    </tr>
     </thead>
     <tbody>
     ${(() => {
