@@ -1,6 +1,3 @@
-
-
-
 const now = new Date();
 const month = now.getMonth() + 1;
 let Calmonth = now.getMonth();
@@ -68,6 +65,7 @@ if (leaveform) {
 
     })
 }
+
 function calcPoints(mark) {
     if (mark >= 80) return 10;
     if (mark >= 70) return 9;
@@ -178,9 +176,9 @@ function createSemesterTabs() {
         tab.className = "sem-tab";
         tab.dataset.sem = i;
 
-        tab.innerText = i === currentSemester
-            ? `(Ongoing) Semester ${i}`
-            : `Semester ${i}`;
+        tab.innerText = i === currentSemester ?
+            `(Ongoing) Semester ${i}` :
+            `Semester ${i}`;
 
         if (i === currentSemester) {
             tab.classList.add("active");
@@ -225,7 +223,8 @@ function showResult() {
         const extMO = Number(res.external.MO);
         const extMM = Number(res.external.MM);
 
-        let intMO = 0, intMM = 0;
+        let intMO = 0,
+            intMM = 0;
 
         Object.values(res.internal.MO).forEach(v => intMO += Number(v));
         Object.values(res.internal.MM).forEach(v => intMM += Number(v));
@@ -256,6 +255,7 @@ function showResult() {
         </tr>`;
     }
 }
+
 function calccgpa() {
     let totalCredits = 0;
     let weightedPoints = 0;
@@ -296,6 +296,7 @@ function calccgpa() {
 
     return (weightedPoints / totalCredits).toFixed(2);
 }
+
 function calcsgpa(semester) {
 
     if (Number(semester) >= Number(currentSemester)) return "Pending";
@@ -333,6 +334,7 @@ function calcsgpa(semester) {
 
     return (weightedPoints / totalCredits).toFixed(2);
 }
+
 function calctotalatt() {
     let totalatt = 0;
     let totalclasses = 0;
@@ -346,12 +348,12 @@ function calctotalatt() {
     setText(".totalclasses", totalclasses);
     setText(".attendedclasses", totalatt);
     setText(".missedclasses", totalclasses - totalatt);
-    if (totalclasses == 0) { per = 0; }
-    else per = ((totalatt / totalclasses) * 100);
+    if (totalclasses == 0) { per = 0; } else per = ((totalatt / totalclasses) * 100);
 
     setText(".attpercentage", `${Math.floor(per)}%`);
 
 }
+
 function calculateattendedclass(subject) {
 
     let att = 0;
@@ -377,16 +379,19 @@ function calculateattendedclass(subject) {
     }
     return [att, total];
 }
+
 function attcolor(percent) {
     if (percent >= 90) return "green";
     else if (percent >= 75) return "amber";
     else return "red";
 }
+
 function badsel(percent) {
     if (percent >= 90) return '<span class="badge badge-green">Excellent</span>';
     else if (percent >= 75) return '<span class="badge badge-amber">Good</span>';
     else return '<span class="badge badge-red">Risk</span>';
 }
+
 function selectAttendanceCalendar() {
     const attendancelist = document.querySelector("#subject-attendance-list");
     if (!attendancelist) return;
@@ -495,9 +500,7 @@ function loadAttendanceCalendar(subjid, month, year) {
 
 
 
-    if (
-        !attendance
-    ) return;
+    if (!attendance) return;
 
 
 
@@ -551,7 +554,7 @@ function loadAttendanceCalendar(subjid, month, year) {
 
                             if (st === "A") absent = true;
                             if (st === "L") leave = true;
-                            
+
 
 
                         }
@@ -614,6 +617,7 @@ function weekdaytext(now) {
             return "SAT";
     }
 }
+
 function selectperiodcolor() {
     let color = Math.floor(Math.random() * 6);
     switch (color) {
@@ -632,6 +636,7 @@ function selectperiodcolor() {
 
     }
 }
+
 function loadtimetable() {
     const now = (new Date().getDay());
     const weekname = weekdaytext(now);
@@ -686,6 +691,7 @@ function loadtimetable() {
 
     weeklytimetable.appendChild(table);
 }
+
 function DailyTable(input) {
     let day;
 
@@ -750,6 +756,7 @@ function DailyTable(input) {
         table.appendChild(row);
     }
 }
+
 function loadDailytable() {
     const daytabs = document.querySelector(".day-tabs");
     if (!daytabs) return;
@@ -759,8 +766,7 @@ function loadDailytable() {
         tab[weekday - 1].classList.add("active", "today-tab");
         DailyTable(tab[weekday - 1].innerText);
 
-    }
-    else {
+    } else {
         tab[0].classList.add("active", "today-tab");
         DailyTable(tab[0].innerText);
     }
@@ -776,6 +782,7 @@ function loadDailytable() {
         DailyTable(e.target.innerText);
     });
 }
+
 function subname(name) {
     let smallname = "";
     let arr = name.split(' ');
@@ -786,6 +793,7 @@ function subname(name) {
 
     return smallname;
 }
+
 function faculty() {
     const facultylist = document.querySelector(".faculty-list");
     if (!facultylist) return;
@@ -825,6 +833,7 @@ function faculty() {
     }
 }
 let leavetype = "casual";
+
 function leaveapply() {
     const leavetyperow = document.querySelector(".leave-type-row");
     if (!leavetyperow) return;
@@ -857,12 +866,13 @@ function leaveselect() {
     localStorage.setItem("departments", JSON.stringify(departments));
     const leavesuccessfull = document.querySelector(".leavesucessfull");
     leavesuccessfull.style.display = "block";
-    setTimeout(function () {
+    setTimeout(function() {
         leavesuccessfull.style.display = "none";
 
     }, 2000)
     showleaves()
 }
+
 function showleaves() {
     const list = document.querySelector("#leavehistory");
     if (!list) return;
@@ -911,10 +921,10 @@ function showleaves() {
     }
     calcleaves();
 }
+
 function calcleaves() {
     let pdl = 0;
-    let apl = 0;
-    ;
+    let apl = 0;;
     for (i in dept.leaves[details.rollNo]) {
 
         if (dept.leaves[details.rollNo][i].approvestatus == "pending") {
@@ -927,6 +937,7 @@ function calcleaves() {
     setText(".approvedleaves", apl);
     setText(".pendingleaves", pdl);
 }
+
 function feesbreakdown() {
     const feestructure = document.querySelector(".feestructure");
     if (!feestructure) return;
@@ -972,19 +983,18 @@ if (paymentmode) {
         }
     })
 }
+
 function payfee() {
     if (!document.querySelector(".payment-form")) return;
     if (paymentmethod == "Card") {
         document.querySelector("#Cardpay").style.display = "block";
         document.querySelector("#UPIpay").style.display = "none";
         document.querySelector("#NetBankingpay").style.display = "none";
-    }
-    else if (paymentmethod == "UPI") {
+    } else if (paymentmethod == "UPI") {
         document.querySelector("#Cardpay").style.display = "none";
         document.querySelector("#UPIpay").style.display = "block";
         document.querySelector("#NetBankingpay").style.display = "none";
-    }
-    else {
+    } else {
         document.querySelector("#Cardpay").style.display = "none";
         document.querySelector("#UPIpay").style.display = "none";
         document.querySelector("#NetBankingpay").style.display = "block";
@@ -992,6 +1002,7 @@ function payfee() {
 
 }
 let paymentformdata = {};
+
 function submitpayment() {
     if (!document.querySelector(".payment-form")) return;
 
@@ -1010,7 +1021,7 @@ function submitpayment() {
         localStorage.setItem("departments", JSON.stringify(departments));
         const feesuccessfull = document.querySelector(".feesucessfull");
         feesuccessfull.style.display = "block";
-        setTimeout(function () {
+        setTimeout(function() {
             feesuccessfull.style.display = "none";
 
         }, 2000);
@@ -1021,6 +1032,7 @@ function submitpayment() {
 
     });
 }
+
 function showfeepaymenthistory() {
     const list = document.querySelector(".paymenthistory");
 
@@ -1062,11 +1074,11 @@ function showfeepaymenthistory() {
     updatedue();
     setText(".receipts", Object.keys(dept.fees.feehistory[details.rollNo][currentSemester]).length);
     setText(".lastdateofpayment", lastdateofpayment());
+
     function lastdateofpayment() {
         if (currentSemester % 2 == 0) {
             return "30th July";
-        }
-        else {
+        } else {
             return "31st December";
         }
     }
@@ -1111,13 +1123,14 @@ function editdetails() {
         localStorage.setItem("users", JSON.stringify(users));
         const detailssuccessfull = document.querySelector(".detailssucessfull");
         detailssuccessfull.style.display = "block";
-        setTimeout(function () {
+        setTimeout(function() {
             detailssuccessfull.style.display = "none";
             e.target.closest("form").reset();
         }, 2000);
 
     });
 }
+
 function changepassword() {
     if (!document.querySelector("#change-password-form")) return;
     document.querySelector("#change-password-form").addEventListener("submit", (e) => {
@@ -1129,7 +1142,7 @@ function changepassword() {
         if (current != details.password) {
             const passwordfail = document.querySelector(".passwordfail");
             passwordfail.style.display = "block";
-            setTimeout(function () {
+            setTimeout(function() {
                 passwordfail.style.display = "none";
 
             }, 2000)
@@ -1139,7 +1152,7 @@ function changepassword() {
         if (newpass != confirmpass) {
             const confirm = document.querySelector(".confirmmismatch");
             confirm.style.display = "block";
-            setTimeout(function () {
+            setTimeout(function() {
                 confirm.style.display = "none";
                 e.target.closest("form").reset();
             }, 2000);
@@ -1150,7 +1163,7 @@ function changepassword() {
         localStorage.setItem("users", JSON.stringify(users));
         const passwordsuccess = document.querySelector(".passwordsuccess");
         passwordsuccess.style.display = "block";
-        setTimeout(function () {
+        setTimeout(function() {
             passwordsuccess.style.display = "none";
 
         }, 2000)
@@ -1159,6 +1172,7 @@ function changepassword() {
     });
 }
 let messday;
+
 function hostelinfo() {
     setText(".hostelname", details.hostel);
     setText(".roomno", details.RoomNo);
@@ -1233,6 +1247,7 @@ function hostelinfo() {
     });
 
 }
+
 function loadMessMenu(day) {
     const mealcards = document.querySelector(".meal-cards");
     if (!mealcards) {
@@ -1284,6 +1299,7 @@ function loadalerts() {
         }
 
     });
+
     function showalerts(filter) {
         const alertlist = document.querySelector(".notif-list");
         if (!alertlist) return;
@@ -1316,8 +1332,7 @@ function loadalerts() {
                     alertlist.appendChild(card);
                 }
             }
-        }
-        else {
+        } else {
             for (i in dept.Notifications[filter]) {
                 const card = document.createElement("div");
                 card.classList.add("notif-card");
@@ -1345,6 +1360,7 @@ function loadalerts() {
         }
     }
 }
+
 function supportpage() {
     const contactgrid = document.querySelector(".contact-grid");
     if (contactgrid) {
@@ -1394,6 +1410,7 @@ function supportpage() {
         }
     }
 }
+
 function ticketform() {
     if (!document.querySelector("#ticket-form")) return;
     showtickethistory();
@@ -1410,13 +1427,14 @@ function ticketform() {
         localStorage.setItem("users", JSON.stringify(users));
         const submitticket = document.querySelector(".submitticket");
         submitticket.style.display = "block";
-        setTimeout(function () {
+        setTimeout(function() {
             submitticket.style.display = "none";
 
         }, 2000)
         e.target.closest("form").reset();
         showtickethistory();
     });
+
     function showtickethistory() {
         const ticketlist = document.querySelector(".ticket-list");
         if (ticketlist) {
@@ -1470,6 +1488,7 @@ function ticketform() {
         }
     }
 }
+
 function showannouncements() {
     if (!document.querySelector(".notification-list")) return;
     const notiflist = document.querySelector(".notification-list");
@@ -1506,6 +1525,7 @@ function showannouncements() {
 
     });
 }
+
 function showofpendingleaves(dept, roll) {
     return `
     <table>

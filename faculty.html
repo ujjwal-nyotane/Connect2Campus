@@ -7,43 +7,48 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
     <style>
-        .page-header{
+        .page-header {
             display: flex;
             flex-direction: column;
             gap: 40px;
         }
-        #attendanceform{
+        
+        #attendanceform {
             display: flex;
             flex-direction: row;
             gap: 50px;
             align-items: center;
         }
-        #attendanceform input, #attendanceform select, #attendanceform button{
+        
+        #attendanceform input,
+        #attendanceform select,
+        #attendanceform button {
             background-color: var(--accent-soft);
             color: var(--text-color);
             padding: 5px;
             border: none;
         }
-        #attendanceform select option{
-            color : black;
+        
+        #attendanceform select option {
+            color: black;
         }
     </style>
 </head>
 
 <body>
     <nav class="navbar">
-      <a href="index.html" class="nav-brand">
-        <div class="nav-logo">C2</div>
-        <span class="nav-title">Connect<span>2</span>Campus</span>
-      </a>
-      <ul class="nav-links">
-        
-        <li><a href="faculty.html">Dashboard</a></li>
-      <div class="nav-right">
-        
-        <a href="#" class="nav-logout" onclick="logout()">Logout</a>
-        <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
-      </div>
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo">C2</div>
+            <span class="nav-title">Connect<span>2</span>Campus</span>
+        </a>
+        <ul class="nav-links">
+
+            <li><a href="faculty.html">Dashboard</a></li>
+            <div class="nav-right">
+
+                <a href="#" class="nav-logout" onclick="logout()">Logout</a>
+                <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
+            </div>
     </nav>
     <div class="page">
         <div class="page-header">
@@ -63,13 +68,14 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div class="card">
                 <h3 class="card-title">Attendance Records</h3>
-                <div><form id="attendanceform">
-                    <label for="attrequestdata">Select Date:</label>
-                    <input type="date" name="date" id="attrequestdata" value="" />
-                    <select name="lecture" id="lecture">
+                <div>
+                    <form id="attendanceform">
+                        <label for="attrequestdata">Select Date:</label>
+                        <input type="date" name="date" id="attrequestdata" value="" />
+                        <select name="lecture" id="lecture">
                         <option value="">Select Lecture</option>
                         <option value="1">Lecture 1</option>
                         <option value="2">Lecture 2</option>
@@ -78,8 +84,8 @@
                         <option value="5">Lecture 5</option>
                         <option value="6">Lecture 6</option>
                     </select>
-                    <button class="submit" type="submit">Get Attendance</button>
-                </form>
+                        <button class="submit" type="submit">Get Attendance</button>
+                    </form>
                 </div>
                 <div class="attendance-records">
                     <table class="attendancetable">
@@ -93,23 +99,23 @@
                             </tr>
                         </thead>
                         <tbody class="attendanceofstudents">
-                            </tbody>
-                            </table>
+                        </tbody>
+                    </table>
 
                 </div>
             </div>
         </div>
-        </div>
-        <footer>
-            <span class="footer-brand">Connect<span>2</span>Campus</span>
-            <nav class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="support.html">Help Desk</a>
-                <a href="#" onclick="logout()">Logout</a>
-            </nav>
-            <span class="footer-copy">© 2026 Connect2Campus</span>
-        </footer>
-    
+    </div>
+    <footer>
+        <span class="footer-brand">Connect<span>2</span>Campus</span>
+        <nav class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="support.html">Help Desk</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </nav>
+        <span class="footer-copy">© 2026 Connect2Campus</span>
+    </footer>
+
 </body>
 <script src="js/guard.js"></script>
 <script src="js/main.js"></script>

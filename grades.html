@@ -2,307 +2,295 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grades — Connect2Campus</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .gpa-banner {
-      background: linear-gradient(120deg, rgba(37, 99, 235, .12), var(--surface));
-      border: 1px solid rgba(37, 99, 235, .3);
-      border-radius: var(--radius);
-      padding: 28px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
-
-    .gpa-banner .big-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 56px;
-      font-weight: 800;
-      color: var(--accent-glow);
-      line-height: 1;
-    }
-
-    .gpa-banner .label {
-      font-size: 14px;
-      color: var(--muted2);
-      margin-top: 4px;
-      
-    }
-
-    .gpa-divider {
-      width: 1px;
-      height: 60px;
-      background: var(--border);
-    }
-
-    .grade-pill {
-      display: inline-block;
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .gO {
-      background: rgba(16, 185, 129, .2);
-      /* emerald */
-      color: #34d399;
-    }
-
-
-    .gA\+ {
-      background: rgba(34, 197, 94, .2);
-      /* green */
-      color: #4ade80;
-    }
-
-
-    .gA {
-      background: rgba(59, 130, 246, .2);
-      /* blue */
-      color: #60a5fa;
-    }
-
-
-    .gB\+ {
-      background: rgba(96, 165, 250, .2);
-      /* lighter blue */
-      color: #93c5fd;
-    }
-
-    .gB {
-      background: rgba(147, 197, 253, .2);
-      /* even lighter blue */
-      color: #bfdbfe;
-    }
-
-
-    .gC {
-      background: rgba(245, 158, 11, .2);
-      /* amber */
-      color: #fbbf24;
-    }
-
-
-    .gD {
-      background: rgba(249, 115, 22, .2);
-      /* orange */
-      color: #fb923c;
-    }
-
-
-    .gF {
-      background: rgba(239, 68, 68, .2);
-      color: #f87171;
-    }
-
-    .semester-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .sem-tab {
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      text-decoration: none;
-      color: var(--muted2);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      transition: all .2s;
-      cursor: pointer;
-    }
-
-    .sem-tab.active {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    .sem-tab:not(.active):hover {
-      border-color: var(--accent-glow);
-      color: var(--accent-glow);
-    }
-
-    .marks-bar {
-      height: 8px;
-      background: var(--surface2);
-      border-radius: 99px;
-      overflow: hidden;
-      min-width: 120px;
-    }
-
-    .marks-fill {
-      height: 100%;
-      border-radius: 99px;
-    }
-
-    @media (max-width:520px) {
-      .gpa-banner {
-        flex-wrap: wrap;
-        flex-direction: column;
-
-      }
-
-      .gpa-divider {
-        display: none;
-      }
-
-      .gpa-banner div {
-        margin: auto;
-        text-align: center;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grades — Connect2Campus</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .gpa-banner {
+            background: linear-gradient(120deg, rgba(37, 99, 235, .12), var(--surface));
+            border: 1px solid rgba(37, 99, 235, .3);
+            border-radius: var(--radius);
+            padding: 28px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+        
+        .gpa-banner .big-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 56px;
+            font-weight: 800;
+            color: var(--accent-glow);
+            line-height: 1;
+        }
+        
+        .gpa-banner .label {
+            font-size: 14px;
+            color: var(--muted2);
+            margin-top: 4px;
+        }
+        
+        .gpa-divider {
+            width: 1px;
+            height: 60px;
+            background: var(--border);
+        }
+        
+        .grade-pill {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gO {
+            background: rgba(16, 185, 129, .2);
+            /* emerald */
+            color: #34d399;
+        }
+        
+        .gA\+ {
+            background: rgba(34, 197, 94, .2);
+            /* green */
+            color: #4ade80;
+        }
+        
+        .gA {
+            background: rgba(59, 130, 246, .2);
+            /* blue */
+            color: #60a5fa;
+        }
+        
+        .gB\+ {
+            background: rgba(96, 165, 250, .2);
+            /* lighter blue */
+            color: #93c5fd;
+        }
+        
+        .gB {
+            background: rgba(147, 197, 253, .2);
+            /* even lighter blue */
+            color: #bfdbfe;
+        }
+        
+        .gC {
+            background: rgba(245, 158, 11, .2);
+            /* amber */
+            color: #fbbf24;
+        }
+        
+        .gD {
+            background: rgba(249, 115, 22, .2);
+            /* orange */
+            color: #fb923c;
+        }
+        
+        .gF {
+            background: rgba(239, 68, 68, .2);
+            color: #f87171;
+        }
+        
+        .semester-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .sem-tab {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            color: var(--muted2);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            transition: all .2s;
+            cursor: pointer;
+        }
+        
+        .sem-tab.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        
+        .sem-tab:not(.active):hover {
+            border-color: var(--accent-glow);
+            color: var(--accent-glow);
+        }
+        
+        .marks-bar {
+            height: 8px;
+            background: var(--surface2);
+            border-radius: 99px;
+            overflow: hidden;
+            min-width: 120px;
+        }
+        
+        .marks-fill {
+            height: 100%;
+            border-radius: 99px;
+        }
+        
+        @media (max-width:520px) {
+            .gpa-banner {
+                flex-wrap: wrap;
+                flex-direction: column;
+            }
+            .gpa-divider {
+                display: none;
+            }
+            .gpa-banner div {
+                margin: auto;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 
-  <div class="page">
-    <input type="checkbox" id="mob-toggle" />
-    <div class="mob-drawer">
-      <a href="home.html">🏠 Dashboard</a>
-      <a href="attendance.html">📅 Attendance</a>
-      <a href="grades.html" class="active">📊 Grades</a>
-      <a href="leave.html">🏖️ Leave</a>
-      <a href="fees.html">💳 Fees</a>
-      <div class="divider"></div>
-      <a href="timetable.html">🗓️ Timetable</a>
-      <a href="notifications.html">🔔 Notifications</a>
-      <a href="hostel.html">🏠 Hostel &amp; Mess</a>
-      <a href="support.html">🎧 Help &amp; Support</a>
-      <a href="profile.html">👤 My Profile</a>
-      <div class="divider"></div>
-      <a href="index.html" onclick="logout()">🚪 Logout</a>
+    <div class="page">
+        <input type="checkbox" id="mob-toggle" />
+        <div class="mob-drawer">
+            <a href="home.html">🏠 Dashboard</a>
+            <a href="attendance.html">📅 Attendance</a>
+            <a href="grades.html" class="active">📊 Grades</a>
+            <a href="leave.html">🏖️ Leave</a>
+            <a href="fees.html">💳 Fees</a>
+            <div class="divider"></div>
+            <a href="timetable.html">🗓️ Timetable</a>
+            <a href="notifications.html">🔔 Notifications</a>
+            <a href="hostel.html">🏠 Hostel &amp; Mess</a>
+            <a href="support.html">🎧 Help &amp; Support</a>
+            <a href="profile.html">👤 My Profile</a>
+            <div class="divider"></div>
+            <a href="index.html" onclick="logout()">🚪 Logout</a>
+        </div>
+        <nav class="navbar">
+            <a href="index.html" class="nav-brand">
+                <div class="nav-logo">C2</div>
+                <span class="nav-title">Connect<span>2</span>Campus</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Dashboard</a></li>
+                <li><a href="attendance.html">Attendance</a></li>
+                <li><a href="grades.html" class="active">Grades</a></li>
+                <li><a href="leave.html">Leave</a></li>
+                <li><a href="fees.html">Fees</a></li>
+                <li><a href="timetable.html">Timetable</a></li>
+                <li><a href="notifications.html">Alerts</a></li>
+                <li><a href="hostel.html">Hostel</a></li>
+                <li><a href="support.html">Support</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="notifications.html" class="nav-notif" title="Notifications">🔔<span class="dot"></span></a>
+                <a href="profile.html" class="nav-avatar" title="Profile">V</a>
+                <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <p class="label">Academic Performance</p>
+            <h1>Grades &amp; Results</h1>
+            <p><span class="department"></span> · Year <span class="StudentYear"></span> · Roll: <span class="roll_no"></span></p>
+        </div>
+
+        <div class="main-content">
+
+            <div class="gpa-banner">
+                <div>
+                    <div class="big-num CGPA"></div>
+                    <div class="label">Current CGPA</div>
+                </div>
+
+                <div class="gpa-divider"></div>
+                <div style="text-align:center;">
+                    <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--accent-glow);" class="SGPA"></div>
+                    <div class="label">Selected Semester</div>
+                </div>
+            </div>
+
+            <div class="semester-tabs" id="semester-tabs"></div>
+
+            <div class="grid-2" style="margin-bottom:24px;">
+                <div class="card" id="fullresult">
+                    <h3 class="card-title">Semester <span class="selectedSemester"></span> — Final Results</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Internal</th>
+                                <th>External</th>
+                                <th>Total</th>
+                                <th>Grade</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjecttable">
+
+                        </tbody>
+                    </table>
+                    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+                        <span style="font-size:13px;color:var(--muted2);">SGPA</span>
+                        <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--success);" class="SGPA"></span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Semester <span class="selectedSemester"></span> — Internal Marks (Ongoing)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>IA-1</th>
+                                <th>IA-2</th>
+                                <th>Practical</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="Internalresult">
+
+                        </tbody>
+                    </table>
+                    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:flex;gap:12px;">
+
+                <a href="home.html" class="btn btn-outline">← Back to Dashboard</a>
+            </div>
+
+        </div>
+
+        <footer>
+            <span class="footer-brand">Connect<span>2</span>Campus</span>
+            <nav class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="support.html">Help Desk</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </nav>
+            <span class="footer-copy">© 2026 Connect2Campus</span>
+        </footer>
+
     </div>
-    <nav class="navbar">
-      <a href="index.html" class="nav-brand">
-        <div class="nav-logo">C2</div>
-        <span class="nav-title">Connect<span>2</span>Campus</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="home.html">Dashboard</a></li>
-        <li><a href="attendance.html">Attendance</a></li>
-        <li><a href="grades.html" class="active">Grades</a></li>
-        <li><a href="leave.html">Leave</a></li>
-        <li><a href="fees.html">Fees</a></li>
-        <li><a href="timetable.html">Timetable</a></li>
-        <li><a href="notifications.html">Alerts</a></li>
-        <li><a href="hostel.html">Hostel</a></li>
-        <li><a href="support.html">Support</a></li>
-      </ul>
-      <div class="nav-right">
-        <a href="notifications.html" class="nav-notif" title="Notifications">🔔<span class="dot"></span></a>
-        <a href="profile.html" class="nav-avatar" title="Profile">V</a>
-        <label for="mob-toggle" class="nav-hamburger"><span></span><span></span><span></span></label>
-      </div>
-    </nav>
 
-    <div class="page-header">
-      <p class="label">Academic Performance</p>
-      <h1>Grades &amp; Results</h1>
-      <p><span class="department"></span> · Year <span class="StudentYear"></span> · Roll: <span
-          class="roll_no"></span></p>
-    </div>
-
-    <div class="main-content">
-
-      <div class="gpa-banner">
-        <div>
-          <div class="big-num CGPA" ></div>
-          <div class="label">Current CGPA</div>
-        </div>
-        
-        <div class="gpa-divider"></div>
-        <div style="text-align:center;">
-          <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--accent-glow);" class="SGPA"></div>
-          <div class="label">Selected Semester</div>
-        </div>
-        </div>
-
-      <div class="semester-tabs" id="semester-tabs"></div>
-
-      <div class="grid-2" style="margin-bottom:24px;" >
-        <div class="card" id = "fullresult"  >
-          <h3 class="card-title">Semester <span class="selectedSemester"></span> — Final Results</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Subject</th>
-                <th>Internal</th>
-                <th>External</th>
-                <th>Total</th>
-                <th>Grade</th>
-                <th>Points</th>
-              </tr>
-            </thead>
-            <tbody id="subjecttable">
-
-            </tbody>
-          </table>
-          <div
-            style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:13px;color:var(--muted2);">SGPA</span>
-            <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--success);" class="SGPA"></span>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3 class="card-title">Semester <span class = "selectedSemester"></span> — Internal Marks (Ongoing)</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Subject</th>
-                <th>IA-1</th>
-                <th>IA-2</th>
-                <th>Practical</th>
-                
-              </tr>
-            </thead>
-            <tbody id="Internalresult">
-              
-            </tbody>
-          </table>
-          <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
-            
-          </div>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:12px;">
-          
-        <a href="home.html" class="btn btn-outline">← Back to Dashboard</a>
-      </div>
-
-    </div>
-
-    <footer>
-      <span class="footer-brand">Connect<span>2</span>Campus</span>
-      <nav class="footer-links">
-        <a href="#">Privacy Policy</a>
-        <a href="support.html">Help Desk</a>
-        <a href="#" onclick="logout()">Logout</a>
-      </nav>
-      <span class="footer-copy">© 2026 Connect2Campus</span>
-    </footer>
-
-  </div>
-
-  <script src="js/guard.js"></script>
-  <script src="js/main.js"></script>
+    <script src="js/guard.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 
