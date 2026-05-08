@@ -447,7 +447,7 @@
                         </div>
                         <div class="form-field">
                             <label>Mobile Number</label>
-                            <input type="tel" value="" name="contact" />
+                            <input type="tel" value="" name="contact" minlength="10" maxlength="10"/>
                         </div>
                         <div class="form-field full">
                             <label>Permanent Address</label>
@@ -464,16 +464,16 @@
                     <div class="form-grid-2">
                         <div class="form-field">
                             <label>Current Password</label>
-                            <input type="password" required placeholder="Enter current password" name="current-password" />
+                            <input type="password" required placeholder="Enter current password" name="current-password" minlength="8"/>
                         </div>
                         <div class="form-field" style="opacity:0;pointer-events:none;"></div>
                         <div class="form-field">
                             <label>New Password</label>
-                            <input type="password" placeholder="Min 4 characters" required minlength="4" name="new-password" />
+                            <input type="password" placeholder="Min 8 characters" required minlength="8" name="new-password" />
                         </div>
                         <div class="form-field">
                             <label>Confirm New Password</label>
-                            <input type="password" placeholder="Re-enter new password" minlength="4" required name="confirm-password" />
+                            <input type="password" placeholder="Re-enter new password" minlength="8" required name="confirm-password"/>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Update Password</button>
