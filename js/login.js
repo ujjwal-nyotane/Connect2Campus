@@ -1,3 +1,18 @@
+function popup(message,messageclass=undefined,location=undefined){
+    const popup= document.createElement("div");
+    popup.classList.add("overlay")
+    popup.innerHTML=`<div class="popup"><p class=${messageclass? messageclass:''}>${message}</p></div>`;
+    document.body.appendChild(popup);
+    setTimeout(()=>{
+        document.body.removeChild(popup);
+        if(location){
+            window.location.href=location;
+        }
+    },2000);
+
+    
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 
     const form = document.querySelector("form");
@@ -30,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const user = users[enrollment];
 
 
-
+        if(user){
         if (user && user.password === password) {
 
             localStorage.setItem("isLoggedIn", "true");
@@ -41,29 +56,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
             let login = (new Date()).toString();
             localStorage.setItem("LastLogin", login);
+            popup("Login SuccesFull",'success',"home.html");
 
+            
 
-            const popup = document.querySelector(".logindone");
-            popup.style.display = "block";
-
-            setTimeout(function() {
-                if (user.role === "admin") {
-                    window.location.href = "faculty.html";
-                }
-                if (user.role === "student") {
-                    window.location.href = "home.html";
-                }
-                popup.style.display = "none";
-
-            }, 2000);
+            
 
         } else {
-            const popup = document.querySelector(".loginfailed");
-            popup.style.display = "block";
-            setTimeout(function() {
-                popup.style.display = "none";
-            }, 2000);
+            popup("Invalid Password","fail")
         }
+    }
+    else{
+        popup("Invalid Enrollment Number","fail")
+    }
     });
 
 });

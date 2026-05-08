@@ -272,30 +272,7 @@
 </head>
 
 <body>
-    <div class="overlay detailssucessfull">
-        <div class="popup">
-            <p>Details Updated</p>
-            <p style="color: var(--success)">Succesfully</p>
-        </div>
-    </div>
-    <div class="overlay passwordsuccess">
-        <div class="popup">
-            <p>Password Changed</p>
-            <p style="color: var(--success)">Succesfully</p>
-        </div>
-    </div>
-    <div class="overlay passwordfail">
-        <div class="popup">
-            <p>Wrong Password</p>
-            <p style="color: var(--danger)">Please Retry</p>
-        </div>
-    </div>
-    <div class="overlay confirmmismatch">
-        <div class="popup">
-            <p>Password Mismatch</p>
-            <p style="color:var(--danger)">Please Check the password</p>
-        </div>
-    </div>
+    
     <input type="checkbox" id="mob-toggle" />
     <div class="mob-drawer">
         <a href="home.html">🏠 Dashboard</a>
@@ -447,14 +424,14 @@
                         </div>
                         <div class="form-field">
                             <label>Mobile Number</label>
-                            <input type="tel" value="" name="contact" minlength="10" maxlength="10"/>
+                            <input type="tel" value="" oninput=" return rgx(this,'tel')" name="contact" minlength="10" maxlength="10"/>
                         </div>
                         <div class="form-field full">
                             <label>Permanent Address</label>
                             <textarea style="min-height:70px;" name="address"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" onmouseover="verify(this)" class="btn btn-primary">Save Changes</button>
                 </form>
             </div>
 
@@ -469,14 +446,14 @@
                         <div class="form-field" style="opacity:0;pointer-events:none;"></div>
                         <div class="form-field">
                             <label>New Password</label>
-                            <input type="password" placeholder="Min 8 characters" required minlength="8" name="new-password" />
+                            <input type="password" oninput=" return rgx(this,'password')" placeholder="Min 8 characters" required minlength="8" name="new-password" />
                         </div>
                         <div class="form-field">
                             <label>Confirm New Password</label>
-                            <input type="password" placeholder="Re-enter new password" minlength="8" required name="confirm-password"/>
+                            <input type="password" onChange="passwordtest(this,'invalid password')" oninput=" return rgx(this,'password')" placeholder="Re-enter new password" minlength="8" required name="confirm-password"/>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Password</button>
+                    <button type="submit" onmouseover="verify(this)" class="btn btn-primary">Update Password</button>
                 </form>
             </div>
 

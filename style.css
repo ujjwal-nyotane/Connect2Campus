@@ -212,7 +212,7 @@ body::before {
 .popup {
     display: flex;
     position: fixed;
-    z-index: 999;
+    z-index: 769;
     width: 300px;
     height: 100px;
     top: 50%;
@@ -225,19 +225,30 @@ body::before {
     align-items: center;
     flex-direction: column;
 }
-
+button:disabled{
+    cursor: not-allowed;
+}
 .popup p {
     margin: 10px;
     color: var(--text);
 }
+.popup p.success {
+    margin: 10px;
+    color: var(--success);
+}
+.popup p.fail {
+    margin: 10px;
+    color: var(--danger);
+}
+
 
 .overlay {
     position: fixed;
     inset: 0;
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: 998;
-    display: none;
+
+    z-index: 768;
+    
 }
 
 .mob-drawer {

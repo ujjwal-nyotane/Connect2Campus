@@ -26,8 +26,150 @@ let currentYear = 0;
 let selectedsemester = 0;
 
 
+function popup(message, messageclass = undefined, location = undefined) {
+    const popup = document.createElement("div");
+    popup.classList.add("overlay")
+    popup.innerHTML = `<div class="popup"><p class=${messageclass ? messageclass : ''}>${message}</p></div>`;
+    document.body.appendChild(popup);
+    setTimeout(() => {
+        document.body.removeChild(popup);
+        if (location) {
+            window.location.href = location;
+        }
+    }, 2000);
 
 
+}
+function verify(form) {
+
+    const inputs = form.closest('form').querySelectorAll("input")
+
+    for (let i of inputs) {
+        if (i.oninput)
+            if (i.oninput) {
+                if(!(i.oninput())){
+                    form.disabled=true
+                    break;
+                }
+                
+            }
+    }
+
+}
+
+function rgx(input, type) {
+    console.log(input.value);
+    if (type == 'tel') {
+        let flag = (/^[6-9]{1}[0-9]{9}$/.test(input.value))
+        const span = document.createElement("span");
+        span.innerText = "Invalid Phone Number";
+        span.style.color = "var(--danger)";
+
+        if (!flag) {
+            (input.closest("form").querySelector("button[type='submit']")).disabled = true;
+            const temp = input.parentElement.querySelector("span")
+            if (!((input.parentElement).contains(temp))) {
+                (input.parentElement).insertBefore(span, input);
+            }
+            return 0;
+        }
+        else {
+            (input.closest("form").querySelector("button[type='submit']")).disabled = false;
+            const tmp = input.parentElement.querySelector("span")
+            if (tmp)
+                (input.parentElement).removeChild(tmp);
+            return 1;
+        }
+    }
+    if (type == 'name') {
+        let flag = (/^[A-Z a-z]+$/.test(input.value))
+        const span = document.createElement("span");
+        span.innerText = "Invalid Name";
+        span.style.color = "var(--danger)";
+
+        if (!flag) {
+            (input.closest("form").querySelector("button[type='submit']")).disabled = true;
+            const temp = input.parentElement.querySelector("span")
+            if (!((input.parentElement).contains(temp))) {
+                (input.parentElement).insertBefore(span, input);
+            }
+            return 0;
+        }
+        else {
+            (input.closest("form").querySelector("button[type='submit']")).disabled = false;
+            const tmp = input.parentElement.querySelector("span")
+            if (tmp)
+                (input.parentElement).removeChild(tmp);
+            return 1;
+        }
+    }
+    if (type == 'card') {
+        let flag = (/^[0-9]{16}$/.test(input.value))
+        const span = document.createElement("span");
+        span.innerText = "Invalid Card Number";
+        span.style.color = "var(--danger)";
+
+        if (!flag) {
+            (input.closest("form").querySelector("button[type='submit']")).disabled = true;
+            const temp = input.parentElement.querySelector("span")
+            if (!((input.parentElement).contains(temp))) {
+                (input.parentElement).insertBefore(span, input);
+            }
+            return 0;
+        }
+        else {
+            (input.closest("form").querySelector("button[type='submit']")).disabled = false;
+            const tmp = input.parentElement.querySelector("span")
+            if (tmp)
+                (input.parentElement).removeChild(tmp);
+            return 1;
+        }
+    }
+    if (type == 'cvv') {
+        let flag = (/^[0-9]{3}$/.test(input.value))
+        const span = document.createElement("span");
+        span.innerText = "Invalid CVV Number";
+        span.style.color = "var(--danger)";
+
+        if (!flag) {
+            (input.closest("form").querySelector("button[type='submit']")).disabled = true;
+            const temp = input.parentElement.querySelector("span")
+            if (!((input.parentElement).contains(temp))) {
+                (input.parentElement).insertBefore(span, input);
+            }
+            return 0;
+        }
+        else {
+            (input.closest("form").querySelector("button[type='submit']")).disabled = false;
+            const tmp = input.parentElement.querySelector("span")
+            if (tmp)
+                (input.parentElement).removeChild(tmp);
+            return 1;
+        }
+    }
+    if (type == 'password') {
+        let flag = (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_])[A-Za-z0-9!@#$%^&*()_]{8,}$/.test(input.value))
+        const span = document.createElement("span");
+        span.innerText = "Invalid Password";
+        span.style.color = "var(--danger)";
+
+        if (!flag) {
+            (input.closest("form").querySelector("button[type='submit']")).disabled = true;
+            const temp = input.parentElement.querySelector("span")
+            if (!((input.parentElement).contains(temp))) {
+                (input.parentElement).insertBefore(span, input);
+            }
+            return 0;
+        }
+        else {
+            (input.closest("form").querySelector("button[type='submit']")).disabled = false;
+            const tmp = input.parentElement.querySelector("span")
+            if (tmp)
+                (input.parentElement).removeChild(tmp);
+            return 1;
+        }
+    }
+}
 function setText(selector, value) {
     document.querySelectorAll(selector).forEach(el => el.innerText = value);
 }
@@ -58,7 +200,7 @@ if (leaveform) {
     leaveform.addEventListener("submit", (e) => {
         e.preventDefault();
         const form = new FormData(leaveform);
-
+        popup("Leave Application Applied", 'success')
         leaveformdata = Object.fromEntries(form.entries());
         leaveselect();
         leaveform.reset();
@@ -865,12 +1007,8 @@ function leaveselect() {
     departments[details.department] = dept;
 
     localStorage.setItem("departments", JSON.stringify(departments));
-    const leavesuccessfull = document.querySelector(".leavesucessfull");
-    leavesuccessfull.style.display = "block";
-    setTimeout(function() {
-        leavesuccessfull.style.display = "none";
 
-    }, 2000)
+
     showleaves()
 }
 
@@ -1020,12 +1158,8 @@ function submitpayment() {
         dept.fees.feehistory[details.rollNo][currentSemester][transactionid] = paymentformdata;
         departments[details.department] = dept;
         localStorage.setItem("departments", JSON.stringify(departments));
-        const feesuccessfull = document.querySelector(".feesucessfull");
-        feesuccessfull.style.display = "block";
-        setTimeout(function() {
-            feesuccessfull.style.display = "none";
+        popup("Fees paid Successfully",'success');
 
-        }, 2000);
         e.target.closest("form").reset();
         showfeepaymenthistory();
 
@@ -1122,16 +1256,15 @@ function editdetails() {
         setText(".PermanentAddress", details.PermanentAddress);
         users[details.rollNo] = details;
         localStorage.setItem("users", JSON.stringify(users));
-        const detailssuccessfull = document.querySelector(".detailssucessfull");
-        detailssuccessfull.style.display = "block";
-        setTimeout(function() {
-            detailssuccessfull.style.display = "none";
-            e.target.closest("form").reset();
-        }, 2000);
+        popup("Details Updated Sucessfully",'success');
+
 
     });
 }
+function passwordtest(input, message) {
+    console.log(input.value, message);
 
+}
 function changepassword() {
     if (!document.querySelector("#change-password-form")) return;
     document.querySelector("#change-password-form").addEventListener("submit", (e) => {
@@ -1140,36 +1273,31 @@ function changepassword() {
         const current = form.get("current-password");
         const newpass = form.get("new-password");
         const confirmpass = form.get("confirm-password");
-        if (current != details.password) {
-            const passwordfail = document.querySelector(".passwordfail");
-            passwordfail.style.display = "block";
-            setTimeout(function() {
-                passwordfail.style.display = "none";
 
-            }, 2000)
+        if(current==details.password){
 
-            return;
-        }
-        if (newpass != confirmpass) {
-            const confirm = document.querySelector(".confirmmismatch");
-            confirm.style.display = "block";
-            setTimeout(function() {
-                confirm.style.display = "none";
-                e.target.closest("form").reset();
-            }, 2000);
-            return;
-        }
+        if(newpass==confirmpass){
+
+
         details.password = newpass;
         users[details.rollNo] = details;
         localStorage.setItem("users", JSON.stringify(users));
-        const passwordsuccess = document.querySelector(".passwordsuccess");
-        passwordsuccess.style.display = "block";
-        setTimeout(function() {
-            passwordsuccess.style.display = "none";
+        
+        showleaves();
+        setInterval(()=>{
+             logout();
+        },2000)
+        
 
-        }, 2000)
-        showleaves()
-        logout();
+        }
+        else{
+             popup("New password Doesn't Match Current password ",'fail');
+        }
+    }
+        else{
+            popup("Current password is Invalid",'fail');
+        }
+    
     });
 }
 let messday;
@@ -1426,12 +1554,7 @@ function ticketform() {
         details.myTickets[ticketid] = formdata;
         users[details.rollNo] = details;
         localStorage.setItem("users", JSON.stringify(users));
-        const submitticket = document.querySelector(".submitticket");
-        submitticket.style.display = "block";
-        setTimeout(function() {
-            submitticket.style.display = "none";
-
-        }, 2000)
+        popup("Ticket added Sucessfully",'success');
         e.target.closest("form").reset();
         showtickethistory();
     });
@@ -1646,41 +1769,41 @@ function getAttendance() {
     if (form) {
         form.addEventListener("submit", (e) => {
             e.preventDefault();
-            
+
             const formdata = new FormData(e.target.closest("form"));
-            let [year,month,day] = formdata.get("date").split("-");
+            let [year, month, day] = formdata.get("date").split("-");
             const lec = formdata.get("lecture");
-            if(!lec || !day || !month || !year){
+            if (!lec || !day || !month || !year) {
 
-            } ;
+            };
 
-            
+
             const date = `${(String(day).padStart(2, '0'))}-${String(month).padStart(2, '0')}-${year}`;
-            if(!attendance[date]){
-                attendance[date] = {1:{},2:{},3:{},4:{},5:{},6:{}};
+            if (!attendance[date]) {
+                attendance[date] = { 1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {} };
             }
             const body = document.querySelector(".attendanceofstudents");
             const now = new Date(form.date.value);
-            
-            if(now.getDay() == 0 || now.getDay() == 6){
-                body.innerHTML="<tr><td colspan='5'>No Lecture on weekends</td></tr>";
-                
+
+            if (now.getDay() == 0 || now.getDay() == 6) {
+                body.innerHTML = "<tr><td colspan='5'>No Lecture on weekends</td></tr>";
+
             }
-             else if(!lec || !day || !month || !year){
-                body.innerHTML="<tr><td colspan='5'>Please fill in all the fields</td></tr>";
+            else if (!lec || !day || !month || !year) {
+                body.innerHTML = "<tr><td colspan='5'>Please fill in all the fields</td></tr>";
             }
-            else{
+            else {
                 const now = new Date(form.date.value);
-                const week = ["","MON","TUE","WED","THU","FRI",""];
-                
-            body.innerHTML = "";
-            for(let i in users){
-                if(users[i].role == "student"){
-                    
-                    const sem = (Number(now.getFullYear())-Number(users[i].enrollmentYear))*2;
-                    if (month>6) sem++;
-                   
-                    body.innerHTML += `
+                const week = ["", "MON", "TUE", "WED", "THU", "FRI", ""];
+
+                body.innerHTML = "";
+                for (let i in users) {
+                    if (users[i].role == "student") {
+
+                        const sem = (Number(now.getFullYear()) - Number(users[i].enrollmentYear)) * 2;
+                        if (month > 6) sem++;
+
+                        body.innerHTML += `
                     <tr>
                     <td>${users[i].firstName} ${users[i].lastName}</td>
                     <td>${users[i].department}</td>
@@ -1694,21 +1817,21 @@ function getAttendance() {
                         <option value="A" ${attendance[date][lec]?.[i] === "A" ? "selected" : ""}>Absent</option>
                     </select></td>
                     </tr>`;
+                    }
                 }
             }
-        }
-    });
+        });
     }
 }
-function updateAttendance(status,date,lec,i){
-    if(!attendance[date]){
-        attendance[date] = {1:{},2:{},3:{},4:{},5:{},6:{}};
+function updateAttendance(status, date, lec, i) {
+    if (!attendance[date]) {
+        attendance[date] = { 1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {} };
     }
-    if(status == ""){
+    if (status == "") {
         delete attendance[date][lec][i];
     }
     else {
-    attendance[date][lec][i] = status;
+        attendance[date][lec][i] = status;
     }
     localStorage.setItem("attendance", JSON.stringify(attendance));
 }

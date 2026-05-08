@@ -177,13 +177,7 @@
 
 <body>
 
-    <div class="overlay leavesucessfull">
-        <div class="popup">
-            <p>Leave Submitted</p>
-            <p style="color: var(--success)">Succesfully</p>
-        </div>
-    </div>
-
+    
     <div class="page">
         <input type="checkbox" id="mob-toggle" />
         <div class="mob-drawer">
@@ -285,15 +279,15 @@
                         </div>
                         <div class="form-field">
                             <label for="l-contact">Contact During Leave</label>
-                            <input type="tel" id="l-contact" name="contact" placeholder="9XXXXXXXXX" required maxlength="10" minlength="10" />
+                            <input type="tel" id="l-contact" oninput=" return rgx(this,'tel')" name="contact" placeholder="9XXXXXXXXX" required maxlength="10" minlength="10" />
                         </div>
                         <div class="form-field">
                             <label for="l-guardian">Guardian Name</label>
-                            <input type="text" id="l-guardian" name="guardian" placeholder="Parent / Guardian name" required/>
+                            <input type="text" id="l-guardian" name="guardian" oninput=" return rgx(this,'name')" placeholder="Parent / Guardian name" required/>
                         </div>
                         <div class="form-field full">
                             <label for="l-reason">Reason for Leave</label>
-                            <textarea id="l-reason" name="reason" placeholder="Briefly explain the reason for your leave request..."></textarea>
+                            <textarea id="l-reason" name="reason" required placeholder="Briefly explain the reason for your leave request..."></textarea>
                         </div>
                         <div class="form-field full">
                             <label for="l-doc">Supporting Document (optional)</label>
@@ -305,7 +299,7 @@
                         <strong class="attpercentage"></strong>. Minimum required: 75%.
                     </div>
                     <div style="display:flex;gap:12px;margin-top:20px;">
-                        <button type="submit" name="sumitbtn" class="btn btn-primary">Submit Leave Application</button>
+                        <button type="submit" onmouseover="verify(this)" name="sumitbtn" class="btn btn-primary">Submit Leave Application</button>
                         <a href="home.html" class="btn btn-outline">Cancel</a>
                     </div>
                 </form>

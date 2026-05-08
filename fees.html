@@ -267,12 +267,6 @@
 
 <body>
 
-    <div class="overlay feesucessfull">
-        <div class="popup">
-            <p>Fees Submitted</p>
-            <p style="color: var(--success)">Succesfully</p>
-        </div>
-    </div>
 
     <div class="page">
         <input type="checkbox" id="mob-toggle" />
@@ -378,7 +372,7 @@
             <form id="Cardpay" style="display: none;" class="feepay">
                 <div class="form-field">
                     <label>Card Number</label>
-                    <input type="text" required placeholder="XXXX  XXXX  XXXX  XXXX" maxlength="16" minlength="16" />
+                    <input type="text" oninput=" return rgx(this,'card')" required placeholder="XXXX  XXXX  XXXX  XXXX" maxlength="16" minlength="16" />
                 </div>
                 <div class="card-row">
                     <div class="form-field">
@@ -387,18 +381,18 @@
                     </div>
                     <div class="form-field">
                         <label>CVV</label>
-                        <input type="text" required placeholder="***" maxlength="3" />
+                        <input type="text" oninput=" return rgx(this,'cvv')" required placeholder="***" maxlength="3" />
                     </div>
                 </div>
                 <div class="form-field">
                     <label>Cardholder Name</label>
-                    <input type="text" required placeholder="Name as on card" />
+                    <input type="text" oninput=" return rgx(this,'name')" required placeholder="Name as on card" />
                 </div>
                 <div class="form-field">
                     <label>Amount to Pay</label>
                     <input type="number" name="feeamount" min="1" required style="color:var(--accent-glow);font-weight:600;" />
                 </div>
-                <button type="submit" name="sumitbtn" class="btn btn-primary" id="feepay" style="width:100%;justify-content:center;margin-top:4px;">
+                <button type="submit" name="sumitbtn" onmouseover="verify(this)" class="btn btn-primary" id="feepay" style="width:100%;justify-content:center;margin-top:4px;">
               Procced to Pay
             </button>
 
@@ -412,7 +406,7 @@
                     <label>Enter Amount To Pay</label>
                     <input type="number" min="1" required name="feeamount" style="color:var(--accent-glow);font-weight: 600;">
                 </div>
-                <button type="submit" name="sumitbtn" class="btn btn-primary" id="feepay" style="width:100%;justify-content:center;margin-top:4px;">Procced to Pay</button>
+                <button type="submit" name="sumitbtn" onmouseover="verify(this)" class="btn btn-primary" id="feepay" style="width:100%;justify-content:center;margin-top:4px;">Procced to Pay</button>
             </form>
             <form id="NetBankingpay" style="display: none;" class="feepay">
                 <div class="form-field">
@@ -421,13 +415,13 @@
                 </div>
                 <div class="form-field">
                     <label>Password</label>
-                    <input type="password" required placeholder="123****" />
+                    <input type="password" oninput=" return rgx(this,'password')" required placeholder="123****" />
                 </div>
                 <div class="form-field">
                     <label>Enter Amount To Pay</label>
                     <input type="number" name="feeamount" required min="1" style="color:var(--accent-glow);font-weight: 600;">
                 </div>
-                <button type="submit" name="sumitbtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;">Procced to Pay</button>
+                <button type="submit" name="sumitbtn" onmouseover="verify(this)" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;">Procced to Pay</button>
             </form>
             <div class="secure-note">
                 🔐 Payments are encrypted and processed securely via university payment gateway.
