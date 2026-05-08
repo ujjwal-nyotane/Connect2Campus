@@ -925,8 +925,7 @@ function showleaves() {
 
 function calcleaves() {
     let pdl = 0;
-    let apl = 0;
-    ;
+    let apl = 0;;
     for (let i in dept.leaves[details.rollNo]) {
 
         if (dept.leaves[details.rollNo][i].approvestatus == "pending") {
@@ -1334,8 +1333,7 @@ function loadalerts() {
                     alertlist.appendChild(card);
                 }
             }
-        }
-        else {
+        } else {
             for (let i in dept.Notifications[filter]) {
                 const card = document.createElement("div");
                 card.classList.add("notif-card");
@@ -1442,7 +1440,7 @@ function ticketform() {
         const ticketlist = document.querySelector(".ticket-list");
         if (ticketlist) {
             ticketlist.innerHTML = "";
-            // Load and display ticket history here
+
             for (let i in details.myTickets) {
                 const ticket = document.createElement("div");
                 ticket.classList.add("ticket-item");
