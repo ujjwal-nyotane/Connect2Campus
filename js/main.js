@@ -10,12 +10,12 @@ let totalfees = 0;
 let paidfees = 0;
 
 const role = localStorage.getItem("role");
-const users = JSON.parse(localStorage.getItem("users")) || {};
-const departments = JSON.parse(localStorage.getItem("departments")) || {};
-const results = JSON.parse(localStorage.getItem("results")) || {};
-const attendance = JSON.parse(localStorage.getItem("attendance")) || {};
-const hostels = JSON.parse(localStorage.getItem("hostels")) || {};
-const user_ID = localStorage.getItem("user_ID");
+const users = JSON.parse(localStorage.getItem("users"));
+const departments = JSON.parse(localStorage.getItem("departments")) ;
+const results = JSON.parse(localStorage.getItem("results"));
+const attendance = JSON.parse(localStorage.getItem("attendance"));
+const hostels = JSON.parse(localStorage.getItem("hostels"));
+const user_ID = localStorage.getItem("user_ID") ;
 const details = users[user_ID];
 const dept = departments[details.department];
 const lastlogin = localStorage.getItem("LastLogin");
@@ -45,7 +45,7 @@ function verify(form) {
     const inputs = form.closest('form').querySelectorAll("input")
 
     for (let i of inputs) {
-        if (i.oninput)
+        
             if (i.oninput) {
                 if(!(i.oninput())){
                     form.disabled=true
@@ -53,8 +53,9 @@ function verify(form) {
                 }
                 
             }
-    }
+    
 
+}
 }
 
 function rgx(input, type) {
@@ -62,12 +63,13 @@ function rgx(input, type) {
     if (type == 'tel') {
         let flag = (/^[6-9]{1}[0-9]{9}$/.test(input.value))
         const span = document.createElement("span");
+        span.classList.add("invalid-data-span");
         span.innerText = "Invalid Phone Number";
         span.style.color = "var(--danger)";
 
         if (!flag) {
             (input.closest("form").querySelector("button[type='submit']")).disabled = true;
-            const temp = input.parentElement.querySelector("span")
+            const temp = input.parentElement.querySelector(".invalid-data-span");
             if (!((input.parentElement).contains(temp))) {
                 (input.parentElement).insertBefore(span, input);
             }
@@ -75,7 +77,7 @@ function rgx(input, type) {
         }
         else {
             (input.closest("form").querySelector("button[type='submit']")).disabled = false;
-            const tmp = input.parentElement.querySelector("span")
+            const tmp = input.parentElement.querySelector(".invalid-data-span")
             if (tmp)
                 (input.parentElement).removeChild(tmp);
             return 1;
@@ -84,12 +86,13 @@ function rgx(input, type) {
     if (type == 'name') {
         let flag = (/^[A-Z a-z]+$/.test(input.value))
         const span = document.createElement("span");
+        span.classList.add("invalid-data-span");
         span.innerText = "Invalid Name";
         span.style.color = "var(--danger)";
 
         if (!flag) {
             (input.closest("form").querySelector("button[type='submit']")).disabled = true;
-            const temp = input.parentElement.querySelector("span")
+            const temp = input.parentElement.querySelector(".invalid-data-span")
             if (!((input.parentElement).contains(temp))) {
                 (input.parentElement).insertBefore(span, input);
             }
@@ -97,7 +100,7 @@ function rgx(input, type) {
         }
         else {
             (input.closest("form").querySelector("button[type='submit']")).disabled = false;
-            const tmp = input.parentElement.querySelector("span")
+            const tmp = input.parentElement.querySelector(".invalid-data-span")
             if (tmp)
                 (input.parentElement).removeChild(tmp);
             return 1;
@@ -106,12 +109,13 @@ function rgx(input, type) {
     if (type == 'card') {
         let flag = (/^[0-9]{16}$/.test(input.value))
         const span = document.createElement("span");
+        span.classList.add("invalid-data-span");
         span.innerText = "Invalid Card Number";
         span.style.color = "var(--danger)";
 
         if (!flag) {
             (input.closest("form").querySelector("button[type='submit']")).disabled = true;
-            const temp = input.parentElement.querySelector("span")
+            const temp = input.parentElement.querySelector(".invalid-data-span")
             if (!((input.parentElement).contains(temp))) {
                 (input.parentElement).insertBefore(span, input);
             }
@@ -119,7 +123,7 @@ function rgx(input, type) {
         }
         else {
             (input.closest("form").querySelector("button[type='submit']")).disabled = false;
-            const tmp = input.parentElement.querySelector("span")
+            const tmp = input.parentElement.querySelector(".invalid-data-span")
             if (tmp)
                 (input.parentElement).removeChild(tmp);
             return 1;
@@ -128,12 +132,13 @@ function rgx(input, type) {
     if (type == 'cvv') {
         let flag = (/^[0-9]{3}$/.test(input.value))
         const span = document.createElement("span");
+        span.classList.add("invalid-data-span");
         span.innerText = "Invalid CVV Number";
         span.style.color = "var(--danger)";
 
         if (!flag) {
             (input.closest("form").querySelector("button[type='submit']")).disabled = true;
-            const temp = input.parentElement.querySelector("span")
+            const temp = input.parentElement.querySelector(".invalid-data-span")
             if (!((input.parentElement).contains(temp))) {
                 (input.parentElement).insertBefore(span, input);
             }
@@ -141,7 +146,7 @@ function rgx(input, type) {
         }
         else {
             (input.closest("form").querySelector("button[type='submit']")).disabled = false;
-            const tmp = input.parentElement.querySelector("span")
+            const tmp = input.parentElement.querySelector(".invalid-data-span")
             if (tmp)
                 (input.parentElement).removeChild(tmp);
             return 1;
@@ -150,12 +155,13 @@ function rgx(input, type) {
     if (type == 'password') {
         let flag = (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_])[A-Za-z0-9!@#$%^&*()_]{8,}$/.test(input.value))
         const span = document.createElement("span");
+        span.classList.add("invalid-data-span");
         span.innerText = "Invalid Password";
         span.style.color = "var(--danger)";
 
         if (!flag) {
             (input.closest("form").querySelector("button[type='submit']")).disabled = true;
-            const temp = input.parentElement.querySelector("span")
+            const temp = input.parentElement.querySelector(".invalid-data-span")
             if (!((input.parentElement).contains(temp))) {
                 (input.parentElement).insertBefore(span, input);
             }
@@ -163,7 +169,7 @@ function rgx(input, type) {
         }
         else {
             (input.closest("form").querySelector("button[type='submit']")).disabled = false;
-            const tmp = input.parentElement.querySelector("span")
+            const tmp = input.parentElement.querySelector(".invalid-data-span")
             if (tmp)
                 (input.parentElement).removeChild(tmp);
             return 1;
