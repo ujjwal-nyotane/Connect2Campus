@@ -685,6 +685,7 @@ function loadAttendanceCalendar(subjid, month, year) {
         if (dayData) {
 
             let found = false;
+            let present = false;
             let absent = false;
             let leave = false;
             let week = new Date(year, month, day);
@@ -703,6 +704,7 @@ function loadAttendanceCalendar(subjid, month, year) {
 
                             if (st === "A") absent = true;
                             if (st === "L") leave = true;
+                            if( st === "P" ) present = true;
 
 
 
@@ -719,7 +721,10 @@ function loadAttendanceCalendar(subjid, month, year) {
                             cls = "leave";
                             break;
                         }
-                        cls = "present";
+                        if(present){
+                            cls = "present";
+                            break;
+                        }
                     }
 
                 }
