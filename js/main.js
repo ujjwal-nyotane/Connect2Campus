@@ -263,7 +263,7 @@ function getGreeting() {
 
 function loadStudentInfo() {
     const greet = getGreeting();
-
+    
     setText(".studentFirstName", details.firstName);
     setText(".studentLastName", details.lastName);
     setText(".greet", greet);
